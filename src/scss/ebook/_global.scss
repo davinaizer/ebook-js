@@ -1,0 +1,23 @@
+html {
+    position: relative;
+    height: 100%;
+}
+
+body {
+    // overflow: hidden;
+    margin-bottom: 40px;
+}
+
+
+/* disable links */
+
+a {
+    & [disable] {
+        pointer-events: none;
+        color: $gray;
+    }
+    &.disabled {
+        pointer-events: none;
+        color: $gray;
+    }
+}
