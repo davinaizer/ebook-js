@@ -10,7 +10,6 @@ import StatusModel from 'models/StatusModel';
 
 import CoverPageView from 'views/pages/CoverPageView';
 import NavbarView from 'views/ui/NavbarView';
-import FooterView from 'views/ui/FooterView';
 
 export default Backbone.View.extend({
 
@@ -27,7 +26,6 @@ export default Backbone.View.extend({
         //-- VIEWS
         this.coverPageView = new CoverPageView({ model: this.statusModel });
         this.navbarView = new NavbarView({ model: this.navModel });
-        this.footerView = new FooterView({ model: this.navModel });
 
         //-- CONTROLLERS-VIEWS
         this.navControl = new NavController({ model: this.navModel });
@@ -56,7 +54,6 @@ export default Backbone.View.extend({
 
         EventBus.once(EventBus.event.PAGE_LOAD, () => {
             this.navbarView.render();
-            this.footerView.render();
         });
 
         EventBus.on(EventBus.event.PAGE_LOAD, (page) => {

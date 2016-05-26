@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import _ from 'lodash';
 import Backbone from 'backbone';
 import EventBus from 'helpers/EventBus';
 import SCORM from '../libs/SCORM_API';

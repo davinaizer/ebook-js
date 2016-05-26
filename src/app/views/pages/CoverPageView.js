@@ -6,9 +6,7 @@ import template from 'templates/pages/cover.hbs';
 export default Backbone.View.extend({
 
     el: $("#page"),
-
     template: template,
-
     events: {
         'click button#start-btn': '_start'
     },
@@ -23,9 +21,9 @@ export default Backbone.View.extend({
     },
 
     _start() {
-        var $_startBtn = this.$("#start-btn");
-        $_startBtn.text("Aguarde");
-        $_startBtn.attr('disabled', 'disabled');
+        var $startBtn = this.$("#start-btn");
+        $startBtn.text("Aguarde");
+        $startBtn.attr('disabled', 'disabled');
 
         //-- Fetch StatusModel
         this.model.fetch();

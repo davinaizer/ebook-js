@@ -39,7 +39,7 @@ export default Backbone.View.extend({
 
     transitionIn() {
         console.log("PageView.transitionIn");
-        TweenMax.to(this.$el, 0.5, { opacity: 1, onComplete: $.proxy(this.transitionInComplete, this) });
+        TweenMax.to(this.$el, 0.5, { opacity: 1, onComplete: this.transitionInComplete, onCompleteScope: this });
     },
 
     transitionInComplete() {

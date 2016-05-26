@@ -1,5 +1,5 @@
-import $ from 'jquery';
 import Backbone from 'backbone';
+import Bootstrap from 'bootstrap-sass';
 import EventBus from 'helpers/EventBus';
 import template from 'templates/ui/navbar.hbs';
 
@@ -21,7 +21,7 @@ export default Backbone.View.extend({
         this.$el.fadeIn(250);
 
         this.update();
-        // this.$('[data-toggle="tooltip"]').tooltip();
+        this.$('[data-toggle="tooltip"]').tooltip();
 
         return this;
     },
@@ -68,7 +68,7 @@ export default Backbone.View.extend({
         var id = $target.attr("id");
         var isEnabled = !$target.is("[disabled]");
 
-        // $target.tooltip('hide');
+        $target.tooltip('hide');
 
         if (isEnabled && !this.isPageLoading) {
 

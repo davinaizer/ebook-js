@@ -36,7 +36,13 @@ module.exports.development = {
             views: 'src/app/views',
             templates: 'src/templates'
         }
-    }
+    },
+    plugins: [
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
+        })
+    ]
 };
 
 module.exports.production = {
@@ -61,6 +67,10 @@ module.exports.production = {
         }
     },
     plugins: [
-        uglifyJsPlugin
+        uglifyJsPlugin,
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
+        })
     ]
 };

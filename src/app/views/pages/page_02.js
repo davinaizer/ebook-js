@@ -30,7 +30,7 @@ export default Backbone.View.extend({
 
     transitionIn() {
         console.log("PageView.transitionIn");
-        TweenMax.to(this.$el, 0.5, { opacity: 1, onComplete: $.proxy(this.transitionInComplete, this) });
+        TweenMax.to(this.$el, 0.5, { opacity: 1, onComplete: this.transitionInComplete, onCompleteScope: this });
     },
 
     transitionInComplete() {
@@ -39,6 +39,7 @@ export default Backbone.View.extend({
     },
 
     _next() {
+        TweenMax.to('#btn-next-page', 0.25, { autoAlpha: 0 });
         EventBus.trigger(EventBus.event.NAV_NEXT);
     }
 })
