@@ -2,7 +2,7 @@ import $ from 'jquery';
 import Backbone from 'backbone';
 import TweenMax from 'gsap';
 import EventBus from 'helpers/EventBus';
-import template from 'templates/pages/page_04.hbs';
+import template from 'templates/pages/c02_s01.hbs';
 
 export default Backbone.View.extend({
 

@@ -2,7 +2,7 @@ import $ from 'jquery';
 import Backbone from 'backbone';
 import TweenMax from 'gsap';
 import EventBus from 'helpers/EventBus';
-import template from 'templates/pages/page_07.hbs';
+import template from 'templates/pages/c01_s01.hbs';
 
 export default Backbone.View.extend({
 
@@ -16,9 +16,6 @@ export default Backbone.View.extend({
     },
 
     bootstrap() {
-        // FINISH - LESSON_STATUS === COMPLETED
-        EventBus.trigger(EventBus.event.STATUS_UPDATE, [{ "cmi.core.score.raw": 100 }]);
-        EventBus.trigger(EventBus.event.STATUS_FINISH);
         EventBus.trigger(EventBus.event.PAGE_LOADED);
     },
 

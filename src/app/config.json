@@ -1,0 +1,46 @@
+{
+    "config": {},
+    "nav": {
+        "chapter": [
+            {
+                "title": "Chapter 1",
+                "section": [
+                    {
+                        "title": "Section 1"
+                    },
+                    {
+                        "title": "Section 2"
+                    },
+                    {
+                        "title": "Section 3"
+                    }
+                ]
+            },
+            {
+                "title": "Chapter 2",
+                "section": [
+                    {
+                        "title": "Section 1"
+                    },
+                    {
+                        "title": "Section 2"
+                    }
+                ]
+            },
+            {
+                "title": "Chapter 3",
+                "section": [
+                    {
+                        "title": "Section 1"
+                    },
+                    {
+                        "title": "Section 2"
+                    },
+                    {
+                        "title": "Section 3"
+                    }
+                ]
+            }
+        ]
+    }
+}

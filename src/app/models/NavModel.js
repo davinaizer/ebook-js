@@ -2,6 +2,7 @@ import $ from 'jquery';
 import Backbone from 'backbone';
 import EventBus from 'helpers/EventBus';
 import AppConfig from '../app.config.json';
+import Config from '../config.json';
 
 export default Backbone.Model.extend({
 
@@ -12,6 +13,14 @@ export default Backbone.Model.extend({
         this.totalPages = 0;
         this.maxPageId = 0;
         this.currentPageId = 0;
+
+        // -- 
+        this.chapterId = 0;
+        this.sectionId = 0;
+        this.maxChapters = 0;
+        this.maxSections = 0;
+        this.currentChapterId = 0;
+        this.currentSectionId = 0;
 
         this.parse();
     },
@@ -25,6 +34,26 @@ export default Backbone.Model.extend({
         var uid = 0;
         for (var key in this.pageList) {
             this.pageList[key].uid = uid++;
+        }
+
+        //
+        var sectionCount = 0;
+        var chapters = Config.nav.chapter;
+        var maxChapter = chapters.length;
+        for (var c = 0; c < maxChapter; ++c) {
+            var chapter = chapters[c];
+            var maxSection = chapter.section.length;
+            for (var s = 0; s < maxSection; ++s) {
+                var section = chapter.section[s];
+                var sectionData = {
+                    uid: sectionCount++,
+                    id: s,
+                    chapterId: c,
+                };
+                $.extend(true, sectionData, section);
+                console.log(sectionData);
+            }
+
         }
     },
 
