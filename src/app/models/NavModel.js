@@ -14,13 +14,17 @@ export default Backbone.Model.extend({
         this.maxPageId = 0;
         this.currentPageId = 0;
 
-        // -- 
-        this.chapterId = 0;
-        this.sectionId = 0;
-        this.maxChapters = 0;
-        this.maxSections = 0;
+        //current postion in Nav
         this.currentChapterId = 0;
         this.currentSectionId = 0;
+
+        // total objects in Nav
+        this.totalChapters = 0;
+        this.totalSections = 0;
+
+        // max page ID reached by the user.
+        this.maxChapterId = 0;
+        this.maxSectionId = 0;
 
         this.parse();
     },
@@ -36,39 +40,55 @@ export default Backbone.Model.extend({
             this.pageList[key].uid = uid++;
         }
 
-        //
-        var sectionCount = 0;
-        var chapters = Config.nav.chapter;
-        var maxChapter = chapters.length;
-        for (var c = 0; c < maxChapter; ++c) {
-            var chapter = chapters[c];
-            var maxSection = chapter.section.length;
-            for (var s = 0; s < maxSection; ++s) {
-                var section = chapter.section[s];
-                var sectionData = {
-                    uid: sectionCount++,
-                    id: s,
-                    chapterId: c,
-                };
-                $.extend(true, sectionData, section);
-                console.log(sectionData);
-            }
+        /*
+         var sectionCount = 0;
+         var chapters = Config.nav.chapter;
+         var maxChapter = chapters.length;
+         for (var c = 0; c < maxChapter; ++c) {
+         var chapter = chapters[c];
+         var maxSection = chapter.section.length;
+         for (var s = 0; s < maxSection; ++s) {
+         var section = chapter.section[s];
+         var sectionData = {
+         uid:       sectionCount++,
+         id:        s,
+         chapterId: c,
+         };
+         $.extend(true, sectionData, section);
+         console.log(sectionData);
+         }
 
-        }
+         }*/
     },
 
+    getCurrentPage() {
+        return this.pageList[this.currentPageId];
+    },
+
+    getPage(uid) {
+        if (uid) {
+            for (var key in this.pageList) {
+                if (uid == this.pageList[key].uid) {
+                    return this.pageList[key];
+                }
+            }
+        }
+        return null;
+    },
+
+    // SERIALIZATION FUNCTIONS -- SAVE AND RESTORE
     restore(data) {
         console.info("NavModel.restore: ", data);
 
-        if (data.hasOwnProperty("NavModel")) {
+        if (data && data.hasOwnProperty("NavModel")) {
             data = data.NavModel;
             for (var key in data) {
                 if (this.hasOwnProperty(key)) {
                     this[key] = data[key];
                 }
             }
+            this.trigger("reset");
         }
-        this.trigger("reset");
     },
 
     save() {
@@ -76,22 +96,9 @@ export default Backbone.Model.extend({
             "cmi.suspend_data": {
                 "NavModel": {
                     "currentPageId": this.currentPageId,
-                    "maxPageId": this.maxPageId
+                    "maxPageId":     this.maxPageId
                 }
             }
         });
-    },
-
-    getCurrentPage() {
-        return this.pageList[this.currentPageId];
-    },
-
-    getPageByUid(uid) {
-        for (var key in this.pageList) {
-            if (uid == this.pageList[key].uid) {
-                return this.pageList[key];
-            }
-        }
-        return null;
     }
 });

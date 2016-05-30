@@ -1,16 +1,21 @@
 {
-    "config": {},
+    "config": {
+        "version": "V1.0.0-alpha",
+        "pageFileMask": "c00_s00"
+    },
     "nav": {
         "chapter": [
             {
                 "title": "Chapter 1",
+                "coverImage": "",
                 "section": [
-                    {
-                        "title": "Section 1"
-                    },
                     {
                         "title": "Section 2"
                     },
+                    {
+                        "title": "Section 1"
+                    },
+
                     {
                         "title": "Section 3"
                     }
