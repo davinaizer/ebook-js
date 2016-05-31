@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
 import TweenMax from 'gsap';
-import Handlebars from 'handlebars';
 import EventBus from 'helpers/EventBus';
 
 export default Backbone.View.extend({
@@ -16,16 +15,7 @@ export default Backbone.View.extend({
     },
 
     bootstrap() {
-        var that = this;
-        var tplSrc = "templates/" + this.model.src + ".html";
-
-        $.get(tplSrc, function(data) {
-                that.template = Handlebars.compile(data);
-                EventBus.trigger(EventBus.event.PAGE_LOADED);
-            })
-            .fail(function() {
-                console.error("PageView.load >> ERROR! Page template not found!");
-            });
+        EventBus.trigger(EventBus.event.PAGE_LOADED);
     },
 
     render() {
@@ -48,6 +38,7 @@ export default Backbone.View.extend({
     },
 
     _next() {
+        TweenMax.to('#btn-next-page', 0.25, { autoAlpha: 0 });
         EventBus.trigger(EventBus.event.NAV_NEXT);
     }
 })

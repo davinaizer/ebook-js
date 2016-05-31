@@ -2,11 +2,9 @@ import $ from 'jquery';
 import Backbone from 'backbone';
 import TweenMax from 'gsap';
 import EventBus from 'helpers/EventBus';
-import template from 'templates/pages/c00_s00.hbs';
 
 export default Backbone.View.extend({
 
-    template: template,
     events: {
         "click #btn-next-page": "_next"
     },
@@ -20,8 +18,6 @@ export default Backbone.View.extend({
     },
 
     render() {
-        console.log("PageView.render");
-
         this.$el.css({ opacity: 0 });
         this.$el.html(this.template(this.model));
 

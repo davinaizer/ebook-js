@@ -4,6 +4,8 @@ import EventBus from 'helpers/EventBus';
 
 // IMPORT ALL SECTIONS
 import * as Sections from 'views/pages/chapters';
+import * as Templates from 'views/pages/templates';
+import PageView from 'views/pages/PageView';
 
 export default Backbone.View.extend({
 
@@ -20,15 +22,20 @@ export default Backbone.View.extend({
         console.log("PageController.fetch", page);
 
         this.model = page;
-        this.initModule(Sections[this.model.id]);
+        var section = Sections[this.model.id];
+        var template = Templates[this.model.id];
+
+        this.initModule(section, template);
     },
 
-    initModule(PageModule) {
+    initModule(PageModule, template) {
         var nextPage = new PageModule({
             id: this.model.id,
             model: this.model,
             className: "background-pages"
         });
+
+        nextPage.template = template;
 
         if (this.currentPageView) {
             // this.currentPageView.remove();
