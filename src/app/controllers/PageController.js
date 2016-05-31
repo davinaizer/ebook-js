@@ -1,7 +1,9 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
 import EventBus from 'helpers/EventBus';
-import * as Pages from 'views/pages/Pages';
+
+// IMPORT ALL SECTIONS
+import * as Sections from 'views/pages/chapters';
 
 export default Backbone.View.extend({
 
@@ -15,10 +17,10 @@ export default Backbone.View.extend({
     },
 
     fetch(page) {
-        console.log("PageController.fetch");
+        console.log("PageController.fetch", page);
 
         this.model = page;
-        this.initModule(Pages[this.model.id]);
+        this.initModule(Sections[this.model.id]);
     },
 
     initModule(PageModule) {

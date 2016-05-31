@@ -1,35 +1,35 @@
 {
     "nav": [
         {
-            "id": "c00_s00",
+            "id": "c_0_s_0",
             "title": "Tópico 1"
         },
         {
-            "id": "c00_s01",
+            "id": "c_0_s_1",
             "title": ""
         },
         {
-            "id": "c00_s02",
+            "id": "c_0_s_2",
             "title": "Tópico 2"
         },
         {
-            "id": "c01_s00",
+            "id": "c_1_s_0",
             "title": ""
         },
         {
-            "id": "c01_s01",
+            "id": "c_1_s_1",
             "title": "Tópico 3"
         },
         {
-            "id": "c02_s00",
+            "id": "c_2_s_0",
             "title": ""
         },
         {
-            "id": "c02_s01",
+            "id": "c_2_s_1",
             "title": "Tópico 4"
         },
         {
-            "id": "c02_s02",
+            "id": "c_2_s_2",
             "title": "Conclusão"
         }
     ]
