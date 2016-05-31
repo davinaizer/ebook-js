@@ -44,25 +44,30 @@ export default class NavModel extends Backbone.Model {
             this.pageList[key].uid = uid++;
         }
 
-        /*
-         var sectionCount = 0;
-         var chapters = Config.nav.chapter;
-         var maxChapter = chapters.length;
-         for (var c = 0; c < maxChapter; ++c) {
-         var chapter = chapters[c];
-         var maxSection = chapter.section.length;
-         for (var s = 0; s < maxSection; ++s) {
-         var section = chapter.section[s];
-         var sectionData = {
-         uid:       sectionCount++,
-         id:        s,
-         chapterId: c,
-         };
-         $.extend(true, sectionData, section);
-         console.log(sectionData);
-         }
+        //--------------
+        var sectionCount = 0;
+        var chapters = Config.nav.chapter;
+        var maxChapter = chapters.length;
 
-         }*/
+        for (var c = 0; c < maxChapter; ++c) {
+            var chapter = chapters[c];
+            var maxSection = chapter.section.length;
+
+            var chapterRef = $.extend({}, chapter);
+            delete chapterRef.section;
+
+            for (var s = 0; s < maxSection; ++s) {
+                var section = chapter.section[s];
+                var sectionData = {
+                    uid: sectionCount++,
+                    id: s,
+                    chapter: chapterRef
+                };
+
+                $.extend(true, sectionData, section);
+                console.log(sectionData);
+            }
+        }
     }
 
     getCurrentPage() {
