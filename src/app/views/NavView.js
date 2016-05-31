@@ -1,21 +1,28 @@
 import Backbone from 'backbone';
 import Bootstrap from 'bootstrap-sass';
 import EventBus from 'helpers/EventBus';
-import template from 'templates/ui/navbar.hbs';
+import template from 'templates/navbar.hbs';
 
-export default Backbone.View.extend({
+export default class NavView extends Backbone.View {
 
-    el: $("#navigation"),
-    template: template,
-    events: {
-        'click .navbar-btn': 'navHandler'
-    },
+    constructor(options) {
+        $.extend(options || {}, {
+                el: $("#navigation"),
+                events: {
+                    'click .navbar-btn': 'navHandler'
+                }
+            }
+        );
+        super(options);
+    }
 
-    initialize: function() {
+    initialize() {
+        console.log("CoverPageView.initialize");
+        this.template = template;
         this.listenTo(this.model, 'change', this.update);
-    },
+    }
 
-    render: function() {
+    render() {
         this.$el.hide();
         this.$el.html(this.template());
         this.$el.fadeIn(250);
@@ -24,21 +31,21 @@ export default Backbone.View.extend({
         this.$('[data-toggle="tooltip"]').tooltip();
 
         return this;
-    },
+    }
 
-    onTransitionInComplete: function() {
+    onTransitionInComplete() {
         this.isPageLoading = false;
-    },
+    }
 
-    update: function() {
+    update() {
         var isNextEnabled = (this.model.currentPageId !== this.model.totalPages - 1);
         var isPrevEnabled = (this.model.currentPageId !== 0);
 
         this.enableBtn(this.$("#next"), isNextEnabled);
         this.enableBtn(this.$("#previous"), isPrevEnabled);
-    },
+    }
 
-    enableBtn: function($btn, isEnabled) {
+    enableBtn($btn, isEnabled) {
         if (isEnabled) {
             $btn.removeAttr("disabled");
             $btn.css("cursor", "");
@@ -48,9 +55,9 @@ export default Backbone.View.extend({
             $btn.css("cursor", "default");
             $btn.fadeTo(250, 0.1);
         }
-    },
+    }
 
-    enableNav: function(isEnabled) {
+    enableNav(isEnabled) {
         var $navbarBtn = this.$(".navbar-btn");
 
         if (isEnabled) {
@@ -60,10 +67,10 @@ export default Backbone.View.extend({
             $navbarBtn.attr("disabled", "disabled");
             $navbarBtn.css("cursor", "default");
         }
-    },
+    }
 
     //-- NAVIGATION FUNTCIONS
-    navHandler: function(e) {
+    navHandler(e) {
         var $target = this.$(e.currentTarget);
         var id = $target.attr("id");
         var isEnabled = !$target.is("[disabled]");
@@ -92,4 +99,4 @@ export default Backbone.View.extend({
         }
         e.stopPropagation();
     }
-})
+}

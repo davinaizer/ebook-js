@@ -1,10 +1,14 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
 import EventBus from 'helpers/EventBus';
-import AppConfig from '../app.config.json';
 import Config from '../config.json';
+import AppConfig from '../app.config.json';
 
-export default Backbone.Model.extend({
+export default class NavModel extends Backbone.Model {
+
+    constructor(options) {
+        super(options);
+    }
 
     initialize() {
         console.log("NavModel.initialize");
@@ -27,7 +31,7 @@ export default Backbone.Model.extend({
         this.maxSectionId = 0;
 
         this.parse();
-    },
+    }
 
     parse() {
         console.log("NavModel.parse");
@@ -59,11 +63,11 @@ export default Backbone.Model.extend({
          }
 
          }*/
-    },
+    }
 
     getCurrentPage() {
         return this.pageList[this.currentPageId];
-    },
+    }
 
     getPage(uid) {
         if (uid) {
@@ -74,7 +78,7 @@ export default Backbone.Model.extend({
             }
         }
         return null;
-    },
+    }
 
     // SERIALIZATION FUNCTIONS -- SAVE AND RESTORE
     restore(data) {
@@ -89,16 +93,16 @@ export default Backbone.Model.extend({
             }
             this.trigger("reset");
         }
-    },
+    }
 
     save() {
         EventBus.trigger(EventBus.event.STATUS_UPDATE, {
             "cmi.suspend_data": {
                 "NavModel": {
                     "currentPageId": this.currentPageId,
-                    "maxPageId":     this.maxPageId
+                    "maxPageId": this.maxPageId
                 }
             }
         });
     }
-});
+}

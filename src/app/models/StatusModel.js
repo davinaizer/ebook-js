@@ -1,10 +1,13 @@
 import $ from 'jquery';
-import _ from 'lodash';
 import Backbone from 'backbone';
 import EventBus from 'helpers/EventBus';
 import SCORM from '../libs/SCORM_API';
 
-export default Backbone.Model.extend({
+export default class StatusModel extends Backbone.Model {
+
+    constructor(options) {
+        super(options);
+    }
 
     initialize() {
         console.log("StatusModel.initialize");
@@ -15,8 +18,7 @@ export default Backbone.Model.extend({
         this.lessonMode = "normal";
         this.lessonStatus = "incomplete";
         this.suspendData = {};
-        this.score = 100;
-    },
+    }
 
     fetch() {
         console.log("StatusModel.fetch");
@@ -52,23 +54,23 @@ export default Backbone.Model.extend({
                 this.update(null, scormData);
             }
         } else {
-            console.log(">>> SCORM API not available. Entering BROWSE MODE. <<<");
+            console.warn("SCORM API not available. Setting lessonMode = 'browse'.");
             this.lessonMode = "browse";
         }
 
         EventBus.trigger(EventBus.event.STATUS_LOADED, this.suspendData);
-    },
+    }
 
     setParam(param, value) {
         var success = this.scorm.set(param, value);
         console.log("StatusModel.setParam(", param, ") =>", value, ":", success);
-    },
+    }
 
     getParam(param) {
         var ret = this.scorm.get(param);
         console.log("StatusModel.getParam(", param, ") =>", ret);
         return ret;
-    },
+    }
 
     update(e, data) {
         if (this.isAvailable) {
@@ -76,7 +78,7 @@ export default Backbone.Model.extend({
                 for (var key in data) {
                     // check if KEY is SUSPEND_DATA/EbookData
                     if (key.indexOf("suspend_data") > -1) {
-                        _.extend(this.suspendData, data[key]);
+                        $.extend(true, this.suspendData, data[key]);
                         data[key] = JSON.stringify(this.suspendData).replace(/"/g, "'");
                     }
                     // set data to SCORM API
@@ -85,21 +87,21 @@ export default Backbone.Model.extend({
                 // save/commit data
                 this.save();
             } else {
-                console.warn("StatusModel.update > LESSON_STATUS == COMPLETED. Can't update SCORM Data!");
+                console.warn("StatusModel.update: LESSON_STATUS == COMPLETED. Can't update SCORM Data!");
             }
-        } else {
-            console.log(">>> SCORM API not available. Can't update SCORM Data!");
+        } else if (this.lessonMode === "normal") {
+            console.warn("SCORM API not available. Can't update SCORM Data!");
         }
-    },
+    }
 
     save() {
         var success = this.scorm.save();
         console.log("StatusModel.save:", success);
-    },
+    }
 
     dispatchSuspendData() {
         EventBus.trigger(EventBus.event.STATUS_LOADED, this.suspendData);
-    },
+    }
 
     finish() {
         console.log("StatusModel.finish");
@@ -108,9 +110,9 @@ export default Backbone.Model.extend({
             this.setParam("cmi.core.lesson_status", this.lessonStatus);
             this.save();
         } else {
-            console.log("Lesson already Completed! Cannot finish again!");
+            console.warn("Lesson already Completed! Cannot finish again!");
         }
-    },
+    }
 
     quit() {
         console.log("StatusModel.quit");
@@ -119,4 +121,5 @@ export default Backbone.Model.extend({
             this.scorm.quit();
         }
     }
-});
+}
+

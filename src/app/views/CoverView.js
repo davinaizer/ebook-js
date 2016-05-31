@@ -1,26 +1,32 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
 import TweenMax from 'gsap';
-import template from 'templates/pages/cover.hbs';
+import template from 'templates/cover.hbs';
 
-export default Backbone.View.extend({
+export default class CoverView extends Backbone.View {
 
-    el: $("#page"),
-    template: template,
-    events: {
-        'click button#start-btn': '_start'
-    },
+    constructor(options) {
+        $.extend(options || {}, {
+                el: $("#content"),
+                events: {
+                    'click #start-btn': 'start'
+                }
+            }
+        );
+        super(options);
+    }
 
     initialize() {
         console.log("CoverPageView.initialize");
-    },
+        this.template = template;
+    }
 
     render() {
         this.$el.html(this.template(this.model));
         return this;
-    },
+    }
 
-    _start() {
+    start() {
         var $startBtn = this.$("#start-btn");
         $startBtn.text("Aguarde");
         $startBtn.attr('disabled', 'disabled');
@@ -28,5 +34,4 @@ export default Backbone.View.extend({
         //-- Fetch StatusModel
         this.model.fetch();
     }
-
-});
+}

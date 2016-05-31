@@ -1,7 +1,7 @@
 {
     "config": {
         "version": "V1.0.0-alpha",
-        "pageFileMask": "c00_s00"
+        "idMask": "c00_s00"
     },
     "nav": {
         "chapter": [
@@ -10,12 +10,11 @@
                 "coverImage": "",
                 "section": [
                     {
-                        "title": "Section 2"
-                    },
-                    {
                         "title": "Section 1"
                     },
-
+                    {
+                        "title": "Section 2"
+                    },
                     {
                         "title": "Section 3"
                     }
@@ -23,6 +22,7 @@
             },
             {
                 "title": "Chapter 2",
+                "coverImage": "",
                 "section": [
                     {
                         "title": "Section 1"
@@ -34,6 +34,7 @@
             },
             {
                 "title": "Chapter 3",
+                "coverImage": "",
                 "section": [
                     {
                         "title": "Section 1"

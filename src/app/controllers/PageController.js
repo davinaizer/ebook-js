@@ -2,34 +2,39 @@ import $ from 'jquery';
 import Backbone from 'backbone';
 import EventBus from 'helpers/EventBus';
 
-// IMPORT ALL SECTIONS
-import * as Sections from 'views/pages/chapters';
-import * as Templates from 'views/pages/templates';
-import PageView from 'views/pages/PageView';
+// IMPORT ALL CONTENT CLASSES AND TEMPLATES
+import BaseView from 'views/content/BaseView';
+import * as Sections from 'views/content/Content';
+import * as Templates from 'templates/content/Templates';
 
-export default Backbone.View.extend({
+export default class PageController extends Backbone.View {
+
+    constructor(options) {
+        super(options);
+    }
 
     initialize() {
         console.log("PageController.initialize");
 
-        this.$el = $("#page");
+        this.$el = $("#content");
         this.model = null;
         this.template = null;
         this.currentPageView = null;
-    },
+    }
 
     fetch(page) {
-        console.log("PageController.fetch", page);
+        console.log("PageController.fetch");
 
         this.model = page;
-        var section = Sections[this.model.id];
+
+        var Section = Sections[this.model.id];
         var template = Templates[this.model.id];
 
-        this.initModule(section, template);
-    },
+        if (!Section) {
+            Section = BaseView;
+        }
 
-    initModule(PageModule, template) {
-        var nextPage = new PageModule({
+        var nextPage = new Section({
             id: this.model.id,
             model: this.model,
             className: "background-pages"
@@ -43,11 +48,12 @@ export default Backbone.View.extend({
 
         this.currentPageView = nextPage;
         this.currentPageView.bootstrap();
-    },
+    }
 
     render() {
         //-- check for vertical/append page or empty page first
         this.$el.append(this.currentPageView.render().el);
         this.currentPageView.transitionIn();
     }
-})
+}
+

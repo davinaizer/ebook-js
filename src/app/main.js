@@ -1,4 +1,4 @@
 import App from './app';
 
-var app = new App({ el: "#sb-site" });
+var app = new App({ el: "#main" });
 app.bootstrap();

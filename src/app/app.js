@@ -8,27 +8,27 @@ import PageController from 'controllers/PageController';
 import NavModel from 'models/NavModel';
 import StatusModel from 'models/StatusModel';
 
-import CoverPageView from 'views/pages/CoverPageView';
-import NavbarView from 'views/ui/NavbarView';
+import CoverPageView from 'views/CoverView';
+import NavbarView from 'views/NavView';
 
 export default Backbone.View.extend({
 
     initialize() {
-        this.version = "v0.2";
+        this.version = "v1.0.0-alpha";
 
+        console.info("UNBOX® Learning Experience 2009-2016 — eBookJS " + this.version);
         console.log("App.init");
-        console.info("UNBOX® Learning Experience — eBookJS " + this.version);
 
         //-- MODELS
         this.navModel = new NavModel();
         this.statusModel = new StatusModel();
 
         //-- VIEWS
-        this.coverPageView = new CoverPageView({ model: this.statusModel });
-        this.navbarView = new NavbarView({ model: this.navModel });
+        this.coverPageView = new CoverPageView({model: this.statusModel});
+        this.navbarView = new NavbarView({model: this.navModel});
 
         //-- CONTROLLERS-VIEWS
-        this.navControl = new NavController({ model: this.navModel });
+        this.navControl = new NavController({model: this.navModel});
         this.pageControl = new PageController();
     },
 

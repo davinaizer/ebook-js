@@ -22,9 +22,9 @@ module.exports.development = {
     output: output,
     module: {
         loaders: [
-            { test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader' },
-            { test: /\.json$/, exclude: /node_modules/, loader: 'json' },
-            { test: /\.hbs$/, exclude: /node_modules/, loader: 'handlebars-loader' }
+            {test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader'},
+            {test: /\.json$/, exclude: /node_modules/, loader: 'json'},
+            {test: /\.hbs$/, exclude: /node_modules/, loader: 'handlebars-loader'}
         ]
     },
     resolve: {
@@ -34,7 +34,7 @@ module.exports.development = {
             helpers: 'src/app/helpers',
             models: 'src/app/models',
             views: 'src/app/views',
-            templates: 'src/templates'
+            templates: 'src/app/templates'
         }
     },
     plugins: [
@@ -51,9 +51,9 @@ module.exports.production = {
     output: output,
     module: {
         loaders: [
-            { test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader' },
-            { test: /\.json$/, exclude: /node_modules/, loader: 'json' },
-            { test: /\.hbs$/, exclude: /node_modules/, loader: 'handlebars-loader' }
+            {test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader'},
+            {test: /\.json$/, exclude: /node_modules/, loader: 'json'},
+            {test: /\.hbs$/, exclude: /node_modules/, loader: 'handlebars-loader'}
         ]
     },
     resolve: {
@@ -63,7 +63,7 @@ module.exports.production = {
             helpers: 'src/app/helpers',
             models: 'src/app/models',
             views: 'src/app/views',
-            templates: 'src/templates'
+            templates: 'src/app/templates'
         }
     },
     plugins: [
