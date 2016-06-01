@@ -36,15 +36,19 @@ export default class BaseView extends Backbone.View {
     transitionIn() {
         console.log("BaseView.transitionIn");
         TweenMax.to(this.$el, 0.5, {opacity: 1, onComplete: this.transitionInComplete, onCompleteScope: this});
+        TweenMax.staggerFrom(this.$("h1,h2,h3,h4,h5,h6,p"), 0.75, {delay: 0.75, y:"-=3", autoAlpha: 0}, 0.2);
     }
 
     transitionInComplete() {
         console.log("BaseView.transitionInComplete");
+
         EventBus.trigger(EventBus.event.PAGE_TRANSITION_IN_COMPLETE);
     }
 
-    next() {
+    next(e) {
+        e.preventDefault();
         this.undelegateEvents();
+
         TweenMax.to('#btn-next-page', 0.25, {autoAlpha: 0});
         EventBus.trigger(EventBus.event.NAV_NEXT);
     }
