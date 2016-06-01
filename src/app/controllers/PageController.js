@@ -28,8 +28,6 @@ export default class PageController extends Backbone.View {
         this.model = data;
 
         var Section = Sections[this.model.id];
-        console.log("section", Sections);
-        
         var template = Templates[this.model.id];
 
         if (!Section) {

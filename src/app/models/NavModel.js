@@ -30,7 +30,7 @@ export default class NavModel extends Backbone.Model {
         for (var c = 0; c < chapters.length; ++c) {
             var chapter = chapters[c];
             chapter.index = chapterCount++;
-            chapter.lastIndex = chapters.length;
+            chapter.total = chapters.length;
 
             var chapterRef = $.extend({}, chapter);
             delete chapterRef.section;
@@ -42,7 +42,7 @@ export default class NavModel extends Backbone.Model {
                     uid: sectionCount++,
                     id: sectionId,
                     index: s,
-                    lastIndex: chapter.section.length,
+                    total: chapter.section.length,
                     chapter: chapterRef
                 };
 
