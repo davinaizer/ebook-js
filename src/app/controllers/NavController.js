@@ -1,5 +1,13 @@
+import $ from 'jquery';
 import Backbone from 'backbone';
 import EventBus from 'helpers/EventBus';
+import TweenMax from 'gsap';
+import ScrollToPlugin from "gsap/src/uncompressed/plugins/ScrollToPlugin";
+
+// IMPORT ALL CONTENT CLASSES AND TEMPLATES
+import BaseView from 'views/content/BaseView';
+import * as Sections from 'views/content/Content';
+import * as Templates from 'templates/content/Templates';
 
 export default class NavController extends Backbone.View {
 
@@ -9,9 +17,13 @@ export default class NavController extends Backbone.View {
 
     initialize() {
         console.log("NavController.initialize");
+
+        this.$el = $("#content");
+        this.currentSection = null;
     }
 
     start() {
+        this.$el.empty();
         this.goto(this.model.getCurrentSection());
     }
 
@@ -44,5 +56,47 @@ export default class NavController extends Backbone.View {
             EventBus.trigger(EventBus.event.NAV_CHANGE, this.model);
         }
     }
+
+    show(data) {
+        console.log("NavController.show");
+
+        var Section = Sections[data.id];
+        var template = Templates[data.id];
+
+        if (!Section) {
+            Section = BaseView;
+        }
+
+        var nextSection = new Section({
+            id: data.id,
+            model: data
+        });
+
+        this.currentSection = nextSection;
+        this.currentSection.template = template;
+        this.currentSection.bootstrap();
+    }
+
+    render() {
+        this.$el.append(this.currentSection.render().el);
+        this.currentSection.transitionIn();
+        this.scrollTo(this.currentSection);
+    }
+
+    scrollTo(section) {
+        console.log("NavController.scrollTo:");
+
+        var offsetTop = 60;
+        var $section = $("#" + section.id);
+
+        TweenMax.to(window, 1, {
+            scrollTo: { y: $section.offset().top - offsetTop, autoKill: false },
+            ease: Power3.easeInOut,
+            onComplete: this.onScrollComplete,
+            onCompleteScope: this
+        });
+    }
+
+    onScrollComplete() {}
 
 }

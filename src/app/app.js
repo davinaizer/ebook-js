@@ -2,14 +2,16 @@ import $ from 'jquery';
 import Backbone from 'backbone';
 import EventBus from 'helpers/EventBus';
 
-import NavController from 'controllers/NavController';
-import PageController from 'controllers/PageController';
-
+/* MODELS */
 import NavModel from 'models/NavModel';
 import StatusModel from 'models/StatusModel';
 
+/* VIEWS */
 import CoverPageView from 'views/CoverView';
 import NavbarView from 'views/NavView';
+
+/* CONTROLLERS */
+import NavController from 'controllers/NavController';
 
 export default Backbone.View.extend({
 
@@ -24,19 +26,20 @@ export default Backbone.View.extend({
         this.statusModel = new StatusModel();
 
         //-- VIEWS
-        this.coverPageView = new CoverPageView({model: this.statusModel});
-        this.navbarView = new NavbarView({model: this.navModel});
+        this.coverPageView = new CoverPageView({ model: this.statusModel });
+        this.navbarView = new NavbarView({ model: this.navModel });
 
         //-- CONTROLLERS-VIEWS
-        this.navControl = new NavController({model: this.navModel});
-        this.pageControl = new PageController();
+        this.navControl = new NavController({ model: this.navModel });
     },
 
     bootstrap() {
         console.log("App.bootstrap");
 
         //-- wait for window close
-        $(window).on('unload', $.proxy(this.statusModel.quit, this.statusModel));
+        $(window).on('unload', () => {
+            this.statusModel.quit();
+        });
 
         this.coverPageView.render();
 
@@ -57,11 +60,11 @@ export default Backbone.View.extend({
         });
 
         EventBus.on(EventBus.event.PAGE_LOAD, (section) => {
-            this.pageControl.fetch(section);
+            this.navControl.show(section);
         });
 
         EventBus.on(EventBus.event.PAGE_LOADED, () => {
-            this.pageControl.render();
+            this.navControl.render();
         });
 
         EventBus.on(EventBus.event.PAGE_TRANSITION_IN_COMPLETE, () => {
