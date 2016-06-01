@@ -1,6 +1,9 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
 import EventBus from 'helpers/EventBus';
+import TweenMax from 'gsap';
+import ScrollToPlugin from "gsap/src/uncompressed/plugins/ScrollToPlugin";
+
 
 // IMPORT ALL CONTENT CLASSES AND TEMPLATES
 import BaseView from 'views/content/BaseView';
@@ -17,7 +20,6 @@ export default class PageController extends Backbone.View {
         console.log("PageController.initialize");
 
         this.$el = $("#content");
-        this.model = null;
         this.template = null;
         this.currentSection = null;
     }
@@ -25,35 +27,43 @@ export default class PageController extends Backbone.View {
     fetch(data) {
         console.log("PageController.fetch");
 
-        this.model = data;
-
-        var Section = Sections[this.model.id];
-        var template = Templates[this.model.id];
+        var Section = Sections[data.id];
+        var template = Templates[data.id];
 
         if (!Section) {
             Section = BaseView;
         }
 
         var nextSection = new Section({
-            id: this.model.id,
-            model: this.model,
-            className: "background-pages"
+            id: data.id,
+            model: data
         });
 
-        nextSection.template = template;
-
-        if (this.currentSection) {
-            // this.currentSection.remove();
-        }
-
         this.currentSection = nextSection;
+        this.currentSection.template = template;
         this.currentSection.bootstrap();
     }
 
     render() {
-        //-- check for vertical/append page or empty page first
         this.$el.append(this.currentSection.render().el);
         this.currentSection.transitionIn();
-        //scrollTo(currentSection);
+        this.scrollTo(this.currentSection);
+    }
+
+    scrollTo(section) {
+        console.log("PageController.scrollTo:");
+
+        var offsetTop = 60;
+        var $section = $("#" + section.id);
+
+        TweenMax.to(window, 1, {
+            scrollTo: {y: $section.offset().top - offsetTop, autoKill: false},
+            ease: Power3.easeInOut,
+            onComplete: this.onScrollComplete,
+            onCompleteScope: this
+        });
+    }
+
+    onScrollComplete() {
     }
 }
