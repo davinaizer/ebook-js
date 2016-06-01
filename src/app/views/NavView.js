@@ -38,8 +38,8 @@ export default class NavView extends Backbone.View {
     }
 
     update() {
-        var isNextEnabled = (this.model.currentPageId !== this.model.totalPages - 1);
-        var isPrevEnabled = (this.model.currentPageId !== 0);
+        var isNextEnabled = (this.model.currentSectionIndex !== this.model.totalSections - 1);
+        var isPrevEnabled = (this.model.currentSectionIndex !== 0);
 
         this.enableBtn(this.$("#next"), isNextEnabled);
         this.enableBtn(this.$("#previous"), isPrevEnabled);

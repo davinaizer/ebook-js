@@ -40,8 +40,8 @@ export default Backbone.View.extend({
 
         this.coverPageView.render();
 
-        EventBus.on(EventBus.event.NAV_GOTO, (page) => {
-            this.navControl.goto(page);
+        EventBus.on(EventBus.event.NAV_GOTO, (section) => {
+            this.navControl.goto(section);
         });
 
         EventBus.on(EventBus.event.NAV_NEXT, () => {
@@ -56,8 +56,8 @@ export default Backbone.View.extend({
             this.navbarView.render();
         });
 
-        EventBus.on(EventBus.event.PAGE_LOAD, (page) => {
-            this.pageControl.fetch(page);
+        EventBus.on(EventBus.event.PAGE_LOAD, (section) => {
+            this.pageControl.fetch(section);
         });
 
         EventBus.on(EventBus.event.PAGE_LOADED, () => {

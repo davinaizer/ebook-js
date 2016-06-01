@@ -1,7 +1,7 @@
 {
-    "config": {
+    "settings": {
         "version": "V1.0.0-alpha",
-        "idMask": "c00_s00"
+        "idMask": "c_{{chapterIndex}}_s_{{sectionIndex}}"
     },
     "nav": {
         "chapter": [
@@ -43,7 +43,7 @@
                         "title": "Section 2"
                     },
                     {
-                        "title": "Section 3"
+                        "title": "CONCLUSÃO" 
                     }
                 ]
             }

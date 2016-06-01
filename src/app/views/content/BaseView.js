@@ -44,6 +44,7 @@ export default class BaseView extends Backbone.View {
     }
 
     next() {
+        this.undelegateEvents();
         TweenMax.to('#btn-next-page', 0.25, {autoAlpha: 0});
         EventBus.trigger(EventBus.event.NAV_NEXT);
     }

@@ -12,35 +12,35 @@ export default class NavController extends Backbone.View {
     }
 
     start() {
-        this.goto(this.model.getCurrentPage());
+        this.goto(this.model.getCurrentSection());
     }
 
     next() {
-        if (this.model.currentPageId < this.model.totalPages - 1) {
-            this.model.currentPageId++;
-            this.goto(this.model.getCurrentPage());
+        if (this.model.sectionIndex < this.model.totalSections - 1) {
+            this.model.sectionIndex++;
+            this.goto(this.model.getCurrentSection());
         }
     }
 
     previous() {
-        if (this.model.currentPageId > 0) {
-            this.model.currentPageId--;
-            this.goto(this.model.getCurrentPage());
+        if (this.model.sectionIndex > 0) {
+            this.model.sectionIndex--;
+            this.goto(this.model.getCurrentSection());
         }
     }
 
-    goto(page) {
-        if (page) {
-            this.model.currentPageId = page.uid;
+    goto(section) {
+        if (section) {
+            this.model.sectionIndex = section.uid;
 
-            if (this.model.currentPageId > this.model.maxPageId) {
-                this.model.maxPageId = this.model.currentPageId;
+            if (this.model.sectionIndex > this.model.maxSectionIndex) {
+                this.model.maxSectionIndex = this.model.sectionIndex;
             }
 
             this.model.save();
             this.model.trigger('change');
 
-            EventBus.trigger(EventBus.event.PAGE_LOAD, page);
+            EventBus.trigger(EventBus.event.PAGE_LOAD, section);
             EventBus.trigger(EventBus.event.NAV_CHANGE, this.model);
         }
     }

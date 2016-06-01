@@ -19,41 +19,43 @@ export default class PageController extends Backbone.View {
         this.$el = $("#content");
         this.model = null;
         this.template = null;
-        this.currentPageView = null;
+        this.currentSection = null;
     }
 
-    fetch(page) {
+    fetch(data) {
         console.log("PageController.fetch");
 
-        this.model = page;
+        this.model = data;
 
         var Section = Sections[this.model.id];
+        console.log("section", Sections);
+        
         var template = Templates[this.model.id];
 
         if (!Section) {
             Section = BaseView;
         }
 
-        var nextPage = new Section({
+        var nextSection = new Section({
             id: this.model.id,
             model: this.model,
             className: "background-pages"
         });
 
-        nextPage.template = template;
+        nextSection.template = template;
 
-        if (this.currentPageView) {
-            // this.currentPageView.remove();
+        if (this.currentSection) {
+            // this.currentSection.remove();
         }
 
-        this.currentPageView = nextPage;
-        this.currentPageView.bootstrap();
+        this.currentSection = nextSection;
+        this.currentSection.bootstrap();
     }
 
     render() {
         //-- check for vertical/append page or empty page first
-        this.$el.append(this.currentPageView.render().el);
-        this.currentPageView.transitionIn();
+        this.$el.append(this.currentSection.render().el);
+        this.currentSection.transitionIn();
+        //scrollTo(currentSection);
     }
 }
-

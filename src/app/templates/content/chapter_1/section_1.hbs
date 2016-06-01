@@ -1,12 +1,20 @@
 <div class="jumbotron">
     <h1>{{ title }}</h1>
     <ul>
-        <li>title: {{ title }}</li>
-        <li>src: {{ src }}</li>
+        <li>Chapter index: {{ chapter.index }}</li>
+        <li>Chapter last index: {{ chapter.lastIndex }}</li>
+        <li>Chapter Title: {{ chapter.title }}</li>
+        <li>Section uid: {{ uid }}</li>
+        <li>Section id: {{ id }}</li>
+        <li>Section index: {{ index }}</li>
+        <li>Section last index: {{ lastIndex }}</li>
+        <li>Section Title: {{ title }}</li>
     </ul>
 
     <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.
     </p>
 
-    <p><button id="btn-next-page" class="btn btn-primary btn-lg" role="button">Next</button></p>
+    <p>
+        <button id="btn-next-page" class="btn btn-primary btn-lg" role="button">Next</button>
+    </p>
 </div>
