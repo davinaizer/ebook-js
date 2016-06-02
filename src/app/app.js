@@ -26,11 +26,11 @@ export default Backbone.View.extend({
         this.statusModel = new StatusModel();
 
         //-- VIEWS
-        this.coverPageView = new CoverPageView({ model: this.statusModel });
-        this.navbarView = new NavbarView({ model: this.navModel });
+        this.coverPageView = new CoverPageView({model: this.statusModel});
+        this.navbarView = new NavbarView({model: this.navModel});
 
         //-- CONTROLLERS-VIEWS
-        this.navControl = new NavController({ model: this.navModel });
+        this.navControl = new NavController({model: this.navModel});
     },
 
     bootstrap() {
@@ -43,6 +43,7 @@ export default Backbone.View.extend({
 
         this.coverPageView.render();
 
+        /* NAV EVENTS */
         EventBus.on(EventBus.event.NAV_GOTO, (section) => {
             this.navControl.goto(section);
         });
@@ -52,15 +53,22 @@ export default Backbone.View.extend({
         });
 
         EventBus.on(EventBus.event.NAV_PREVIOUS, () => {
-            this.navControl.previous();
+            this.navControl.prev();
         });
 
-        EventBus.on(EventBus.event.PAGE_LOADED, () => {});
-
-        EventBus.on(EventBus.event.PAGE_TRANSITION_IN_COMPLETE, () => {
-            this.navbarView.onTransitionInComplete();
+        EventBus.on(EventBus.event.NAV_GOTO_CHAPTER, (chapterId) => {
+            this.navControl.gotoChapter(chapterId);
         });
 
+        EventBus.on(EventBus.event.NAV_NEXT_CHAPTER, () => {
+            this.navControl.nextChapter();
+        });
+
+        EventBus.on(EventBus.event.NAV_PREVIOUS_CHAPTER, () => {
+            this.navControl.prevChapter();
+        });
+
+        /* STATUS MODEL EVENTS */
         EventBus.once(EventBus.event.STATUS_LOADED, (data) => {
             this.navModel.restore(data);
             this.navbarView.render();
@@ -81,6 +89,11 @@ export default Backbone.View.extend({
 
         EventBus.on(EventBus.event.STATUS_DISPATCH, () => {
             this.statusModel.dispatchSuspendData();
+        });
+
+        /* OTHERS */
+        EventBus.on(EventBus.event.PAGE_TRANSITION_IN_COMPLETE, () => {
+            this.navbarView.onTransitionInComplete();
         });
     }
 });

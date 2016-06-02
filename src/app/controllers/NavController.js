@@ -20,94 +20,96 @@ export default class NavController extends Backbone.View {
 
         this.$el = $("#content");
         this.sectionView = null;
-        this.sectionModel = null;
+        this.currentSectionModel = null;
     }
 
     start() {
         console.log("NavController.start");
+
+        //TODO remove Cover page using REMOVE() method
         this.$el.empty();
-        this.sectionModel = this.model.getCurrentSection();
-        this.goto(this.sectionModel);
+        this.currentSectionModel = this.model.getCurrentItem();
+        this.goto(this.currentSectionModel);
     }
 
     next() {
         console.log("NavController.next");
-        if (this.model.sectionIndex < this.model.totalSections - 1) {
-            this.model.sectionIndex++;
-            this.goto(this.model.getCurrentSection());
-        }
+        this.goto(this.model.next());
     }
 
-    previous() {
+    prev() {
         console.log("NavController.previous");
-        if (this.model.sectionIndex > 0) {
-            this.model.sectionIndex--;
-            this.goto(this.model.getCurrentSection());
-        }
+        this.goto(this.model.prev());
+    }
+
+    nextChapter() {
+        console.log("NavController.nextChapter");
+        this.goto(this.model.next(true));
+    }
+
+    prevChapter() {
+        console.log("NavController.prevChapter");
+        this.goto(this.model.prev(true));
+    }
+
+    gotoChapter() {
+
     }
 
     goto(section) {
-        console.log("NavController.goto >>", section.id);
-
         if (section) {
-            this.model.sectionIndex = section.uid;
-            if (this.model.sectionIndex > this.model.maxSectionIndex) {
-                this.model.maxSectionIndex = this.model.sectionIndex;
-            }
+            console.log("NavController.goto >>", section.id);
 
-            // check if its a different Chapter
-            console.log("this.sectionModel", this.sectionModel);
-            if (section.chapter.index != this.sectionModel.chapter.index) {
+            if (section.chapter.index == this.currentSectionModel.chapter.index) {
+                //check if its the same chapter. If true, and already rendered, scroll to the section.
+
+            } else {
+                // TODO. Check for Zombie Views
                 this.$el.empty();
-            }
-            this.sectionModel = section;
 
-            this.show();
+            }
+
+            var SectionView = Sections[section.id] || BaseView;
+            var template = Templates[section.id];
+
+            this.sectionView = new SectionView({
+                id: section.id,
+                model: section
+            });
+            this.sectionView.template = template;
+            this.sectionView.bootstrap();
+
             this.model.save();
             this.model.trigger('change');
+
+            this.render();
+            this.scrollTo(section.id);
+
+            this.currentSectionModel = section;
             EventBus.trigger(EventBus.event.NAV_CHANGE, this.model);
         }
     }
 
-    show() {
-        console.log("NavController.show");
-
-        var SectionView = Sections[this.sectionModel.id] || BaseView;
-        var template = Templates[this.sectionModel.id];
-
-        this.sectionView = new SectionView({
-            id: this.sectionModel.id,
-            model: this.sectionModel
-        });
-        this.sectionView.template = template;
-        this.sectionView.bootstrap();
-
-        // TODO. Store Views in an Array and remove all before empty()
-        this.render();
-    }
-
     render() {
         console.log("NavController.render");
-
         this.$el.append(this.sectionView.render().el);
-        this.sectionView.transitionIn();
-        this.scrollTo(this.sectionModel.id);
     }
 
     scrollTo(id) {
         console.log("NavController.scrollTo:", id);
 
-        var offsetTop = 60;
+        var offsetTop = 80;
         var $section = $("#" + id);
 
-        TweenMax.to(window, 1, {
-            scrollTo: { y: $section.offset().top - offsetTop, autoKill: false },
+        TweenMax.to(window, 0.75, {
+            scrollTo: {y: $section.offset().top - offsetTop, autoKill: false},
             ease: Power3.easeInOut,
             onComplete: this.onScrollComplete,
             onCompleteScope: this
         });
     }
 
-    onScrollComplete() {}
-
+    onScrollComplete() {
+        this.sectionView.transitionIn();
+    }
 }

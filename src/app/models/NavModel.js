@@ -12,10 +12,15 @@ export default class NavModel extends Backbone.Model {
     initialize() {
         console.log("NavModel.initialize");
 
-        this.sectionList = [];
-        this.sectionIndex = 0;
-        this.totalSections = 0;
-        this.maxSectionIndex = 0;
+        this.items = [];
+        this.totalItems = 0;
+        this.maxIndex = 0;
+        this.currentIndex = 0;
+
+        // DATA FROM JSON
+        this.navData = AppData.nav;
+        this.settings = AppData.settings;
+
         this.parse();
     }
 
@@ -24,8 +29,8 @@ export default class NavModel extends Backbone.Model {
 
         var sectionCount = 0;
         var chapterCount = 0;
-        var chapters = AppData.nav.chapter;
-        var sectionIdMask = AppData.settings.idMask;
+        var chapters = this.navData.chapter;
+        var idMask = this.settings.idMask;
 
         for (var c = 0; c < chapters.length; ++c) {
             var chapter = chapters[c];
@@ -37,7 +42,7 @@ export default class NavModel extends Backbone.Model {
 
             for (var s = 0; s < chapter.section.length; ++s) {
                 var section = chapter.section[s];
-                var sectionId = sectionIdMask.replace("{{chapterIndex}}", c).replace("{{sectionIndex}}", s);
+                var sectionId = idMask.replace("{{chapterIndex}}", c).replace("{{sectionIndex}}", s);
                 var sectionData = {
                     uid: sectionCount++,
                     id: sectionId,
@@ -47,21 +52,43 @@ export default class NavModel extends Backbone.Model {
                 };
 
                 $.extend(true, sectionData, section);
-                this.sectionList.push(sectionData);
+                this.items.push(sectionData);
             }
         }
-        this.totalSections = this.sectionList.length;
+        this.totalItems = this.items.length;
     }
 
-    getSection(uid) {
-        if (uid >= 0 && uid < this.totalSections) {
-            return this.sectionList[uid];
+    next(skipChapter) {
+        if (this.currentIndex < this.totalItems - 1) {
+            this.currentIndex++;
+            if (this.currentIndex > this.maxIndex) {
+                this.maxIndex = this.currentIndex;
+            }
+            return this.getCurrentItem();
         }
         return null;
     }
 
-    getCurrentSection() {
-        return this.getSection(this.sectionIndex);
+    prev(skipChapter) {
+        if (this.currentIndex > 0) {
+            this.currentIndex--;
+            return this.getCurrentItem();
+        }
+        return null;
+    }
+
+    goto(uid) {
+    }
+
+    getItem(uid) {
+        if (uid >= 0 && uid < this.totalItems) {
+            return this.items[uid];
+        }
+        return null;
+    }
+
+    getCurrentItem() {
+        return this.getItem(this.currentIndex);
     }
 
     restore(data) {
@@ -82,8 +109,8 @@ export default class NavModel extends Backbone.Model {
         EventBus.trigger(EventBus.event.STATUS_UPDATE, {
             "cmi.suspend_data": {
                 "NavModel": {
-                    "sectionIndex": this.sectionIndex,
-                    "maxSectionIndex": this.maxSectionIndex
+                    "currentIndex": this.currentIndex,
+                    "maxIndex": this.maxIndex
                 }
             }
         });

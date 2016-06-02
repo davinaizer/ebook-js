@@ -10,7 +10,11 @@ export default _.extend({
 
         NAV_GOTO: "goto.nav",
         NAV_NEXT: "next.nav",
-        NAV_PREVIOUS: "previous.nav",
+        NAV_PREVIOUS: "prev.nav",
+
+        NAV_GOTO_CHAPTER: "gotoChapter.nav",
+        NAV_NEXT_CHAPTER: "nextChapter.nav",
+        NAV_PREVIOUS_CHAPTER: "prevChapter.nav",
 
         PAGE_LOAD: "load.page",
         PAGE_LOADED: "loaded.page",
