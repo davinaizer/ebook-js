@@ -19,15 +19,19 @@ export default class NavController extends Backbone.View {
         console.log("NavController.initialize");
 
         this.$el = $("#content");
-        this.currentSection = null;
+        this.sectionView = null;
+        this.sectionModel = null;
     }
 
     start() {
+        console.log("NavController.start");
         this.$el.empty();
-        this.goto(this.model.getCurrentSection());
+        this.sectionModel = this.model.getCurrentSection();
+        this.goto(this.sectionModel);
     }
 
     next() {
+        console.log("NavController.next");
         if (this.model.sectionIndex < this.model.totalSections - 1) {
             this.model.sectionIndex++;
             this.goto(this.model.getCurrentSection());
@@ -35,6 +39,7 @@ export default class NavController extends Backbone.View {
     }
 
     previous() {
+        console.log("NavController.previous");
         if (this.model.sectionIndex > 0) {
             this.model.sectionIndex--;
             this.goto(this.model.getCurrentSection());
@@ -42,52 +47,58 @@ export default class NavController extends Backbone.View {
     }
 
     goto(section) {
+        console.log("NavController.goto >>", section.id);
+
         if (section) {
             this.model.sectionIndex = section.uid;
-
             if (this.model.sectionIndex > this.model.maxSectionIndex) {
                 this.model.maxSectionIndex = this.model.sectionIndex;
             }
 
+            // check if its a different Chapter
+            console.log("this.sectionModel", this.sectionModel);
+            if (section.chapter.index != this.sectionModel.chapter.index) {
+                this.$el.empty();
+            }
+            this.sectionModel = section;
+
+            this.show();
             this.model.save();
             this.model.trigger('change');
-
-            EventBus.trigger(EventBus.event.PAGE_LOAD, section);
             EventBus.trigger(EventBus.event.NAV_CHANGE, this.model);
         }
     }
 
-    show(data) {
+    show() {
         console.log("NavController.show");
 
-        var Section = Sections[data.id];
-        var template = Templates[data.id];
+        var SectionView = Sections[this.sectionModel.id] || BaseView;
+        var template = Templates[this.sectionModel.id];
 
-        if (!Section) {
-            Section = BaseView;
-        }
-
-        var nextSection = new Section({
-            id: data.id,
-            model: data
+        this.sectionView = new SectionView({
+            id: this.sectionModel.id,
+            model: this.sectionModel
         });
+        this.sectionView.template = template;
+        this.sectionView.bootstrap();
 
-        this.currentSection = nextSection;
-        this.currentSection.template = template;
-        this.currentSection.bootstrap();
+        // TODO. Store Views in an Array and remove all before empty()
+        this.render();
     }
 
     render() {
-        this.$el.append(this.currentSection.render().el);
-        this.currentSection.transitionIn();
-        this.scrollTo(this.currentSection);
+        console.log("NavController.render");
+
+        this.$el.append(this.sectionView.render().el);
+        this.sectionView.transitionIn();
+        this.scrollTo(this.sectionModel.id);
     }
 
-    scrollTo(section) {
-        console.log("NavController.scrollTo:");
+    scrollTo(id) {
+        console.log("NavController.scrollTo:", id);
 
         var offsetTop = 60;
-        var $section = $("#" + section.id);
+        var $section = $("#" + id);
 
         TweenMax.to(window, 1, {
             scrollTo: { y: $section.offset().top - offsetTop, autoKill: false },

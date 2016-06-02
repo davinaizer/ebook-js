@@ -7,22 +7,22 @@ export default class NavView extends Backbone.View {
 
     constructor(options) {
         $.extend(options || {}, {
-                el: $("#navigation"),
-                events: {
-                    'click .navbar-btn': 'navHandler'
-                }
+            el: $("#navigation"),
+            events: {
+                'click .navbar-btn': 'navHandler'
             }
-        );
+        });
         super(options);
     }
 
     initialize() {
-        console.log("CoverPageView.initialize");
+        console.log("NavView.initialize");
         this.template = template;
         this.listenTo(this.model, 'change', this.update);
     }
 
     render() {
+        console.log("NavView.render");
         this.$el.hide();
         this.$el.html(this.template());
         this.$el.fadeIn(250);
@@ -83,18 +83,18 @@ export default class NavView extends Backbone.View {
             this.isPageLoading = true;
 
             switch (id) {
-                case "next":
-                    EventBus.trigger(EventBus.event.NAV_NEXT);
-                    break;
+            case "next":
+                EventBus.trigger(EventBus.event.NAV_NEXT);
+                break;
 
-                case "previous":
-                    EventBus.trigger(EventBus.event.NAV_PREVIOUS);
-                    break;
+            case "previous":
+                EventBus.trigger(EventBus.event.NAV_PREVIOUS);
+                break;
 
-                case "sidemenu":
-                    this.enableNav(true);
-                    this.isPageLoading = false;
-                    break;
+            case "menu":
+                this.enableNav(true);
+                this.isPageLoading = false;
+                break;
             }
         }
         e.stopPropagation();

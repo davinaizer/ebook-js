@@ -55,17 +55,7 @@ export default Backbone.View.extend({
             this.navControl.previous();
         });
 
-        EventBus.once(EventBus.event.PAGE_LOAD, () => {
-            this.navbarView.render();
-        });
-
-        EventBus.on(EventBus.event.PAGE_LOAD, (section) => {
-            this.navControl.show(section);
-        });
-
-        EventBus.on(EventBus.event.PAGE_LOADED, () => {
-            this.navControl.render();
-        });
+        EventBus.on(EventBus.event.PAGE_LOADED, () => {});
 
         EventBus.on(EventBus.event.PAGE_TRANSITION_IN_COMPLETE, () => {
             this.navbarView.onTransitionInComplete();
@@ -73,6 +63,7 @@ export default Backbone.View.extend({
 
         EventBus.once(EventBus.event.STATUS_LOADED, (data) => {
             this.navModel.restore(data);
+            this.navbarView.render();
             this.navControl.start();
         });
 
