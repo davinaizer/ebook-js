@@ -23,6 +23,7 @@ export default class NavController extends Backbone.View {
         this.currentSectionModel = null;
     }
 
+    /* NAV FUNCTIONS */
     start() {
         console.log("NavController.start");
 
@@ -42,23 +43,16 @@ export default class NavController extends Backbone.View {
         this.goto(this.model.prev());
     }
 
-    nextChapter() {
-        console.log("NavController.nextChapter");
-        this.goto(this.model.next(true));
-    }
-
-    prevChapter() {
-        console.log("NavController.prevChapter");
-        this.goto(this.model.prev(true));
-    }
-
-    gotoChapter() {
-
-    }
-
     goto(section) {
         if (section) {
             console.log("NavController.goto >>", section.id);
+
+            // on goto(section), loop and render sections prior to the section.id
+            // if next or prev section already on page, just scrollTo section.id
+            // if next or prev section is a new chapter, remove all sectionViews and render next section
+            // if nextChapter goto() first section
+            // if prevChapter goto() first section
+            //
 
             if (section.chapter.index == this.currentSectionModel.chapter.index) {
                 //check if its the same chapter. If true, and already rendered, scroll to the section.
@@ -83,25 +77,41 @@ export default class NavController extends Backbone.View {
             this.model.trigger('change');
 
             this.render();
-            this.scrollTo(section.id);
+            this.scrollTo(section);
 
             this.currentSectionModel = section;
             EventBus.trigger(EventBus.event.NAV_CHANGE, this.model);
         }
     }
 
+    nextChapter() {
+        console.log("NavController.nextChapter");
+        this.goto(this.model.next(true));
+    }
+
+    prevChapter() {
+        console.log("NavController.prevChapter");
+        this.goto(this.model.prev(true));
+    }
+
+    gotoChapter() {
+
+    }
+
+    /* HELPERS */
     render() {
         console.log("NavController.render");
         this.$el.append(this.sectionView.render().el);
     }
 
-    scrollTo(id) {
-        console.log("NavController.scrollTo:", id);
+    scrollTo(section) {
+        console.log("NavController.scrollTo:", section.id);
 
         var offsetTop = 80;
-        var $section = $("#" + id);
+        var $section = $("#" + section.id);
+        var duration = (section.index == 0) ? 0.25 : 0.75;
 
-        TweenMax.to(window, 0.75, {
+        TweenMax.to(window, duration, {
             scrollTo: {y: $section.offset().top - offsetTop, autoKill: false},
             ease: Power3.easeInOut,
             onComplete: this.onScrollComplete,

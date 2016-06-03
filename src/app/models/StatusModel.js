@@ -76,15 +76,12 @@ export default class StatusModel extends Backbone.Model {
         if (this.isAvailable) {
             if (this.lessonStatus !== "completed") {
                 for (var key in data) {
-                    // check if KEY is SUSPEND_DATA/EbookData
                     if (key.indexOf("suspend_data") > -1) {
                         $.extend(true, this.suspendData, data[key]);
                         data[key] = JSON.stringify(this.suspendData).replace(/"/g, "'");
                     }
-                    // set data to SCORM API
                     this.setParam(key, data[key]);
                 }
-                // save/commit data
                 this.save();
             } else {
                 console.warn("StatusModel.update: LESSON_STATUS == COMPLETED. Can't update SCORM Data!");

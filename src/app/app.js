@@ -36,16 +36,22 @@ export default Backbone.View.extend({
     bootstrap() {
         console.log("App.bootstrap");
 
+        this.initEvents();
+
+        // load SCORM DATA
+        this.statusModel.fetch();
+    },
+
+    initEvents(){
         //-- wait for window close
         $(window).on('unload', () => {
             this.statusModel.quit();
         });
 
-        this.coverPageView.render();
-
         /* NAV EVENTS */
-        EventBus.on(EventBus.event.NAV_GOTO, (section) => {
-            this.navControl.goto(section);
+        EventBus.on(EventBus.event.NAV_START, () => {
+            this.navbarView.render();
+            this.navControl.start();
         });
 
         EventBus.on(EventBus.event.NAV_NEXT, () => {
@@ -56,8 +62,8 @@ export default Backbone.View.extend({
             this.navControl.prev();
         });
 
-        EventBus.on(EventBus.event.NAV_GOTO_CHAPTER, (chapterId) => {
-            this.navControl.gotoChapter(chapterId);
+        EventBus.on(EventBus.event.NAV_GOTO, (section) => {
+            this.navControl.goto(section);
         });
 
         EventBus.on(EventBus.event.NAV_NEXT_CHAPTER, () => {
@@ -68,11 +74,14 @@ export default Backbone.View.extend({
             this.navControl.prevChapter();
         });
 
+        EventBus.on(EventBus.event.NAV_GOTO_CHAPTER, (chapterId) => {
+            this.navControl.gotoChapter(chapterId);
+        });
+
         /* STATUS MODEL EVENTS */
         EventBus.once(EventBus.event.STATUS_LOADED, (data) => {
             this.navModel.restore(data);
-            this.navbarView.render();
-            this.navControl.start();
+            this.coverPageView.render();
         });
 
         EventBus.once(EventBus.event.STATUS_FINISH, () => {
