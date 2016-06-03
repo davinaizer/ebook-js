@@ -51,10 +51,11 @@ export default class NavModel extends Backbone.Model {
                     chapter: chapterRef
                 };
 
-                $.extend(true, sectionData, section);
-                this.items.push(sectionData);
+                $.extend(section, sectionData);
+                this.items.push(chapter.section[s]);
             }
         }
+        console.log("NavModel.parse", this.navData);
         this.totalItems = this.items.length;
     }
 
@@ -71,8 +72,17 @@ export default class NavModel extends Backbone.Model {
 
     prev(skipChapter) {
         if (this.currentIndex > 0) {
-            this.currentIndex--;
-            return this.getCurrentItem();
+            if (skipChapter) {
+                if (this.getCurrentItem().chapter.index > 0) {
+                    var prevChapterId = this.getCurrentItem().chapter.index - 1;
+                    this.currentIndex = this.navData.chapter[prevChapterId].section[0].uid;
+                    return this.getCurrentItem();
+                }
+                return null;
+            } else {
+                this.currentIndex--;
+                return this.getCurrentItem();
+            }
         }
         return null;
     }
@@ -85,6 +95,10 @@ export default class NavModel extends Backbone.Model {
             return this.items[uid];
         }
         return null;
+    }
+
+    getMaxItem() {
+        return this.items[this.maxIndex];
     }
 
     getCurrentItem() {

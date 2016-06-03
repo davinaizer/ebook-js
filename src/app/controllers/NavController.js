@@ -19,7 +19,8 @@ export default class NavController extends Backbone.View {
         console.log("NavController.initialize");
 
         this.$el = $("#content");
-        this.sectionView = null;
+        this.renderedViews = [];
+        this.currentSectionView = null;
         this.currentSectionModel = null;
     }
 
@@ -43,47 +44,6 @@ export default class NavController extends Backbone.View {
         this.goto(this.model.prev());
     }
 
-    goto(section) {
-        if (section) {
-            console.log("NavController.goto >>", section.id);
-
-            // on goto(section), loop and render sections prior to the section.id
-            // if next or prev section already on page, just scrollTo section.id
-            // if next or prev section is a new chapter, remove all sectionViews and render next section
-            // if nextChapter goto() first section
-            // if prevChapter goto() first section
-            //
-
-            if (section.chapter.index == this.currentSectionModel.chapter.index) {
-                //check if its the same chapter. If true, and already rendered, scroll to the section.
-
-            } else {
-                // TODO. Check for Zombie Views
-                this.$el.empty();
-
-            }
-
-            var SectionView = Sections[section.id] || BaseView;
-            var template = Templates[section.id];
-
-            this.sectionView = new SectionView({
-                id: section.id,
-                model: section
-            });
-            this.sectionView.template = template;
-            this.sectionView.bootstrap();
-
-            this.model.save();
-            this.model.trigger('change');
-
-            this.render();
-            this.scrollTo(section);
-
-            this.currentSectionModel = section;
-            EventBus.trigger(EventBus.event.NAV_CHANGE, this.model);
-        }
-    }
-
     nextChapter() {
         console.log("NavController.nextChapter");
         this.goto(this.model.next(true));
@@ -94,14 +54,76 @@ export default class NavController extends Backbone.View {
         this.goto(this.model.prev(true));
     }
 
-    gotoChapter() {
+    goto(section) {
+        if (section) {
+            console.log("NavController.goto >>", section.id);
 
+            // if next Section is in the same Chapter of the currentSection, if not, remove all renderedViews[] and render nextSection
+            if (section.chapter.index == this.currentSectionModel.chapter.index) {
+                // check if sectionView exists, if so scrollTo(it), if not, render
+                if (this.renderedViews[section.index]) {
+                    this.scrollTo(section.id);
+                } else {
+                    this.render(section);
+                }
+            } else {
+                for (var i = 0; i < this.renderedViews.length; ++i) {
+                    this.renderedViews[i].remove();
+                }
+                this.$el.empty();
+                this.renderedViews = [];
+                this.render(section);
+            }
+        }
     }
 
-    /* HELPERS */
-    render() {
-        console.log("NavController.render");
-        this.$el.append(this.sectionView.render().el);
+    /* REDERING VIEWS */
+    render(section) {
+        console.log("NavController.render:");
+
+        /* BETA CODE */
+        var firstSectionUid = section.uid - section.index;
+        var lastSectionIndex = section.total - 1;
+        var lastSectionUid = section.uid + lastSectionIndex - section.index;
+        var maxSectionUid = this.model.getMaxItem().uid;
+        lastSectionUid = Math.min(lastSectionUid, maxSectionUid) + 1;
+
+        var range = lastSectionUid - firstSectionUid;
+        console.log("render.range:", range);
+        console.log("goto.rangeToRender:", firstSectionUid, " - ", lastSectionUid);
+
+        for (var i = 0; i < range; ++i) {
+            if (!this.renderedViews[i]) {
+                var nextSection = this.model.getItem(firstSectionUid + i);
+                var nextSectionView = this.getSectionView(nextSection);
+                nextSectionView.bootstrap();
+
+                this.$el.append(nextSectionView.render().el);
+                nextSectionView.transitionIn();
+
+                this.renderedViews.push(nextSectionView);
+            }
+        }
+        /* END BETA CODE */
+        this.currentSectionModel = section;
+        this.scrollTo(section);
+
+        //-- GET VIEW
+        this.model.save();
+        this.model.trigger('change');
+
+        EventBus.trigger(EventBus.event.NAV_CHANGE, this.model);
+    }
+
+    getSectionView(section) {
+        var SectionViewClass = Sections[section.id] || BaseView;
+        var SectionView = new SectionViewClass({
+            id: section.id,
+            model: section
+        });
+        SectionView.template = Templates[section.id];
+
+        return SectionView;
     }
 
     scrollTo(section) {
@@ -113,13 +135,7 @@ export default class NavController extends Backbone.View {
 
         TweenMax.to(window, duration, {
             scrollTo: {y: $section.offset().top - offsetTop, autoKill: false},
-            ease: Power3.easeInOut,
-            onComplete: this.onScrollComplete,
-            onCompleteScope: this
+            ease: Power3.easeInOut
         });
-    }
-
-    onScrollComplete() {
-        this.sectionView.transitionIn();
     }
 }

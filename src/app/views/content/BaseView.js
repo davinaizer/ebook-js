@@ -8,7 +8,9 @@ export default class BaseView extends Backbone.View {
     constructor(options) {
         $.extend(options || {}, {
             events: {
-                "click #btn-next-page": "next"
+                "click #btn-next-section": "next",
+                "click #btn-next-chapter": "nextChapter",
+                "click #btn-prev-chapter": "prevChapter"
             }
         });
         super(options);
@@ -26,7 +28,7 @@ export default class BaseView extends Backbone.View {
     render() {
         console.log("BaseView.render");
 
-        this.$el.css({ opacity: 0 });
+        this.$el.css({opacity: 0});
         this.$el.html(this.template(this.model));
 
         return this;
@@ -34,21 +36,31 @@ export default class BaseView extends Backbone.View {
 
     transitionIn() {
         console.log("BaseView.transitionIn");
-        TweenMax.to(this.$el, 0.5, { opacity: 1, onComplete: this.transitionInComplete, onCompleteScope: this });
-        TweenMax.staggerFrom(this.$("h1,h2,h3,h4,h5,h6,p"), 0.5, { delay: 0.5, y: "-=3", autoAlpha: 0 }, 0.2);
+        TweenMax.to(this.$el, 0.5, {opacity: 1, onComplete: this.transitionInComplete, onCompleteScope: this});
     }
 
     transitionInComplete() {
         console.log("BaseView.transitionInComplete");
-
         EventBus.trigger(EventBus.event.PAGE_TRANSITION_IN_COMPLETE);
     }
 
     next(e) {
         e.preventDefault();
         this.undelegateEvents();
-
-        TweenMax.to('#btn-next-page', 0.25, { autoAlpha: 0 });
+        TweenMax.to(this.$('#btn-next-section'), 0.25, {autoAlpha: 0});
         EventBus.trigger(EventBus.event.NAV_NEXT);
+    }
+
+    nextChapter(e) {
+        e.preventDefault();
+        this.undelegateEvents();
+        TweenMax.to(this.$('#btn-next-chapter'), 0.25, {autoAlpha: 0});
+        EventBus.trigger(EventBus.event.NAV_NEXT_CHAPTER);
+    }
+
+    prevChapter(e) {
+        e.preventDefault();
+        this.undelegateEvents();
+        EventBus.trigger(EventBus.event.NAV_PREVIOUS_CHAPTER);
     }
 }
