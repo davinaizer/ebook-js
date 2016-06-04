@@ -20,7 +20,6 @@ export default class NavModel extends Backbone.Model {
         // DATA FROM JSON
         this.data = AppData.nav;
         this.settings = AppData.settings;
-
         this.parse();
     }
 
@@ -55,19 +54,23 @@ export default class NavModel extends Backbone.Model {
                 this.items.push(chapter.section[s]);
             }
         }
-        console.log("NavModel.parse", this.data);
         this.totalItems = this.items.length;
     }
 
     next(skipChapter) {
+        // TODO Refactor/optmize code
         var currentChapter = this.getCurrentItem().chapter;
 
         if (skipChapter && currentChapter.index < currentChapter.total) {
             var nextChapterId = this.getCurrentItem().chapter.index + 1;
             this.currentIndex = this.data.chapter[nextChapterId].section[0].uid;
+
+            this.maxIndex = Math.max(this.maxIndex, this.currentIndex);
             return this.getCurrentItem();
+
         } else if (this.currentIndex < this.totalItems - 1) {
             this.currentIndex++;
+            
             this.maxIndex = Math.max(this.maxIndex, this.currentIndex);
             return this.getCurrentItem();
         }
