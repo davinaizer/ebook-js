@@ -72,7 +72,7 @@ export default class StatusModel extends Backbone.Model {
         return ret;
     }
 
-    update(e, data) {
+    update(data) {
         if (this.isAvailable) {
             if (this.lessonStatus !== "completed") {
                 for (var key in data) {
