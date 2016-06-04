@@ -82,25 +82,31 @@ export default class NavController extends Backbone.View {
         console.log("NavController.render:");
 
         /* BETA CODE */
-        var firstSectionUid = section.uid - section.index;
-        var lastSectionIndex = section.total - 1;
-        var lastSectionUid = section.uid + lastSectionIndex - section.index;
-        var maxSectionUid = this.model.getMaxItem().uid;
-        lastSectionUid = Math.min(lastSectionUid, maxSectionUid) + 1;
+        var chapter = this.model.getChapter(section.chapter.index);
+        console.log("chapters >", chapter);
 
-        var range = lastSectionUid - firstSectionUid;
-        console.log("render.range:", range);
-        console.log("goto.rangeToRender:", firstSectionUid, " - ", lastSectionUid);
+        var firstSection = chapter.section[0];
+        // var lastSection = chapter.section[chapter.section.length - 1];
+        var maxSection = this.model.getMaxItem();
 
-        for (var i = 0; i < range; ++i) {
+        var sectionsToRender = 0;
+        if (maxSection.chapter.index > section.chapter.index) {
+            sectionsToRender = section.total;
+        } else {
+            sectionsToRender = maxSection.index + 1;
+        }
+
+        for (var i = 0; i < sectionsToRender; ++i) {
+            console.log("this.renderedViews[i]:", this.renderedViews.length);
+
             if (!this.renderedViews[i]) {
-                var nextSection = this.model.getItem(firstSectionUid + i);
+                var nextSection = this.model.getItem(firstSection.uid + i);
                 var nextSectionView = this.getSectionView(nextSection);
-                nextSectionView.bootstrap();
 
                 this.$el.append(nextSectionView.render().el);
-                nextSectionView.transitionIn();
 
+                nextSectionView.bootstrap();
+                nextSectionView.transitionIn();
                 this.renderedViews.push(nextSectionView);
             }
         }
@@ -127,14 +133,14 @@ export default class NavController extends Backbone.View {
     }
 
     scrollTo(section) {
-        console.log("NavController.scrollTo:", section.id);
+        console.log("NavController.scrollTo:", section);
 
         var offsetTop = 80;
         var $section = $("#" + section.id);
         var duration = (section.index == 0) ? 0.25 : 0.75;
 
         TweenMax.to(window, duration, {
-            scrollTo: {y: $section.offset().top - offsetTop, autoKill: false},
+            scrollTo: { y: $section.offset().top - offsetTop, autoKill: false },
             ease: Power3.easeInOut
         });
     }

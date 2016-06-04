@@ -18,7 +18,7 @@ export default class NavModel extends Backbone.Model {
         this.currentIndex = 0;
 
         // DATA FROM JSON
-        this.navData = AppData.nav;
+        this.data = AppData.nav;
         this.settings = AppData.settings;
 
         this.parse();
@@ -29,7 +29,7 @@ export default class NavModel extends Backbone.Model {
 
         var sectionCount = 0;
         var chapterCount = 0;
-        var chapters = this.navData.chapter;
+        var chapters = this.data.chapter;
         var idMask = this.settings.idMask;
 
         for (var c = 0; c < chapters.length; ++c) {
@@ -55,40 +55,38 @@ export default class NavModel extends Backbone.Model {
                 this.items.push(chapter.section[s]);
             }
         }
-        console.log("NavModel.parse", this.navData);
+        console.log("NavModel.parse", this.data);
         this.totalItems = this.items.length;
     }
 
     next(skipChapter) {
-        if (this.currentIndex < this.totalItems - 1) {
+        var currentChapter = this.getCurrentItem().chapter;
+
+        if (skipChapter && currentChapter.index < currentChapter.total) {
+            var nextChapterId = this.getCurrentItem().chapter.index + 1;
+            this.currentIndex = this.data.chapter[nextChapterId].section[0].uid;
+            return this.getCurrentItem();
+        } else if (this.currentIndex < this.totalItems - 1) {
             this.currentIndex++;
-            if (this.currentIndex > this.maxIndex) {
-                this.maxIndex = this.currentIndex;
-            }
+            this.maxIndex = Math.max(this.maxIndex, this.currentIndex);
             return this.getCurrentItem();
         }
         return null;
     }
 
     prev(skipChapter) {
-        if (this.currentIndex > 0) {
-            if (skipChapter) {
-                if (this.getCurrentItem().chapter.index > 0) {
-                    var prevChapterId = this.getCurrentItem().chapter.index - 1;
-                    this.currentIndex = this.navData.chapter[prevChapterId].section[0].uid;
-                    return this.getCurrentItem();
-                }
-                return null;
-            } else {
-                this.currentIndex--;
-                return this.getCurrentItem();
-            }
+        if (skipChapter && this.getCurrentItem().chapter.index > 0) {
+            var prevChapterId = this.getCurrentItem().chapter.index - 1;
+            this.currentIndex = this.data.chapter[prevChapterId].section[0].uid;
+            return this.getCurrentItem();
+        } else if (this.currentIndex > 0) {
+            this.currentIndex--;
+            return this.getCurrentItem();
         }
         return null;
     }
 
-    goto(uid) {
-    }
+    goto(uid) {}
 
     getItem(uid) {
         if (uid >= 0 && uid < this.totalItems) {
@@ -97,12 +95,23 @@ export default class NavModel extends Backbone.Model {
         return null;
     }
 
+    getCurrentItem() {
+        return this.getItem(this.currentIndex);
+    }
+
     getMaxItem() {
         return this.items[this.maxIndex];
     }
 
-    getCurrentItem() {
-        return this.getItem(this.currentIndex);
+    getChapter(index) {
+        if (index > -1 && index < this.data.chapter.length) {
+            return this.data.chapter[index];
+        }
+        return null;
+    }
+
+    getCurrentChapter() {
+        this.getChapter(this.getCurrentItem().chapter.index);
     }
 
     restore(data) {
