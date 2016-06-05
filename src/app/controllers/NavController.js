@@ -76,6 +76,7 @@ export default class NavController extends Backbone.View {
                 }
                 this.$el.empty();
                 this.renderedViews = [];
+                $(window).scrollTop(0);
             }
 
             this.currentSectionModel = section;
