@@ -26,7 +26,7 @@ export default Backbone.View.extend({
         this.statusModel = new StatusModel();
 
         //-- VIEWS
-        this.coverPageView = new CoverPageView({model: this.statusModel});
+        this.coverPageView = new CoverPageView({model: this.navModel});
         this.navbarView = new NavbarView({model: this.navModel});
 
         //-- CONTROLLERS-VIEWS
