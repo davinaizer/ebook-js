@@ -114,7 +114,7 @@ export default class NavModel extends Backbone.Model {
     }
 
     getCurrentChapter() {
-        this.getChapter(this.getCurrentItem().chapter.index);
+        return this.getChapter(this.getCurrentItem().chapter.index);
     }
 
     restore(data) {
