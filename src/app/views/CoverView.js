@@ -22,8 +22,6 @@ export default class CoverView extends Backbone.View {
     }
 
     render() {
-        console.log("CoverPageView.render:", this.model);
-
         this.template = (this.model.maxIndex > 0) ? tpl_cover : tpl_cover_newuser;
         this.$el.html(this.template(this.model));
         return this;

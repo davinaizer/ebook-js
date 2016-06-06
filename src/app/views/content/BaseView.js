@@ -8,9 +8,7 @@ export default class BaseView extends Backbone.View {
     constructor(options) {
         $.extend(options || {}, {
             events: {
-                "click #btn-next-section": "next",
-                "click #btn-next-chapter": "nextChapter",
-                "click #btn-prev-chapter": "prevChapter"
+                "click #btn-next-section": "next"
             }
         });
         super(options);
@@ -44,27 +42,15 @@ export default class BaseView extends Backbone.View {
         EventBus.trigger(EventBus.event.PAGE_TRANSITION_IN_COMPLETE);
     }
 
-    disableNextSection(){
+    disableNextSection() {
         this.$("#btn-next-section").hide();
     }
 
     next(e) {
         e.preventDefault();
-        this.undelegateEvents();
+        this.$('#btn-next-section').off();
         TweenMax.to(this.$('#btn-next-section'), 0.25, {autoAlpha: 0});
         EventBus.trigger(EventBus.event.NAV_NEXT);
     }
 
-    nextChapter(e) {
-        e.preventDefault();
-        this.undelegateEvents();
-        TweenMax.to(this.$('#btn-next-chapter'), 0.25, {autoAlpha: 0});
-        EventBus.trigger(EventBus.event.NAV_NEXT_CHAPTER);
-    }
-
-    prevChapter(e) {
-        e.preventDefault();
-        this.undelegateEvents();
-        EventBus.trigger(EventBus.event.NAV_PREVIOUS_CHAPTER);
-    }
 }

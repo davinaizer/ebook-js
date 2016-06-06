@@ -6,6 +6,7 @@ import ScrollToPlugin from "gsap/src/uncompressed/plugins/ScrollToPlugin";
 
 // IMPORT ALL CONTENT CLASSES AND TEMPLATES
 import BaseView from 'views/content/BaseView';
+import ChapterNav from 'views/components/ChapterNavView'
 import * as Sections from 'views/content/Content';
 import * as Templates from 'templates/content/Templates';
 
@@ -20,7 +21,6 @@ export default class NavController extends Backbone.View {
 
         this.$el = $("#content");
         this.renderedViews = [];
-        this.currentSectionView = null;
         this.currentSectionModel = null;
     }
 
@@ -74,6 +74,8 @@ export default class NavController extends Backbone.View {
                     this.renderedViews[i].undelegateEvents();
                     this.renderedViews[i].remove();
                 }
+                this.chapterNav.remove();
+
                 this.$el.empty();
                 this.renderedViews = [];
                 $(window).scrollTop(0);
@@ -112,6 +114,12 @@ export default class NavController extends Backbone.View {
                 }
             }
         }
+
+        // show chapterNav if last section
+        if (sectionsToRender == section.total) {
+            this.chapterNav = new ChapterNav({model: this.model});
+            this.$el.append(this.chapterNav.render().el);
+        }
     }
 
     getSectionView(section) {
@@ -133,7 +141,7 @@ export default class NavController extends Backbone.View {
         var duration = (section.index == 0) ? 0.25 : 0.75;
 
         TweenMax.to(window, duration, {
-            scrollTo: { y: $section.offset().top - offsetTop, autoKill: false },
+            scrollTo: {y: $section.offset().top - offsetTop, autoKill: false},
             ease: Power3.easeInOut
         });
     }

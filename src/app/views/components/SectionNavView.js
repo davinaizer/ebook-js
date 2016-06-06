@@ -3,9 +3,9 @@
  */
 import $ from 'jquery';
 import Backbone from 'backbone';
-import template from 'templates/';
+import template from 'templates/components/section_nav';
 
-export default class SectionsGuideView extends Backbone.View {
+export default class SectionsNavView extends Backbone.View {
 
     constructor(options) {
         $.extend(options || {}, {
