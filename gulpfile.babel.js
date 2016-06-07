@@ -87,6 +87,7 @@ gulp.task('watch', () => {
     gulp.watch(src + 'index.html', ['html']);
     gulp.watch([
         src + 'app/**/*.js',
+        src + 'app/**/*.json',
         src + 'app/templates/**/*.hbs'
     ], ['scripts']);
 });

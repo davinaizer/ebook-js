@@ -2,7 +2,7 @@
     "settings": {
         "version": "V1.0.0-alpha",
         "idMask": "c_{{chapterIndex}}_s_{{sectionIndex}}",
-        "lessonMode": "browse"
+        "lessonMode": "normal"
     },
     "nav": {
         "chapter": [
