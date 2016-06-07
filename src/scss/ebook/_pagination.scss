@@ -2,6 +2,7 @@
 // Pagination (multiple pages)
 // --------------------------------------------------
 .pagination {
+
     > li {
         > a,
         > span {
@@ -35,4 +36,15 @@
             padding: 20px 25px;
         }
     }
+
+    .chapterguide-line {
+        background-color: #c5cad9;
+        width: 24px;
+        height: 2px;
+        position: absolute;
+        top: 14px;
+        left: 20px;
+    }
+
 }
+
