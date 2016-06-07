@@ -28,7 +28,7 @@ export default class NavView extends Backbone.View {
         this.$el.fadeIn(250);
 
         this.update();
-        this.$('[data-toggle="tooltip"]').tooltip();
+        this.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
 
         return this;
     }
@@ -75,7 +75,6 @@ export default class NavView extends Backbone.View {
         var id = $target.attr("id");
         var isEnabled = !$target.is("[disabled]");
 
-        $target.tooltip('hide');
 
         if (isEnabled && !this.isPageLoading) {
 
