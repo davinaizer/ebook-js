@@ -54,6 +54,11 @@ export default class NavController extends Backbone.View {
         this.goto(this.model.prev(true));
     }
 
+    gotoChapter(id) {
+        var section = this.model.getChapter(id).section[0];
+        this.goto(this.model.goto(section));
+    }
+
     goto(section) {
         console.log("NavController.goto(", section.id, ")");
 
