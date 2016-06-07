@@ -1,8 +1,8 @@
 <nav class="text-center">
     <ul class="pagination">
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li class="disabled"><a href="#">3</a></li>
+        {{#each chapters}}
+            <li><a href="#chapter_{{@index}}" data-toggle="tooltip" title="{{title}}">{{@index}}</a></li>
+        {{/each}}
     </ul>
 </nav>
 

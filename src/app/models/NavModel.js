@@ -14,8 +14,8 @@ export default class NavModel extends Backbone.Model {
 
         this.items = [];
         this.totalItems = 0;
-        this.maxIndex = 0;
-        this.currentIndex = 0;
+        this.maxIndex = 2;
+        this.currentIndex = 2;
 
         // DATA FROM JSON
         this.data = AppData.nav;
@@ -57,26 +57,25 @@ export default class NavModel extends Backbone.Model {
         this.totalItems = this.items.length;
     }
 
+    // TODO Refactor/optimize function
     next(skipChapter) {
-        // TODO Refactor/optmize code
         var currentChapter = this.getCurrentItem().chapter;
 
         if (skipChapter && currentChapter.index < currentChapter.total) {
             var nextChapterId = this.getCurrentItem().chapter.index + 1;
             this.currentIndex = this.data.chapter[nextChapterId].section[0].uid;
-
             this.maxIndex = Math.max(this.maxIndex, this.currentIndex);
             return this.getCurrentItem();
 
         } else if (this.currentIndex < this.totalItems - 1) {
             this.currentIndex++;
-            
             this.maxIndex = Math.max(this.maxIndex, this.currentIndex);
             return this.getCurrentItem();
         }
         return null;
     }
 
+    // TODO Refactor/optimize function
     prev(skipChapter) {
         if (skipChapter && this.getCurrentItem().chapter.index > 0) {
             var prevChapterId = this.getCurrentItem().chapter.index - 1;
@@ -89,7 +88,15 @@ export default class NavModel extends Backbone.Model {
         return null;
     }
 
-    goto(uid) {}
+    // TODO Refactor/optimize function
+    goto(section) {
+        if (section) {
+            this.currentIndex = section.uid;
+            this.maxIndex = Math.max(this.maxIndex, this.currentIndex);
+            return this.getCurrentItem();
+        }
+        return null;
+    }
 
     getItem(uid) {
         if (uid >= 0 && uid < this.totalItems) {

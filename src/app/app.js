@@ -74,8 +74,8 @@ export default Backbone.View.extend({
             this.navControl.prevChapter();
         });
 
-        EventBus.on(EventBus.event.NAV_GOTO_CHAPTER, (chapterId) => {
-            this.navControl.gotoChapter(chapterId);
+        EventBus.on(EventBus.event.NAV_GOTO_CHAPTER, (id) => {
+            this.navControl.gotoChapter(id);
         });
 
         /* STATUS MODEL EVENTS */
