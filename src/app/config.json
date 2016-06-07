@@ -1,13 +1,14 @@
 {
     "settings": {
         "version": "V1.0.0-alpha",
-        "idMask": "c_{{chapterIndex}}_s_{{sectionIndex}}"
+        "idMask": "c_{{chapterIndex}}_s_{{sectionIndex}}",
+        "lessonMode": "browse"
     },
     "nav": {
         "chapter": [
             {
                 "title": "Chapter 1",
-                "coverImage": "",
+                "thumbnail": "imgs/chapter_0/thumb.jpg",
                 "section": [
                     {
                         "title": "Section 1"
@@ -22,7 +23,7 @@
             },
             {
                 "title": "Chapter 2",
-                "coverImage": "",
+                "thumbnail": "imgs/chapter_1/thumb.jpg",
                 "section": [
                     {
                         "title": "Section 1"
@@ -34,7 +35,7 @@
             },
             {
                 "title": "Chapter 3",
-                "coverImage": "",
+                "thumbnail": "imgs/chapter_2/thumb.jpg",
                 "section": [
                     {
                         "title": "Section 1"
@@ -43,7 +44,7 @@
                         "title": "Section 2"
                     },
                     {
-                        "title": "CONCLUSÃO" 
+                        "title": "CONCLUSÃO"
                     }
                 ]
             }

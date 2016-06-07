@@ -25,8 +25,8 @@ export default class StatusModel extends Backbone.Model {
 
         this.isAvailable = this.scorm.init();
 
-        if (this.isAvailable) {
-            console.log("StatusModel.isAvailable ? " + this.isAvailable);
+        if (this.isAvailable && this.lessonMode == "normal") {
+            console.log("StatusModel.isAvailable ?" + this.isAvailable);
 
             //-- Check for first time SCO launch
             //this.scorm.get("cmi.core.entry") === "ab-initio"

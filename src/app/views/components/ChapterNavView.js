@@ -56,10 +56,9 @@ export default class ChapterNavView extends Backbone.View {
 
         this.$("ul>li").each((index, el)=> {
             if (currentChapter.index == index) {
-                $(el).addClass("active");
+                $(el).addClass("active").attr("disabled", true);
             } else if (index > nextChapterId) {
-                $(el).addClass("disabled");
-                $(el).attr("disabled", true);
+                $(el).addClass("disabled").attr("disabled", true);
             }
         });
     }
@@ -81,6 +80,7 @@ export default class ChapterNavView extends Backbone.View {
         if (isEnabled) {
             EventBus.trigger(EventBus.event.NAV_GOTO_CHAPTER, chapterId);
         }
+
         e.preventDefault();
     }
 

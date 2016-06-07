@@ -22,7 +22,7 @@ export default class CoverView extends Backbone.View {
     }
 
     render() {
-        this.template = (this.model.maxIndex > 0) ? tpl_cover : tpl_cover_newuser;
+        this.template = (this.model.maxIndex > 0 && this.model.lessonMode == "browse") ? tpl_cover : tpl_cover_newuser;
         this.$el.html(this.template(this.model));
         return this;
     }

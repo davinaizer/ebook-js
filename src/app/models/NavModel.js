@@ -14,8 +14,9 @@ export default class NavModel extends Backbone.Model {
 
         this.items = [];
         this.totalItems = 0;
-        this.maxIndex = 2;
-        this.currentIndex = 2;
+        this.chapterTotalItems = [];
+        this.maxIndex = 0;
+        this.currentIndex = 0;
 
         // DATA FROM JSON
         this.data = AppData.nav;
@@ -53,8 +54,20 @@ export default class NavModel extends Backbone.Model {
                 $.extend(section, sectionData);
                 this.items.push(chapter.section[s]);
             }
+            this.chapterTotalItems.push(chapter.section.length)
         }
         this.totalItems = this.items.length;
+
+        if (this.settings.lessonMode == "browse") {
+            this.maxIndex = this.totalItems - 1;
+        }
+
+        //-- output info data
+        console.log("--- NavModel Info ---");
+        console.log("NavModel.chapter.length:", chapters.length);
+        console.log("NavModel.chaptersTotalItems:", this.chapterTotalItems.toString());
+        console.log("NavModel.totalItems:", this.totalItems);
+        console.log("----------------");
     }
 
     // TODO Refactor/optimize function
