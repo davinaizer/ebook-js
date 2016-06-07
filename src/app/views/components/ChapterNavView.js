@@ -57,6 +57,8 @@ export default class ChapterNavView extends Backbone.View {
         this.$("ul>li").each((index, el)=> {
             if (currentChapter.index == index) {
                 $(el).addClass("active").attr("disabled", true);
+            } else if (index == nextChapterId) {
+                $(el).addClass("next");
             } else if (index > nextChapterId) {
                 $(el).addClass("disabled").attr("disabled", true);
             }
