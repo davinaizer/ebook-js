@@ -2,10 +2,8 @@
     <ul class="pagination">
         {{#each chapters}}
             <li>
-                <a href="#chapter_{{@index}}" data-toggle="tooltip" title="{{title}}">{{@index}}</a>
-                <div class="chapterguide-line"></div>
+                <a href="#chapter_{{@index}}" data-container="nav" data-toggle="tooltip" title="{{title}}">{{@index}}</a>
             </li>
-
         {{/each}}
     </ul>
 </nav>
