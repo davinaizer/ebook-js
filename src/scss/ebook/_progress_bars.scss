@@ -1,0 +1,11 @@
+.progress-bar-chapter0 {
+  @include progress-bar-variant($brand-primary);
+}
+
+.progress-bar-chapter1 {
+  @include progress-bar-variant($brand-info);
+}
+
+.progress-bar-chapter2 {
+  @include progress-bar-variant($brand-success);
+}

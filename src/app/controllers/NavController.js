@@ -131,7 +131,8 @@ export default class NavController extends Backbone.View {
         var SectionViewClass = Sections[section.id] || BaseView;
         var SectionView = new SectionViewClass({
             id: section.id,
-            model: section
+            model: section,
+            navModel: this.model
         });
         SectionView.template = Templates[section.id];
 

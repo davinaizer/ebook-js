@@ -19,21 +19,21 @@ export default class CoverView extends Backbone.View {
 
     initialize() {
         console.log("CoverPageView.initialize");
+        this.chapterProgress = this.model.getChaptersProgress();
     }
 
     render() {
-        this.template = (this.model.maxIndex > 0 && this.model.lessonMode == "browse") ? tpl_cover : tpl_cover_newuser;
-        this.$el.html(this.template(this.model));
+        this.template = (this.model.maxIndex > 0 && this.model.lessonMode == "normal") ? tpl_cover : tpl_cover_newuser;
+        this.$el.html(this.template(this));
         return this;
     }
 
     start(e) {
-        e.preventDefault();
-
         var $startBtn = this.$("#start-btn");
         $startBtn.text("Aguarde");
         $startBtn.attr('disabled', 'disabled');
 
         EventBus.trigger(EventBus.event.NAV_START);
+        e.preventDefault();
     }
 }

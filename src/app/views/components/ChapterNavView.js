@@ -26,7 +26,6 @@ export default class ChapterNavView extends Backbone.View {
         console.log("ChapterNavView.initialize");
         this.template = template;
         this.chapters = this.model.data.chapter;
-        console.log("ChapterNavView.initialize: ", this.chapters);
     }
 
     render() {
