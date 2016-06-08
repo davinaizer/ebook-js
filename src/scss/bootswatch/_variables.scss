@@ -14,13 +14,15 @@ $gray:                  lighten($gray-base, 33.5%); // #555
 $gray-light:            lighten($gray-base, 60%);   // #999
 $gray-lighter:          lighten($gray-base, 93.5%); // #eee
 
-$brown:                 #522D23; // base text color
-
 $brand-primary:         #A10A2B !default;
 $brand-success:         #1a5f34 !default;
 $brand-info:            #3f211a !default;
 $brand-warning:         #f2b100 !default;
 $brand-danger:          #c6001f !default;
+
+//== Custom Colors
+//
+$brown:                 #522D23; // base text color
 
 //== Scaffolding
 //

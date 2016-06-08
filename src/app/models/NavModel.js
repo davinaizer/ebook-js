@@ -145,21 +145,19 @@ export default class NavModel extends Backbone.Model {
         for (var i = 0; i < this.chapters.length; ++i) {
             var maxSection = this.getMaxItem();
             var chapter = this.chapters[i];
+
             var progressObj = {
-                global: 0,
-                local: 0
+                title: chapter.title,
+                global: chapter.section.length / this.totalItems,
+                user: 1
             };
 
-            var globalP = chapter.section.length / this.totalItems * 100;
-            if (i < maxSection.chapter.index) {
-                progressObj.global = globalP;
-                progressObj.local = 100;
-            } else if (i == maxSection.chapter.index) {
-                var localP = (maxSection.index + 1) / maxSection.total;
-                progressObj.global = globalP * localP;
-                progressObj.local = Math.ceil(localP * 100);
+            if (i == maxSection.chapter.index) {
+                var userP = (maxSection.index + 1) / maxSection.total;
+                progressObj.user = userP;
+            } else if (i > maxSection.chapter.index) {
+                progressObj.user = 0;
             }
-
             progress.push(progressObj);
         }
 

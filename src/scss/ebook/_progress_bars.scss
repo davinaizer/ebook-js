@@ -9,3 +9,15 @@
 .progress-bar-chapter2 {
   @include progress-bar-variant($brand-success);
 }
+
+.bar-wrap {
+    position: relative;
+}
+
+.progress-marker {
+    position: absolute;
+    width: 1px;
+    height: 30px;
+    background: black;
+    top: -5px;
+}

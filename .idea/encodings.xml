@@ -7,10 +7,13 @@
     <file url="file://$PROJECT_DIR$/package.json" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/config.json" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/controllers/NavController.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/app/helpers/ConsoleFix.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/helpers/EventBus.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/app/helpers/Handlebars.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/main.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/models/NavModel.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/templates/components/chapter_nav.hbs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/app/templates/components/global_progressbar.hbs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/templates/components/section_nav.hbs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/templates/content/Templates.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/templates/content/chapter_0/section_0.hbs" charset="UTF-8" />
@@ -25,6 +28,7 @@
     <file url="file://$PROJECT_DIR$/src/app/views/FooterView.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/views/NavView.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/views/components/ChapterNavView.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/app/views/components/GlobalProgressbar.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/views/components/SectionNavView.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/views/content/BaseView.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/views/content/Content.js" charset="UTF-8" />
@@ -33,6 +37,7 @@
     <file url="file://$PROJECT_DIR$/src/scss/bootswatch/_variables.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/ebook/_content.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/ebook/_pagination.scss" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/scss/ebook/_progress_bars.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/main.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/webpack.config.js" charset="UTF-8" />
   </component>
