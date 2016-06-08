@@ -8,7 +8,7 @@ import tpl_cover_newuser from 'templates/cover_newuser.hbs';
 export default class CoverView extends Backbone.View {
 
     constructor(options) {
-        $.extend(options || {}, {
+        Object.assign(options || {}, {
             el: $("#content"),
             events: {
                 'click #start-btn': 'start'

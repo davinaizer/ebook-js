@@ -1,6 +1,7 @@
 var webpack = require('webpack');
+var polyfill = require("babel-polyfill");
 var path = require('path');
-var entry = './src/app/main.js',
+var entry = ['babel-polyfill', './src/app/main.js'],
     output = {
         path: __dirname,
         filename: 'main.js'

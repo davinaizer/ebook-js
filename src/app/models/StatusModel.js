@@ -77,7 +77,7 @@ export default class StatusModel extends Backbone.Model {
             if (this.lessonStatus !== "completed") {
                 for (var key in data) {
                     if (key.indexOf("suspend_data") > -1) {
-                        $.extend(true, this.suspendData, data[key]);
+                        Object.assign(this.suspendData, data[key]);
                         data[key] = JSON.stringify(this.suspendData).replace(/"/g, "'");
                     }
                     this.setParam(key, data[key]);

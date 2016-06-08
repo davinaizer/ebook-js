@@ -5,7 +5,7 @@ import template from 'templates/footer.hbs';
 export default class FooterView extends Backbone.View {
 
     constructor(options) {
-        $.extend(options || {}, {
+        Object.assign(options || {}, {
                 el: $("#footer")
             }
         );

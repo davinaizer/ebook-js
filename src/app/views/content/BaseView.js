@@ -6,7 +6,7 @@ import EventBus from 'helpers/EventBus';
 export default class BaseView extends Backbone.View {
 
     constructor(options) {
-        $.extend(options || {}, {
+        Object.assign(options || {}, {
             events: {
                 "click #btn-next-section": "next"
             }

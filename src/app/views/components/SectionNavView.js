@@ -8,7 +8,7 @@ import template from 'templates/components/section_nav';
 export default class SectionsNavView extends Backbone.View {
 
     constructor(options) {
-        $.extend(options || {}, {
+        Object.assign(options || {}, {
                 el: $("#section-guide")
             }
         );

@@ -6,7 +6,7 @@ import template from 'templates/navbar.hbs';
 export default class NavView extends Backbone.View {
 
     constructor(options) {
-        $.extend(options || {}, {
+        Object.assign(options || {}, {
             el: $("#navigation"),
             events: {
                 'click .navbar-btn': 'navHandler'

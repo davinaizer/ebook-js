@@ -39,7 +39,7 @@ export default class NavModel extends Backbone.Model {
             chapter.index = chapterCount++;
             chapter.total = this.chapters.length;
 
-            var chapterRef = $.extend({}, chapter);
+            var chapterRef = Object.assign({}, chapter);
             delete chapterRef.section;
 
             for (var s = 0; s < chapter.section.length; ++s) {
@@ -53,7 +53,7 @@ export default class NavModel extends Backbone.Model {
                     chapter: chapterRef
                 };
 
-                $.extend(section, sectionData);
+                Object.assign(section, sectionData);
                 this.items.push(chapter.section[s]);
             }
             this.chapterTotalItems.push(chapter.section.length)
