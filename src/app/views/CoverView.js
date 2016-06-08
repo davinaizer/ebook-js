@@ -9,7 +9,6 @@ export default class CoverView extends Backbone.View {
 
     constructor(options) {
         Object.assign(options || {}, {
-            el: $("#content"),
             events: {
                 'click #start-btn': 'start'
             }

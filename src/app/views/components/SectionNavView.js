@@ -9,7 +9,7 @@ export default class SectionsNavView extends Backbone.View {
 
     constructor(options) {
         Object.assign(options || {}, {
-                el: $("#section-guide")
+                el: "#section-guide"
             }
         );
         super(options);

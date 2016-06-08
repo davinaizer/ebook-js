@@ -27,11 +27,11 @@ export default Backbone.View.extend({
         this.statusModel = new StatusModel();
 
         //-- VIEWS
-        this.coverPageView = new CoverPageView({model: this.navModel});
-        this.navbarView = new NavbarView({model: this.navModel});
+        this.coverPageView = new CoverPageView({el: '#content', model: this.navModel});
+        this.navbarView = new NavbarView({el: '#navigation', model: this.navModel});
 
-        //-- CONTROLLERS-VIEWS
-        this.navControl = new NavController({model: this.navModel});
+        //-- VIEWS-CONTROLLERS
+        this.navControl = new NavController({el: '#content', model: this.navModel});
     },
 
     bootstrap() {

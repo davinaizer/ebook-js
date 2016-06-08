@@ -7,7 +7,6 @@ export default class NavView extends Backbone.View {
 
     constructor(options) {
         Object.assign(options || {}, {
-            el: $("#navigation"),
             events: {
                 'click .navbar-btn': 'navHandler'
             }

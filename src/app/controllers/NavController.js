@@ -13,13 +13,14 @@ import * as Templates from 'templates/content/Templates';
 export default class NavController extends Backbone.View {
 
     constructor(options) {
+        Object.assign(options || {}, {
+        });
         super(options);
     }
 
     initialize() {
         console.log("NavController.initialize");
 
-        this.$el = $("#content");
         this.renderedViews = [];
         this.currentSectionModel = null;
     }
@@ -143,7 +144,7 @@ export default class NavController extends Backbone.View {
         console.log("NavController.scrollTo:", section.id);
 
         var offsetTop = 80;
-        var $section = $("#" + section.id);
+        var $section = this.$("#" + section.id);
         var duration = (section.index == 0) ? 0.25 : 0.75;
 
         TweenMax.to(window, duration, {
