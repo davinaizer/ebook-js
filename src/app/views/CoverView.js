@@ -27,7 +27,6 @@ export default class CoverView extends Backbone.View {
     }
 
     render() {
-
         this.$el.html(this.template(this));
 
         if (this.template === tpl_cover) {
@@ -41,11 +40,12 @@ export default class CoverView extends Backbone.View {
     }
 
     start(e) {
+        e.preventDefault();
+
         var $startBtn = this.$("#start-btn");
-        $startBtn.text("Aguarde");
         $startBtn.attr('disabled', 'disabled');
+        this.stopListening();
 
         EventBus.trigger(EventBus.event.NAV_START);
-        e.preventDefault();
     }
 }
