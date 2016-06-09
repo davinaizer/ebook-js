@@ -1,0 +1,15 @@
+{
+    "debug": true,
+    "steps": [
+        {
+            "element": "#my-element",
+            "title": "Title of my step",
+            "content": "Content of my step"
+        },
+        {
+            "element": "#my-other-element",
+            "title": "Title of my step",
+            "content": "Content of my step"
+        }
+    ]
+}

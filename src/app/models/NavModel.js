@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
 import EventBus from 'helpers/EventBus';
-import AppData from '../config.json';
+import AppData from '../data/config.json';
 
 export default class NavModel extends Backbone.Model {
 
