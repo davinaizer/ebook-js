@@ -1,15 +1,12 @@
-/**
- * Created by Naizer on 02/06/2016.
- */
 import $ from 'jquery';
 import Backbone from 'backbone';
-import template from 'templates/components/section_nav';
+import template from 'templates/components/section_nav.hbs';
 
 export default class SectionsNavView extends Backbone.View {
 
     constructor(options) {
         Object.assign(options || {}, {
-                el: "#section-guide"
+                el: "#section-nav"
             }
         );
         super(options);

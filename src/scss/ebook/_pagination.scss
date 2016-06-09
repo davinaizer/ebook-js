@@ -1,58 +1,113 @@
 //
 // Pagination (multiple pages)
 // --------------------------------------------------
-.pagination {
-
-  > li {
-    > a,
-    > span {
-      margin: 0 1em;
-      border-radius: 50%;
+.chapter-nav {
+    > li {
+        > a,
+        > span {
+            margin: 0 1em;
+            border-radius: 50%;
+        }
+        &:first-child {
+            > a,
+            > span {
+                margin: 0 1em;
+                border-radius: 50%;
+            }
+        }
+        &:last-child {
+            > a,
+            > span {
+                margin: 0 1em;
+                border-radius: 50%;
+            }
+        }
     }
-
-    &:first-child {
-      > a,
-      > span {
-        margin: 0 1em;
-        border-radius: 50%;
-      }
+    > .next > a,
+    > .next > span {
+        &,
+        &:hover,
+        &:focus {
+            margin: -10px 1em !important;
+            padding: 20px 25px;
+        }
     }
-
-    &:last-child {
-      > a,
-      > span {
-        margin: 0 1em;
-        border-radius: 50%;
-      }
+    > li {
+        position: relative;
+        display: inline-block;
+        &:after {
+            content: '';
+            position: absolute;
+            top: 1.4em;
+            left: 3em;
+            width: 6em;
+            border-top: 2px solid $gray-light;
+            z-index: -1;
+        }
+        &:last-child::after {
+            display: none;
+        }
     }
-  }
+}
 
-  > .next > a,
-  > .next > span {
-    &,
-    &:hover,
-    &:focus {
-      margin: -10px 1em !important;
-      padding: 20px 25px;
+#section-nav {
+    margin: 0 0;
+    position: fixed;
+    right: 0;
+    top: 40%;
+    z-index: 10;
+}
+
+.section-nav {
+    > li {
+        > a,
+        > span {
+            margin: 0.3em 1em;
+            padding: 2px 8px;
+            border-radius: 50%;
+        }
+        &:first-child {
+            > a,
+            > span {
+                margin: 0.3em 1em;
+                padding: 2px 8px;
+                border-radius: 50%;
+            }
+        }
+        &:last-child {
+            > a,
+            > span {
+                margin: 0.3em 1em;
+                padding: 2px 8px;
+                border-radius: 50%;
+            }
+        }
     }
-  }
-
-  > li {
-    position: relative;
-    display: inline-block;
-
-    &:after {
-      content: '';
-      position: absolute;
-      top: 1.4em;
-      left: 3em;
-      width: 6em;
-      border-top: 2px solid $gray-light;
-      z-index: -1;
+    > .next > a,
+    > .next > span {
+        &,
+        &:hover,
+        &:focus {
+            margin: -10px 1em !important;
+            padding: 20px 25px;
+        }
     }
+    > li {
+        display: block;
+        position: relative;
 
-    &:last-child::after {
-      display: none;
+        &:after {
+            content: '';
+            position: absolute;
+            top: 1.4em;
+            left: 2em;
+            height: 100%;
+            width: 1px;
+            border-left: 1px solid $gray-light;
+            z-index: -1;
+        }
+        &:last-child::after {
+            display: none;
+        }
     }
-  }
 }
