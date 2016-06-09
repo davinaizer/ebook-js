@@ -3,10 +3,6 @@
 @import "../../node_modules/font-awesome/scss/font-awesome";
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "bootswatch/bootswatch";
+
 /* EBOOK GLOBALS */
-@import "ebook/global";
-@import "ebook/navbar";
-@import "ebook/content";
-@import "ebook/callout";
-@import "ebook/pagination";
-@import "ebook/progress_bars";
+@import "ebook/**/*.scss";

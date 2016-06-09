@@ -46,6 +46,7 @@ gulp.task('html', () => {
 gulp.task('styles', (cb) => {
     return gulp.src(src + 'scss/main.scss')
         .pipe($.sourcemaps.init())
+        .pipe($.sassGlob())
         .pipe($.sass({
             errLogToConsole: true,
             outputStyle: 'compact',
