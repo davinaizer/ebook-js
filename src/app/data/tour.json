@@ -1,15 +1,34 @@
 {
-    "debug": true,
+    "animation": true,
+    "autoscroll": true,
+    "backdrop": true,
+    "debug": false,
+    "storage": false,
     "steps": [
         {
-            "element": "#my-element",
-            "title": "Title of my step",
-            "content": "Content of my step"
+            "element": "",
+            "orphan": true,
+            "title": "Bem-vindo",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae sodales libero. Donec consequat, nisi lobortis viverra tincidunt, odio odio pharetra sapien, quis scelerisque nisl risus vitae tellus. Phasellus ut tortor facilisis, finibus velit in, iaculis libero."
         },
         {
-            "element": "#my-other-element",
-            "title": "Title of my step",
-            "content": "Content of my step"
+            "element": "#btn-next-section",
+            "title": "Next",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae sodales libero. Donec consequat, nisi lobortis viverra tincidunt, odio odio pharetra sapien, quis scelerisque nisl risus vitae tellus. Phasellus ut tortor facilisis, finibus velit in, iaculis libero.",
+            "reflex": true,
+            "placement": "top"
+        },
+        {
+            "element": "#section-nav ul",
+            "title": "Section Nav",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae sodales libero.",
+            "placement": "left"
+        },
+        {
+            "element": "#menu",
+            "title": "Section Nav",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae sodales libero.",
+            "placement": "bottom"
         }
     ]
 }
