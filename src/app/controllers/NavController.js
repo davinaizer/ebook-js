@@ -4,17 +4,19 @@ import EventBus from 'helpers/EventBus';
 import TweenMax from 'gsap';
 import ScrollToPlugin from "gsap/src/uncompressed/plugins/ScrollToPlugin";
 
-// IMPORT ALL CONTENT CLASSES AND TEMPLATES
-import BaseView from 'views/content/BaseView';
+/* COMPONENTS */
 import ChapterNav from 'views/components/ChapterNavView'
+import SectionNav from 'views/components/SectionNavView';
+
+/* CONTENT AND TEMPLATES */
+import BaseView from 'views/content/BaseView';
 import * as Sections from 'views/content/Content';
 import * as Templates from 'templates/content/Templates';
 
 export default class NavController extends Backbone.View {
 
     constructor(options) {
-        Object.assign(options || {}, {
-        });
+        Object.assign(options || {}, {});
         super(options);
     }
 
@@ -29,7 +31,9 @@ export default class NavController extends Backbone.View {
     start() {
         console.log("NavController.start");
 
-        //TODO remove Cover page using REMOVE() method
+        this.sectionNav = new SectionNav({el: '#section-nav', model: this.model});
+        this.sectionNav.render();
+
         this.$el.empty();
         this.currentSectionModel = this.model.getCurrentItem();
         this.goto(this.currentSectionModel);
@@ -64,24 +68,29 @@ export default class NavController extends Backbone.View {
         console.log("NavController.goto(", section.id, ")");
 
         if (section) {
-            //save data
+            this.model.goto(section);
+
+            //save data before rendering page
             this.model.save();
             this.model.trigger('change');
             EventBus.trigger(EventBus.event.NAV_CHANGE, this.model);
 
-            // if next Section is in the same Chapter of the currentSection, if not, remove all renderedViews[] and render nextSection
             if (section.chapter.index == this.currentSectionModel.chapter.index) {
                 if (this.renderedViews[section.index]) {
                     this.scrollTo(section);
+                    return;
                 }
             } else {
                 console.log("NavController.goto > New Chapter. Clear all Views.");
+
                 for (var i = 0; i < this.renderedViews.length; ++i) {
                     this.renderedViews[i].undelegateEvents();
                     this.renderedViews[i].remove();
                 }
-                this.chapterNav.remove();
 
+                //- clear all
+                this.sectionNav.render();
+                this.chapterNav.remove();
                 this.$el.empty();
                 this.renderedViews = [];
                 $(window).scrollTop(0);
@@ -111,12 +120,11 @@ export default class NavController extends Backbone.View {
 
                 nextSectionView.bootstrap();
                 nextSectionView.transitionIn();
-
                 this.renderedViews.push(nextSectionView);
 
-                //-- hide next btn
+                //-- hide next btn from section already seen
                 if (nextSection.uid < maxSection.uid) {
-                    this.renderedViews[i].disableNextSection();
+                    this.renderedViews[i].hideNextBtn();
                 }
             }
         }
@@ -142,6 +150,8 @@ export default class NavController extends Backbone.View {
 
     scrollTo(section) {
         console.log("NavController.scrollTo:", section.id);
+
+        this.sectionNav.validate();
 
         var offsetTop = 80;
         var $section = this.$("#" + section.id);

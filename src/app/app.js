@@ -10,7 +10,6 @@ import StatusModel from 'models/StatusModel';
 /* VIEWS */
 import CoverPageView from 'views/CoverView';
 import NavbarView from 'views/NavView';
-import SectionNavView from 'views/components/SectionNavView';
 
 /* CONTROLLERS */
 import NavController from 'controllers/NavController';
@@ -30,7 +29,6 @@ export default Backbone.View.extend({
         //-- VIEWS
         this.coverPageView = new CoverPageView({el: '#content', model: this.navModel});
         this.navbarView = new NavbarView({el: '#navigation', model: this.navModel});
-        this.sectionNavView = new SectionNavView({el: '#section-nav', model: this.navModel});
 
         //-- VIEWS-CONTROLLERS
         this.navControl = new NavController({el: '#content', model: this.navModel});
@@ -54,7 +52,6 @@ export default Backbone.View.extend({
         /* NAV EVENTS */
         EventBus.on(EventBus.event.NAV_START, () => {
             this.navbarView.render();
-            this.sectionNavView.render();
             this.navControl.start();
         });
 

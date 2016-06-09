@@ -42,7 +42,7 @@ export default class BaseView extends Backbone.View {
         EventBus.trigger(EventBus.event.PAGE_TRANSITION_IN_COMPLETE);
     }
 
-    disableNextSection() {
+    hideNextBtn() {
         this.$("#btn-next-section").hide();
     }
 
