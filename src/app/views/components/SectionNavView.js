@@ -37,20 +37,16 @@ export default class SectionsNavView extends Backbone.View {
     }
 
     validate() {
-        console.log("SectionsNavView.validate");
-
         var currentSection = this.model.getCurrentItem();
         var maxSection = this.model.getMaxItem();
         var maxSectionIndex = (maxSection.chapter.index > currentSection.chapter.index) ? currentSection.total : maxSection.index;
 
         this.$("li").each((index, el)=> {
-            this.$(el).removeClass("active disabled").attr("disabled", false);
+            this.$(el).find("a").blur();
+            this.$(el).removeClass("disabled").attr("disabled", false);
 
-            if (index == currentSection.index) {
-                $(el).addClass("active").attr("disabled", true);
-            }
             if (index > maxSectionIndex) {
-                $(el).addClass("disabled").attr("disabled", true);
+                this.$(el).addClass("disabled").attr("disabled", true);
             }
         });
     }

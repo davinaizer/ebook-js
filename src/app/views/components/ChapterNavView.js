@@ -15,7 +15,7 @@ export default class ChapterNavView extends Backbone.View {
                 events: {
                     "click #btn-next-chapter": "nextChapter",
                     "click #btn-prev-chapter": "prevChapter",
-                    "click li>a": "chapterNav"
+                    "click li": "chapterNav"
                 }
             }
         );
@@ -53,7 +53,7 @@ export default class ChapterNavView extends Backbone.View {
         var maxChapter = this.model.getMaxItem().chapter;
         var nextChapterId = maxChapter.index + 1;
 
-        this.$("ul>li").each((index, el)=> {
+        this.$("li").each((index, el)=> {
             if (currentChapter.index == index) {
                 $(el).addClass("active").attr("disabled", true);
             } else if (index == nextChapterId) {
@@ -76,7 +76,7 @@ export default class ChapterNavView extends Backbone.View {
 
     chapterNav(e) {
         var $target = this.$(e.currentTarget);
-        var chapterId = $target.attr("href").split("chapter/")[1];
+        var chapterId = $target.find("a").attr("href").split("chapter/")[1];
         var isEnabled = !$target.is("[disabled]");
         if (isEnabled) {
             EventBus.trigger(EventBus.event.NAV_GOTO_CHAPTER, chapterId);

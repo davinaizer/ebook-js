@@ -96,12 +96,13 @@ export default class NavController extends Backbone.View {
                     this.scrollScenes[i].destroy();
                 }
 
-                //- clear all
+                // clear all
                 this.sectionNav.render();
                 this.chapterNav.remove();
                 this.renderedViews = [];
                 this.scrollScenes = [];
                 this.$el.empty();
+
                 $(window).scrollTop(0);
             }
 
@@ -133,13 +134,15 @@ export default class NavController extends Backbone.View {
                 this.renderedViews.push(nextSectionView);
 
                 // SCROLLMAGIC SCENES
-                console.log("SCROLLMAGIC ID:");
                 this.scrollScenes[i] = new ScrollMagic.Scene({
-                        triggerElement: nextSectionView.el,
-                        duration: nextSectionView.$el.height()
-                    })
+                    triggerElement: nextSectionView.el,
+                    duration: nextSectionView.$el.height()
+                })
                     .setClassToggle("#item_" + nextSection.id, "active")
                     .addTo(this.scrollControl)
+                    .on("enter", () => {
+                        this.onSectionEnter(nextSection);
+                    });
 
                 //-- hide next btn from section already seen
                 if (nextSection.uid < maxSection.uid) {
@@ -155,13 +158,20 @@ export default class NavController extends Backbone.View {
         }
     }
 
+    onSectionEnter(section) {
+        console.log("NavController.onSectionEnter:", section.uid);
+        this.currentSectionModel = section;
+        this.model.currentIndex = section.uid;
+        this.sectionNav.validate();
+    }
+
     getSectionView(section) {
         var SectionViewClass = Sections[section.id] || BaseView;
         var SectionView = new SectionViewClass({
             id: section.id,
-            model: section,
-            navModel: this.model
+            model: section
         });
+        SectionView.navModel = this.model;
         SectionView.template = Templates[section.id];
 
         return SectionView;
@@ -169,8 +179,6 @@ export default class NavController extends Backbone.View {
 
     scrollTo(section) {
         console.log("NavController.scrollTo:", section.id);
-
-        this.sectionNav.validate();
 
         var offsetTop = 80;
         var $section = this.$("#" + section.id);

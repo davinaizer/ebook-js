@@ -10,6 +10,7 @@ require('bootstrap-tour');
 export default class SectionView extends BaseView {
 
     constructor(options) {
+        Object.assign(options || {}, {});
         super(options);
     }
 
@@ -17,11 +18,12 @@ export default class SectionView extends BaseView {
     }
 
     bootstrap() {
-        TourData.template = template;
-
-        var tour = new Tour(TourData);
-        tour.template = template;
-        tour.init();
-        tour.start();
+        if (this.navModel.maxIndex === 0) {
+            TourData.template = template;
+            var tour = new Tour(TourData);
+            tour.template = template;
+            tour.init();
+            tour.start();
+        }
     }
 }
