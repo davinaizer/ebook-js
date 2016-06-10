@@ -2,6 +2,7 @@ import $ from 'jquery';
 import Backbone from 'backbone';
 import EventBus from 'helpers/EventBus';
 import TweenMax from 'gsap';
+import ScrollMagic from 'scrollmagic';
 import ScrollToPlugin from "gsap/src/uncompressed/plugins/ScrollToPlugin";
 
 /* COMPONENTS */
@@ -23,6 +24,12 @@ export default class NavController extends Backbone.View {
     initialize() {
         console.log("NavController.initialize");
 
+        this.scrollControl = new ScrollMagic.Controller({
+            globalSceneOptions: {
+                triggerHook: "onCenter"
+            }
+        });
+        this.scrollScenes = [];
         this.renderedViews = [];
         this.currentSectionModel = null;
     }
@@ -86,13 +93,15 @@ export default class NavController extends Backbone.View {
                 for (var i = 0; i < this.renderedViews.length; ++i) {
                     this.renderedViews[i].undelegateEvents();
                     this.renderedViews[i].remove();
+                    this.scrollScenes[i].destroy();
                 }
 
                 //- clear all
                 this.sectionNav.render();
                 this.chapterNav.remove();
-                this.$el.empty();
                 this.renderedViews = [];
+                this.scrollScenes = [];
+                this.$el.empty();
                 $(window).scrollTop(0);
             }
 
@@ -120,7 +129,17 @@ export default class NavController extends Backbone.View {
 
                 nextSectionView.bootstrap();
                 nextSectionView.transitionIn();
+
                 this.renderedViews.push(nextSectionView);
+
+                // SCROLLMAGIC SCENES
+                console.log("SCROLLMAGIC ID:");
+                this.scrollScenes[i] = new ScrollMagic.Scene({
+                        triggerElement: nextSectionView.el,
+                        duration: nextSectionView.$el.height()
+                    })
+                    .setClassToggle("#item_" + nextSection.id, "active")
+                    .addTo(this.scrollControl)
 
                 //-- hide next btn from section already seen
                 if (nextSection.uid < maxSection.uid) {
