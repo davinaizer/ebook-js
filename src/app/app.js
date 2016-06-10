@@ -9,7 +9,7 @@ import StatusModel from 'models/StatusModel';
 
 /* VIEWS */
 import CoverPageView from 'views/CoverView';
-import NavbarView from 'views/NavView';
+import NavbarView from 'views/components/NavView';
 
 /* CONTROLLERS */
 import NavController from 'controllers/NavController';
