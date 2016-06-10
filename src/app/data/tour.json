@@ -22,13 +22,15 @@
             "element": "#section-nav ul",
             "title": "Section Nav",
             "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae sodales libero.",
-            "placement": "left"
+            "placement": "left",
+            "backdropContainer": "#section-nav"
         },
         {
             "element": "#menu",
             "title": "Section Nav",
             "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae sodales libero.",
-            "placement": "bottom"
+            "placement": "bottom",
+            "backdropContainer": ".navbar-fixed-top"
         }
     ]
 }
