@@ -18,7 +18,7 @@ export default class NavbarView extends Backbone.View {
     initialize() {
         console.log("NavView.initialize");
         this.template = template;
-        this.dashboard = new Dashboard({ el: '#dashboard', model: this.model });
+        this.dashboard = new Dashboard({el: '#dashboard', model: this.model});
 
         this.listenTo(this.model, 'change', this.update);
     }
@@ -32,7 +32,7 @@ export default class NavbarView extends Backbone.View {
         this.$el.append(this.dashboard.render().el);
 
         this.update();
-        this.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
+        this.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
 
         return this;
     }
@@ -41,7 +41,8 @@ export default class NavbarView extends Backbone.View {
         this.isPageLoading = false;
     }
 
-    update() {}
+    update() {
+    }
 
     enableBtn($btn, isEnabled) {
         if (isEnabled) {
@@ -79,20 +80,20 @@ export default class NavbarView extends Backbone.View {
             // this.isPageLoading = true;
 
             switch (id) {
-            case "next":
-                EventBus.trigger(EventBus.event.NAV_NEXT);
-                break;
+                case "next":
+                    EventBus.trigger(EventBus.event.NAV_NEXT);
+                    break;
 
-            case "previous":
-                EventBus.trigger(EventBus.event.NAV_PREVIOUS);
-                break;
+                case "previous":
+                    EventBus.trigger(EventBus.event.NAV_PREVIOUS);
+                    break;
 
-            case "menu":
-                console.log("OPEN MENU");
-                this.dashboard.toggle();
-                break;
+                case "menu":
+                    console.log("OPEN MENU");
+                    this.dashboard.toggle();
+                    break;
             }
         }
-        e.stopPropagation();
+        e.preventDefault();
     }
 }
