@@ -38,13 +38,16 @@ export default class DashboardView extends Backbone.View {
             model: this.model
         });
         this.progressbar.render();
+        
+        this.validate();
 
         return this;
     }
 
     show() {
         this.isOpen = true;
-        this.validate();
+        this.render();
+
         this.$(".dashboard").height("100%");
         this.$(".dashboard").scrollTop(0);
 

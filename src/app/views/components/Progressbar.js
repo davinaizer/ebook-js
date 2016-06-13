@@ -15,6 +15,9 @@ export default class Progressbar extends Backbone.View {
         console.log("GlobalProgressbar.initialize");
 
         this.template = template;
+    }
+
+    update() {
         this.chapterProgress = this.model.chaptersProgress;
 
         var chapters = this.model.chapters;
@@ -39,6 +42,7 @@ export default class Progressbar extends Backbone.View {
     render() {
         console.log("GlobalProgressbar.render");
 
+        this.update();
         this.$el.html(this.template(this));
         this.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
 
