@@ -16,6 +16,13 @@ var reload = $.browserSync.reload;
 var src = 'src/';
 var dist = 'dist/';
 
+var sassOptions = {
+    errLogToConsole: true,
+    outputStyle: 'compact',
+    //outputStyle: 'compressed',
+    precision: 10
+}
+
 var autoprefixerBrowsers = [
     'ie >= 9',
     'ie_mob >= 10',
@@ -47,13 +54,7 @@ gulp.task('styles', (cb) => {
     return gulp.src(src + 'scss/main.scss')
         .pipe($.sourcemaps.init())
         .pipe($.sassGlob())
-        .pipe($.sass({
-            errLogToConsole: true,
-            outputStyle: 'compact',
-            //outputStyle: 'compressed',
-            precision: 10
-        }))
-        .on('error', function(err) {
+        .pipe($.sass(sassOptions)).on('error', function (err) {
             $.notify().write(err);
             this.emit('end');
         })
