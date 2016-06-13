@@ -51,7 +51,6 @@
     "handlebars-loader": "^1.1.4",
     "jquery": "^2.2.0",
     "json-loader": "^0.5.4",
-    "perfect-scrollbar": "^0.6.11",
     "scrollmagic": "^2.0.5",
     "webpack": "^1.12.3",
     "webpack-dev-middleware": "^1.0.11",
