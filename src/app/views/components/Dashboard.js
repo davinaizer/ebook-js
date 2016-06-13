@@ -44,6 +44,7 @@ export default class DashboardView extends Backbone.View {
 
     show() {
         this.isOpen = true;
+        this.validate();
         this.$(".dashboard").height("100%");
         this.$(".dashboard").scrollTop(0);
 
@@ -65,18 +66,31 @@ export default class DashboardView extends Backbone.View {
         }
     }
 
+    validate() {
+        var maxSectionUid = this.model.maxSection.uid;
+
+        this.$("li>a").each((index, el)=> {
+            this.$(el).find("a").blur();
+            this.$(el).removeClass("disabled").attr("disabled", false);
+
+            if (index > maxSectionUid) {
+                this.$(el).addClass("disabled").attr("disabled", true);
+            }
+        });
+    }
+
     //-- NAVIGATION FUNTCIONS
     navHandler(e) {
         var $target = this.$(e.currentTarget);
         var id = $target.attr("id");
-        var isEnabled = !$target.is("[disabled]");
+        var isEnabled = !$target.is("[disabled]") && (id.indexOf("btn-menu-") > -1);
 
-        console.log("navHandler.id:", id);
         if (isEnabled && !this.isPageLoading) {
-            switch (id) {
-                case "menu-close":
-                    this.hide();
-                    break;
+            this.hide();
+
+            var sectionUid = parseInt(id.split("btn-menu-")[1]);
+            if (sectionUid >= 0) {
+                EventBus.trigger(EventBus.event.NAV_GOTO, this.model.getSection(sectionUid));
             }
         }
         e.preventDefault();
