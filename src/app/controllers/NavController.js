@@ -42,7 +42,7 @@ export default class NavController extends Backbone.View {
         this.sectionNav.render();
 
         this.$el.empty();
-        this.currentSectionModel = this.model.getCurrentItem();
+        this.currentSectionModel = this.model.currentSection;
         this.goto(this.currentSectionModel);
     }
 
@@ -118,12 +118,12 @@ export default class NavController extends Backbone.View {
 
         var chapter = this.model.getChapter(section.chapter.index);
         var firstSection = chapter.section[0];
-        var maxSection = this.model.getMaxItem();
+        var maxSection = this.model.maxSection;
         var sectionsToRender = (maxSection.chapter.index > section.chapter.index) ? section.total : maxSection.index + 1;
 
         for (var i = 0; i < sectionsToRender; ++i) {
             if (!this.renderedViews[i]) {
-                var nextSection = this.model.getItem(firstSection.uid + i);
+                var nextSection = this.model.getSection(firstSection.uid + i);
                 var nextSectionView = this.getSectionView(nextSection);
 
                 this.$el.append(nextSectionView.render().el);
@@ -138,7 +138,7 @@ export default class NavController extends Backbone.View {
                     triggerElement: nextSectionView.el,
                     duration: nextSectionView.$el.height()
                 })
-                    .setClassToggle("#item_" + nextSection.id, "active")
+                    .setClassToggle("#section-nav-item-" + nextSection.uid, "active")
                     .addTo(this.scrollControl)
                     .on("enter", () => {
                         this.onSectionEnter(nextSection);

@@ -25,7 +25,7 @@ export default class ChapterNavView extends Backbone.View {
     initialize() {
         console.log("ChapterNavView.initialize");
         this.template = template;
-        this.chapters = this.model.data.chapter;
+        this.chapters = this.model.chapters;
     }
 
     render() {
@@ -42,7 +42,7 @@ export default class ChapterNavView extends Backbone.View {
 
     validate() {
         // validate buttons
-        var currentChapter = this.model.getCurrentChapter();
+        var currentChapter = this.model.currentChapter;
         if (currentChapter.index == 0) {
             this.$("#btn-prev-chapter").hide();
         } else if (currentChapter.index == currentChapter.total - 1) {
@@ -50,7 +50,7 @@ export default class ChapterNavView extends Backbone.View {
         }
 
         //-- validate chapter guide
-        var maxChapter = this.model.getMaxItem().chapter;
+        var maxChapter = this.model.maxSection.chapter;
         var nextChapterId = maxChapter.index + 1;
 
         this.$("li").each((index, el)=> {

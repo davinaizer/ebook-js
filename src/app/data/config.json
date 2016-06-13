@@ -8,7 +8,7 @@
         "chapter": [
             {
                 "title": "Chapter 1",
-                "thumbnail": "imgs/chapter_0/thumb.jpg",
+                "thumbnail": "http://placehold.it/300x150/A10A2B/fff",
                 "section": [
                     {
                         "title": "Section 1"
@@ -23,7 +23,7 @@
             },
             {
                 "title": "Chapter 2",
-                "thumbnail": "imgs/chapter_1/thumb.jpg",
+                "thumbnail": "http://placehold.it/300x150/A10A2B/fff",
                 "section": [
                     {
                         "title": "Section 1"
@@ -35,7 +35,7 @@
             },
             {
                 "title": "Chapter 3",
-                "thumbnail": "imgs/chapter_2/thumb.jpg",
+                "thumbnail": "http://placehold.it/300x150/A10A2B/fff",
                 "section": [
                     {
                         "title": "Section 1"
@@ -44,7 +44,7 @@
                         "title": "Section 2"
                     },
                     {
-                        "title": "CONCLUSÃO"
+                        "title": "Conclusão"
                     }
                 ]
             }

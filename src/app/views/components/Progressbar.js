@@ -15,13 +15,13 @@ export default class Progressbar extends Backbone.View {
         console.log("GlobalProgressbar.initialize");
 
         this.template = template;
-        this.chapterProgress = this.model.getChaptersProgress();
+        this.chapterProgress = this.model.chaptersProgress;
 
         var chapters = this.model.chapters;
         var userTotal = 0;
         var globalTotal = 0;
 
-        for (var i = 0; i < chapters.length; ++i) {
+        for (var i = 0; i < this.chapterProgress.length; ++i) {
             var chapterP = this.chapterProgress[i];
 
             chapterP.user *= 100;

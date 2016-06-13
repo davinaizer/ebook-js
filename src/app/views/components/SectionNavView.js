@@ -24,10 +24,8 @@ export default class SectionsNavView extends Backbone.View {
     render() {
         console.log("SectionsNavView.render:");
 
-        this.section = this.model.getCurrentChapter().section;
-
         this.$el.hide();
-        this.$el.html(this.template(this));
+        this.$el.html(this.template(this.model));
         this.$el.fadeIn(500);
 
         this.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
@@ -37,8 +35,8 @@ export default class SectionsNavView extends Backbone.View {
     }
 
     validate() {
-        var currentSection = this.model.getCurrentItem();
-        var maxSection = this.model.getMaxItem();
+        var currentSection = this.model.currentSection;
+        var maxSection = this.model.maxSection;
         var maxSectionIndex = (maxSection.chapter.index > currentSection.chapter.index) ? currentSection.total : maxSection.index;
 
         this.$("li").each((index, el)=> {
@@ -53,12 +51,11 @@ export default class SectionsNavView extends Backbone.View {
 
     sectionNav(e) {
         var $target = this.$(e.currentTarget);
-        var sectionId = $target.find("a").attr("href").split("section/")[1];
+        var sectionUid = $target.attr("id").split("section-nav-item-")[1];
         var isEnabled = !$target.is("[disabled]");
 
         if (isEnabled) {
-            var sectionUid = this.section[sectionId].uid;
-            var section = this.model.getItem(sectionUid);
+            var section = this.model.getSection(sectionUid);
             EventBus.trigger(EventBus.event.NAV_GOTO, section);
         }
         e.preventDefault();

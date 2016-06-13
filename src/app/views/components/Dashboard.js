@@ -2,6 +2,7 @@ import Backbone from 'backbone';
 import Bootstrap from 'bootstrap-sass';
 import EventBus from 'helpers/EventBus';
 import TweenMax from 'gsap';
+import Progressbar from 'views/components/Progressbar';
 import template from 'templates/components/dashboard.hbs';
 
 export default class DashboardView extends Backbone.View {
@@ -30,7 +31,13 @@ export default class DashboardView extends Backbone.View {
 
     render() {
         console.log("DashboardView.render");
-        this.$el.html(this.template());
+        this.$el.html(this.template(this.model));
+
+        this.progressbar = new Progressbar({
+            el: '#progress-bar-menu',
+            model: this.model
+        });
+        this.progressbar.render();
 
         return this;
     }
@@ -60,11 +67,11 @@ export default class DashboardView extends Backbone.View {
 
     //-- NAVIGATION FUNTCIONS
     navHandler(e) {
-        console.log(e);
         var $target = this.$(e.currentTarget);
         var id = $target.attr("id");
         var isEnabled = !$target.is("[disabled]");
 
+        console.log("navHandler.id:", id);
         if (isEnabled && !this.isPageLoading) {
             switch (id) {
                 case "menu-close":

@@ -1,9 +1,11 @@
 <nav class="text-center">
     <ul class="pagination section-nav">
-        {{#each section}}
-            <li id="item_{{id}}">
-                <a href="#/chapter/{{chapter.index}}/section/{{index}}" data-container="#section-nav" data-placement="left" data-toggle="tooltip" title="{{title}}">{{index}}</a>
-            </li>
-        {{/each}}
+        {{#with currentChapter}}
+            {{#each section}}
+                <li id="section-nav-item-{{uid}}">
+                    <a href="#/chapter/{{../index}}/section/{{index}}" data-container="#section-nav" data-placement="left" data-toggle="tooltip" title="{{title}}">&nbsp;</a>
+                </li>
+            {{/each}}
+        {{/with}}
     </ul>
 </nav>

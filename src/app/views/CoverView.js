@@ -22,8 +22,8 @@ export default class CoverView extends Backbone.View {
     initialize() {
         console.log("CoverPageView.initialize");
 
+        this.globalProgress = this.model.globalProgress;
         this.template = (this.model.maxIndex > 0 && this.model.lessonMode == "normal") ? tpl_cover : tpl_cover_newuser;
-        this.globalProgress = ((this.model.maxIndex + 1) / this.model.totalItems * 100).toFixed(0);
     }
 
     render() {
@@ -31,7 +31,7 @@ export default class CoverView extends Backbone.View {
 
         if (this.template === tpl_cover) {
             this.progressbar = new Progressbar({
-                el: '#progress-bar',
+                el: '#progress-bar-cover',
                 model: this.model
             });
             this.progressbar.render();
