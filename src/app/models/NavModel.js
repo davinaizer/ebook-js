@@ -15,7 +15,7 @@ export default class NavModel extends Backbone.Model {
         this.sectionList = [];
         this.totalSections = 0;
         this.chapterTotalSections = [];
-        this.maxIndex = 1;
+        this.maxIndex = 0;
         this.currentIndex = 0;
         this.lessonMode = "normal";
 
