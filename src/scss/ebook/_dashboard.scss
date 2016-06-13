@@ -1,0 +1,24 @@
+.dashboard {
+    position: absolute;
+    height: 0%;
+    width: 100%;
+    z-index: $zindex-dashboard;
+    left: 0;
+    top: 0;
+    background-color: #EEE;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.dashboard-content {
+    position: relative;
+    width: 400;
+    margin-top: 80px;
+}
+
+.closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px !important;
+}
