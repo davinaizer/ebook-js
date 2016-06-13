@@ -1,12 +1,12 @@
 .dashboard {
-    position: absolute;
-    height: 0%;
+    position: fixed;
+    height: 0;
     width: 100%;
     z-index: $zindex-dashboard;
     left: 0;
     top: 0;
-    background-color: #EEE;
-    overflow: hidden;
+    background-color: #FFF;
+    overflow: auto;
     transition: 0.5s;
 }
 
@@ -16,9 +16,9 @@
     margin-top: 80px;
 }
 
-.closebtn {
+.btn-menu-close {
     position: absolute;
-    top: 20px;
-    right: 45px;
-    font-size: 60px !important;
+    top: -30px;
+    right: 0;
+    font-size: 80px !important;
 }

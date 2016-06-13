@@ -1,5 +1,4 @@
 /* CENTER LOGO */
-
 .navbar {
     &-brand {
         position: absolute;
@@ -10,16 +9,14 @@
         display: block;
     }
     &-fixed-top {
-        -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-        -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        @include box_shadow(2);
     }
 }
 
 .navbar-btn {
     text-align: center;
     width: 50px;
-    margin: 0px;
+    margin: 0;
 }
 
 //-- REMOVE NAVBAR COLLAPSE

@@ -1,9 +1,14 @@
 /* LIBS */
-@import "bootswatch/variables";
+@import "themes/variables";
 @import "../../node_modules/bootstrap-tour/build/css/bootstrap-tour";
 @import "../../node_modules/font-awesome/scss/font-awesome";
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-@import "bootswatch/bootswatch";
+@import "themes/bootswatch";
+
+/* MIXINS */
+@import "abstract/**/*.scss";
 
 /* EBOOK GLOBALS */
 @import "ebook/**/*.scss";
+@import "components/**/*.scss";
+

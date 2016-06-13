@@ -1,0 +1,18 @@
+//
+// Breadcrumbs
+// --------------------------------------------------
+
+.breadcrumb-custom {
+    background-color: transparent;
+    padding-left: 0;
+
+    > .active {
+        @extend h1;
+        display: block;
+
+        &:before {
+            padding: 0;
+            content: "";
+        }
+    }
+}

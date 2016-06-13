@@ -9,15 +9,23 @@ export default class DashboardView extends Backbone.View {
     constructor(options) {
         Object.assign(options || {}, {
             events: {
-                'click .navbar-btn': 'navHandler'
+                'click .btn': 'navHandler'
             }
         });
+
         super(options);
     }
 
     initialize() {
+        this.bind("navHandler", 'keyPress');
+
         this.isOpen = false;
         this.template = template;
+
+        //-- lister for keyboard
+        $(document).on('keydown', (e) => {
+            this.keyPress(e);
+        });
     }
 
     render() {
@@ -30,12 +38,15 @@ export default class DashboardView extends Backbone.View {
     show() {
         this.isOpen = true;
         this.$(".dashboard").height("100%");
+        this.$(".dashboard").scrollTop(0);
+
         $("body").css("overflow", "hidden");
     }
 
     hide() {
         this.isOpen = false;
         this.$(".dashboard").height(0);
+
         $("body").css("overflow", "scroll");
     }
 
@@ -49,11 +60,27 @@ export default class DashboardView extends Backbone.View {
 
     //-- NAVIGATION FUNTCIONS
     navHandler(e) {
+        console.log(e);
         var $target = this.$(e.currentTarget);
         var id = $target.attr("id");
         var isEnabled = !$target.is("[disabled]");
 
-        if (isEnabled && !this.isPageLoading) {}
-        e.stopPropagation();
+        if (isEnabled && !this.isPageLoading) {
+            switch (id) {
+                case "menu-close":
+                    this.hide();
+                    break;
+            }
+        }
+        e.preventDefault();
+    }
+
+    keyPress(e) {
+        var code = e.keyCode || e.which;
+        if (code == 27 && this.isOpen) {
+            //ESC press
+            this.hide();
+            e.preventDefault();
+        }
     }
 }
