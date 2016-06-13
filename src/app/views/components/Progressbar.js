@@ -2,9 +2,9 @@ import $ from 'jquery';
 import Backbone from 'backbone';
 import Bootstrap from 'bootstrap-sass';
 import EventBus from 'helpers/EventBus';
-import template from 'templates/components/global_progressbar.hbs';
+import template from 'templates/components/progressbar.hbs';
 
-export default class GlobalProgressbar extends Backbone.View {
+export default class Progressbar extends Backbone.View {
 
     constructor(options) {
         Object.assign(options || {}, {});
