@@ -9,7 +9,7 @@ import StatusModel from 'models/StatusModel';
 
 /* VIEWS */
 import CoverPageView from 'views/CoverView';
-import NavbarView from 'views/components/NavView';
+import NavbarView from 'views/components/NavbarView';
 
 /* CONTROLLERS */
 import NavController from 'controllers/NavController';
@@ -28,7 +28,7 @@ export default Backbone.View.extend({
 
         //-- VIEWS
         this.coverPageView = new CoverPageView({el: '#content', model: this.navModel});
-        this.navbarView = new NavbarView({el: '#navigation', model: this.navModel});
+        this.navbarView = new NavbarView({el: '#navbar', model: this.navModel});
 
         //-- VIEWS-CONTROLLERS
         this.navControl = new NavController({el: '#content', model: this.navModel});

@@ -1,9 +1,10 @@
 import Backbone from 'backbone';
 import Bootstrap from 'bootstrap-sass';
 import EventBus from 'helpers/EventBus';
+import Dashboard from 'views/components/Dashboard'
 import template from 'templates/components/navbar.hbs';
 
-export default class NavView extends Backbone.View {
+export default class NavbarView extends Backbone.View {
 
     constructor(options) {
         Object.assign(options || {}, {
@@ -17,6 +18,8 @@ export default class NavView extends Backbone.View {
     initialize() {
         console.log("NavView.initialize");
         this.template = template;
+        this.dashboard = new Dashboard({ el: '#dashboard', model: this.model });
+
         this.listenTo(this.model, 'change', this.update);
     }
 
@@ -26,8 +29,10 @@ export default class NavView extends Backbone.View {
         this.$el.html(this.template());
         this.$el.fadeIn(250);
 
+        this.$el.append(this.dashboard.render().el);
+
         this.update();
-        this.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
+        this.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
 
         return this;
     }
@@ -36,13 +41,7 @@ export default class NavView extends Backbone.View {
         this.isPageLoading = false;
     }
 
-    update() {
-        var isNextEnabled = (this.model.currentSectionIndex !== this.model.totalSections - 1);
-        var isPrevEnabled = (this.model.currentSectionIndex !== 0);
-
-        this.enableBtn(this.$("#next"), isNextEnabled);
-        this.enableBtn(this.$("#previous"), isPrevEnabled);
-    }
+    update() {}
 
     enableBtn($btn, isEnabled) {
         if (isEnabled) {
@@ -74,11 +73,10 @@ export default class NavView extends Backbone.View {
         var id = $target.attr("id");
         var isEnabled = !$target.is("[disabled]");
 
-
         if (isEnabled && !this.isPageLoading) {
 
-            this.enableNav(false);
-            this.isPageLoading = true;
+            // this.enableNav(false);
+            // this.isPageLoading = true;
 
             switch (id) {
             case "next":
@@ -90,8 +88,8 @@ export default class NavView extends Backbone.View {
                 break;
 
             case "menu":
-                this.enableNav(true);
-                this.isPageLoading = false;
+                console.log("OPEN MENU");
+                this.dashboard.toggle();
                 break;
             }
         }
