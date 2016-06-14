@@ -91,15 +91,17 @@
     > li {
         display: block;
         position: relative;
+        width: 45px;
+        height: 25px;
 
         &:after {
             content: '';
             position: absolute;
             top: 1.4em;
-            left: 2em;
+            left: 1.8em;
             height: 100%;
             width: 1px;
-            border-left: 1px solid $gray-light;
+            border-left: 1px dotted $gray-light;
             z-index: -1;
         }
         &:last-child::after {
