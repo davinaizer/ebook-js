@@ -3,7 +3,7 @@ import TourData from 'data/tour.json';
 import template from 'templates/components/tour.hbs';
 
 //AMD?
-var Tour = require('bootstrap-tour');
+var BSTour = require('bootstrap-tour');
 
 export default class SectionView extends BaseView {
 

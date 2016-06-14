@@ -15,6 +15,7 @@ export default class BaseView extends Backbone.View {
 
     initialize() {
         console.info("BaseView.initialize(" + this.model.id + ")");
+        this.isVisited = false;
     }
 
     bootstrap() {
@@ -41,9 +42,11 @@ export default class BaseView extends Backbone.View {
     }
 
     next(e) {
+        if (!this.isVisited) {
+            this.isVisited = true;
+            TweenMax.to(this.$('#btn-next-section'), 0.25, { autoAlpha: 0 });
+            EventBus.trigger(EventBus.event.NAV_NEXT);
+        }
         e.preventDefault();
-        this.$('#btn-next-section').off();
-        TweenMax.to(this.$('#btn-next-section'), 0.25, { autoAlpha: 0 });
-        EventBus.trigger(EventBus.event.NAV_NEXT);
     }
 }

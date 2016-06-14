@@ -1,7 +1,6 @@
 import Backbone from 'backbone';
 import Bootstrap from 'bootstrap-sass';
 import EventBus from 'helpers/EventBus';
-import TweenMax from 'gsap';
 import Progressbar from 'views/components/Progressbar';
 
 import tpl_cover from 'templates/cover.hbs';

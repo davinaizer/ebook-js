@@ -37,7 +37,7 @@ export default class NavController extends Backbone.View {
     start() {
         console.log("NavController.start");
 
-        this.sectionNav = new SectionNav({el: '#section-nav', model: this.model});
+        this.sectionNav = new SectionNav({ el: '#section-nav', model: this.model });
         this.sectionNav.render();
 
         this.$el.empty();
@@ -89,7 +89,7 @@ export default class NavController extends Backbone.View {
             } else {
                 console.log("NavController.goto > New Chapter. Clear all Views.");
 
-                for (var i = 0; i < this.renderedViews.length; ++i){
+                for (var i = 0; i < this.renderedViews.length; ++i) {
                     this.renderedViews[i].undelegateEvents();
                     this.renderedViews[i].remove();
                     this.scrollScenes[i].destroy();
@@ -112,7 +112,7 @@ export default class NavController extends Backbone.View {
     }
 
     /* REDERING VIEWS */
-    render(section){
+    render(section) {
         console.log("NavController.render");
 
         var chapter = this.model.getChapter(section.chapter.index);
@@ -134,14 +134,12 @@ export default class NavController extends Backbone.View {
 
                 // SCROLLMAGIC SCENES
                 this.scrollScenes[i] = new ScrollMagic.Scene({
-                    triggerElement: nextSectionView.el,
-                    duration: nextSectionView.$el.height()
-                })
+                        triggerElement: nextSectionView.el,
+                        duration: nextSectionView.$el.height()
+                    })
                     .setClassToggle("#section-nav-item-" + nextSection.uid, "active")
                     .addTo(this.scrollControl)
-                    .on("enter", () => {
-                        this.onSectionEnter(nextSection);
-                    });
+                    .on("enter", $.proxy(this.onSectionEnter, this, nextSection));
 
                 //-- hide next btn from section already seen
                 if (nextSection.uid < maxSection.uid) {
@@ -152,13 +150,14 @@ export default class NavController extends Backbone.View {
 
         // show chapterNav if last section
         if (sectionsToRender === section.total) {
-            this.chapterNav = new ChapterNav({model: this.model});
+            this.chapterNav = new ChapterNav({ model: this.model });
             this.$el.append(this.chapterNav.render().el);
         }
     }
 
     onSectionEnter(section) {
-        console.log("NavController.onSectionEnter:", section.uid);
+        console.log("NavController.onSectionEnter:", section.id);
+
         this.currentSectionModel = section;
         this.model.currentIndex = section.uid;
         this.sectionNav.validate();
@@ -184,7 +183,7 @@ export default class NavController extends Backbone.View {
         var duration = (section.index === 0) ? 0.25 : 0.75;
 
         TweenMax.to(window, duration, {
-            scrollTo: {y: $section.offset().top - offsetTop, autoKill: false},
+            scrollTo: { y: $section.offset().top - offsetTop, autoKill: false },
             ease: Power3.easeInOut
         });
     }
