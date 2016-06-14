@@ -28,4 +28,4 @@ export default _.extend({
         STATUS_SAVE: "save.status"
     }
 
-}, Backbone.Events)
+}, Backbone.Events);

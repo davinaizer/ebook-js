@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import Backbone from 'backbone';
 import EventBus from 'helpers/EventBus';
 import AppData from '../data/config.json';
@@ -56,11 +55,11 @@ export default class NavModel extends Backbone.Model {
                 Object.assign(section, sectionData);
                 this.sectionList.push(chapter.section[s]);
             }
-            this.chapterTotalSections.push(chapter.section.length)
+            this.chapterTotalSections.push(chapter.section.length);
         }
         this.totalSections = this.sectionList.length;
 
-        if (this.settings.lessonMode == "browse") {
+        if (this.settings.lessonMode === "browse") {
             this.maxIndex = this.totalSections - 1;
         }
 
@@ -152,7 +151,7 @@ export default class NavModel extends Backbone.Model {
                 user: 1
             };
 
-            if (i == maxSection.chapter.index) {
+            if (i === maxSection.chapter.index) {
                 var userP = (maxSection.index + 1) / maxSection.total;
                 progressObj.user = userP;
             } else if (i > maxSection.chapter.index) {

@@ -1,7 +1,7 @@
 import Backbone from 'backbone';
 import Bootstrap from 'bootstrap-sass';
 import EventBus from 'helpers/EventBus';
-import Dashboard from 'views/components/Dashboard'
+import Dashboard from 'views/components/Dashboard';
 import template from 'templates/components/navbar.hbs';
 
 export default class NavbarView extends Backbone.View {

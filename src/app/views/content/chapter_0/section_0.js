@@ -1,11 +1,9 @@
-import EventBus from 'helpers/EventBus';
 import BaseView from 'views/content/BaseView';
-import Bootstrap from 'bootstrap-sass';
 import TourData from 'data/tour.json';
-import template from 'templates/components/tour.hbs'
+import template from 'templates/components/tour.hbs';
 
 //AMD?
-require('bootstrap-tour');
+var Tour = require('bootstrap-tour');
 
 export default class SectionView extends BaseView {
 
@@ -14,8 +12,7 @@ export default class SectionView extends BaseView {
         super(options);
     }
 
-    initialize() {
-    }
+    initialize() {}
 
     bootstrap() {
         if (this.navModel.maxIndex === 0) {

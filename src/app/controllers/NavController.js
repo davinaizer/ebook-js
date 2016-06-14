@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import Backbone from 'backbone';
 import EventBus from 'helpers/EventBus';
 import TweenMax from 'gsap';
@@ -6,7 +5,7 @@ import ScrollMagic from 'scrollmagic';
 import ScrollToPlugin from "gsap/src/uncompressed/plugins/ScrollToPlugin";
 
 /* COMPONENTS */
-import ChapterNav from 'views/components/ChapterNavView'
+import ChapterNav from 'views/components/ChapterNavView';
 import SectionNav from 'views/components/SectionNavView';
 
 /* CONTENT AND TEMPLATES */
@@ -82,7 +81,7 @@ export default class NavController extends Backbone.View {
             this.model.trigger('change');
             EventBus.trigger(EventBus.event.NAV_CHANGE, this.model);
 
-            if (section.chapter.index == this.currentSectionModel.chapter.index) {
+            if (section.chapter.index === this.currentSectionModel.chapter.index) {
                 if (this.renderedViews[section.index]) {
                     this.scrollTo(section);
                     return;
@@ -90,30 +89,30 @@ export default class NavController extends Backbone.View {
             } else {
                 console.log("NavController.goto > New Chapter. Clear all Views.");
 
-                for (var i = 0; i < this.renderedViews.length; ++i) {
+                for (var i = 0; i < this.renderedViews.length; ++i){
                     this.renderedViews[i].undelegateEvents();
                     this.renderedViews[i].remove();
                     this.scrollScenes[i].destroy();
                 }
 
                 // clear all
-                this.sectionNav.render();
-                this.chapterNav.remove();
                 this.renderedViews = [];
                 this.scrollScenes = [];
+                this.chapterNav.remove();
+                this.sectionNav.render();
                 this.$el.empty();
 
                 $(window).scrollTop(0);
             }
 
-            this.currentSectionModel = section;
+            // this.currentSectionModel = section;
             this.render(section);
             this.scrollTo(section);
         }
     }
 
     /* REDERING VIEWS */
-    render(section) {
+    render(section){
         console.log("NavController.render");
 
         var chapter = this.model.getChapter(section.chapter.index);
@@ -152,7 +151,7 @@ export default class NavController extends Backbone.View {
         }
 
         // show chapterNav if last section
-        if (sectionsToRender == section.total) {
+        if (sectionsToRender === section.total) {
             this.chapterNav = new ChapterNav({model: this.model});
             this.$el.append(this.chapterNav.render().el);
         }
@@ -182,7 +181,7 @@ export default class NavController extends Backbone.View {
 
         var offsetTop = 80;
         var $section = this.$("#" + section.id);
-        var duration = (section.index == 0) ? 0.25 : 0.75;
+        var duration = (section.index === 0) ? 0.25 : 0.75;
 
         TweenMax.to(window, duration, {
             scrollTo: {y: $section.offset().top - offsetTop, autoKill: false},

@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import Backbone from 'backbone';
 import EventBus from 'helpers/EventBus';
 import SCORM from '../libs/SCORM_API';
@@ -25,7 +24,7 @@ export default class StatusModel extends Backbone.Model {
 
         this.isAvailable = this.scorm.init();
 
-        if (this.isAvailable && this.lessonMode == "normal") {
+        if (this.isAvailable && this.lessonMode === "normal") {
             console.log("StatusModel.isAvailable ?" + this.isAvailable);
 
             //-- Check for first time SCO launch
@@ -40,7 +39,7 @@ export default class StatusModel extends Backbone.Model {
                 this.suspendData = JSON.parse(this.suspendData);
 
                 if (this.lessonStatus === "completed") {
-                    alert("Você já completou este módulo.");
+                    window.alert("Você já completou este módulo.");
                 }
             } else {
                 console.info("First time SCO launch. Setting initial data.");
@@ -76,11 +75,13 @@ export default class StatusModel extends Backbone.Model {
         if (this.isAvailable) {
             if (this.lessonStatus !== "completed") {
                 for (var key in data) {
-                    if (key.indexOf("suspend_data") > -1) {
-                        Object.assign(this.suspendData, data[key]);
-                        data[key] = JSON.stringify(this.suspendData).replace(/"/g, "'");
+                    if (data.hasOwnProperty(key)) {
+                        if (key.indexOf("suspend_data") > -1) {
+                            Object.assign(this.suspendData, data[key]);
+                            data[key] = JSON.stringify(this.suspendData).replace(/"/g, "'");
+                        }
+                        this.setParam(key, data[key]);
                     }
-                    this.setParam(key, data[key]);
                 }
                 this.save();
             } else {
@@ -119,4 +120,3 @@ export default class StatusModel extends Backbone.Model {
         }
     }
 }
-

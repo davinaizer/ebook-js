@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import Backbone from 'backbone';
 import Bootstrap from 'bootstrap-sass';
 import EventBus from 'helpers/EventBus';
@@ -23,7 +22,7 @@ export default class CoverView extends Backbone.View {
         console.log("CoverPageView.initialize");
 
         this.globalProgress = this.model.globalProgress;
-        this.template = (this.model.maxIndex > 0 && this.model.lessonMode == "normal") ? tpl_cover : tpl_cover_newuser;
+        this.template = (this.model.maxIndex > 0 && this.model.lessonMode === "normal") ? tpl_cover : tpl_cover_newuser;
     }
 
     render() {

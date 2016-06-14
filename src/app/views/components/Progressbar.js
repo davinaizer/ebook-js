@@ -1,7 +1,5 @@
-import $ from 'jquery';
 import Backbone from 'backbone';
 import Bootstrap from 'bootstrap-sass';
-import EventBus from 'helpers/EventBus';
 import template from 'templates/components/progressbar.hbs';
 
 export default class Progressbar extends Backbone.View {
@@ -20,7 +18,6 @@ export default class Progressbar extends Backbone.View {
     update() {
         this.chapterProgress = this.model.chaptersProgress;
 
-        var chapters = this.model.chapters;
         var userTotal = 0;
         var globalTotal = 0;
 

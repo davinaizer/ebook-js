@@ -1,5 +1,7 @@
 // IE Console fix
 (function() {
+    "use strict";
+
     var method;
     var noop = function () {};
     var methods = [

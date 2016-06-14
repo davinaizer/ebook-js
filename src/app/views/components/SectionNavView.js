@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import Backbone from 'backbone';
 import Bootstrap from 'bootstrap-sass';
 import EventBus from 'helpers/EventBus';

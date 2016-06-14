@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
 import EventBus from 'helpers/EventBus';
-import ConsoleFix from 'helpers/ConsoleFix'
+import ConsoleFix from 'helpers/ConsoleFix';
 
 /* MODELS */
 import NavModel from 'models/NavModel';

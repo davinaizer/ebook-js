@@ -38,7 +38,7 @@ export default class DashboardView extends Backbone.View {
             model: this.model
         });
         this.progressbar.render();
-        
+
         this.validate();
 
         return this;
@@ -101,7 +101,7 @@ export default class DashboardView extends Backbone.View {
 
     keyPress(e) {
         var code = e.keyCode || e.which;
-        if (code == 27 && this.isOpen) {
+        if (code === 27 && this.isOpen) {
             //ESC press
             this.hide();
             e.preventDefault();
