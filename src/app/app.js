@@ -1,3 +1,5 @@
+'use strict';
+
 import $ from 'jquery';
 import Backbone from 'backbone';
 import EventBus from 'helpers/EventBus';
@@ -46,6 +48,7 @@ export default Backbone.View.extend({
     initEvents(){
         //-- wait for window close
         $(window).on('unload', () => {
+            this.navModel.save();
             this.statusModel.quit();
         });
 
