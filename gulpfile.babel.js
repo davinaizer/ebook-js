@@ -1,3 +1,5 @@
+'use strict';
+
 import gulp from 'gulp';
 import path from 'path';
 import del from 'del';
@@ -21,7 +23,7 @@ var sassOptions = {
     outputStyle: 'compact',
     //outputStyle: 'compressed',
     precision: 10
-}
+};
 
 var autoprefixerBrowsers = [
     'ie >= 9',
