@@ -20,10 +20,13 @@
     <file url="file://$PROJECT_DIR$/src/app/templates/content/chapter_0/section_0.hbs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/templates/content/chapter_0/section_1.hbs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/templates/content/chapter_0/section_2.hbs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/app/templates/content/chapter_1/section_0.hbs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/templates/content/chapter_1/section_1.hbs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/app/templates/content/chapter_2/section_0.hbs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/templates/content/chapter_2/section_1.hbs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/templates/content/chapter_2/section_2.hbs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/templates/cover.hbs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/app/templates/cover_newuser.hbs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/views/CoverView.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/views/components/ChapterNavView.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/views/components/Dashboard.js" charset="UTF-8" />
@@ -42,7 +45,7 @@
     <file url="file://$PROJECT_DIR$/src/scss/components/_progress_bars.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/components/_thumbnail.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/components/_tour.scss" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/scss/ebook/_content.scss" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/scss/ebook/_cover.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/ebook/_global.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/main.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/themes/_bootswatch.scss" charset="UTF-8" />
