@@ -67,7 +67,40 @@ rules:
       size: 4
   leading-zero: 1
   nesting-depth: 1
-  property-sort-order: 1
+  property-sort-order:
+    - 1
+    - order:
+      - position
+      - top
+      - right
+      - bottom
+      - left
+      - z-index
+      -
+      - display
+      - float
+      - width
+      - height
+      - padding
+      - border
+      -
+      - color
+      - font-family
+      - font-size
+      - font-weight
+      - letter-spacing
+      - line-height
+      - text-align
+      - text-decoration
+      - text-shadow
+      - text-transform
+      -
+      - background-color
+      - border-radius
+      - box-shadow
+      -
+      - opacity
+      - visibility
   quotes: 1
   shorthand-values: 1
   url-quotes: 1
