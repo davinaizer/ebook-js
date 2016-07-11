@@ -11,7 +11,7 @@ export default class StatusModel extends Backbone.Model {
     initialize() {
         console.log("StatusModel.initialize");
 
-        this.scorm = SCORM.SCORM;
+        this.scorm = SCORM;
         this.scorm.version = "1.2";
         this.isAvailable = false;
         this.lessonMode = "normal";
