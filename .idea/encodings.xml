@@ -41,8 +41,8 @@
     <file url="file://$PROJECT_DIR$/src/scss/components/_breadcrumb.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/components/_dashboard.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/components/_navbar.scss" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/scss/components/_pagination.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/components/_progress_bars.scss" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/scss/components/_section_nav.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/components/_thumbnail.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/components/_tour.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/ebook/_cover.scss" charset="UTF-8" />
