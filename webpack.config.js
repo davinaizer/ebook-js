@@ -25,7 +25,14 @@ module.exports.development = {
         loaders: [
             {test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader'},
             {test: /\.json$/, exclude: /node_modules/, loader: 'json'},
-            {test: /\.hbs$/, exclude: /node_modules/, loader: 'handlebars-loader'},
+            {
+                test: /\.hbs$/,
+                exclude: /node_modules/,
+                loader: 'handlebars-loader',
+                query: {
+                    helperDirs: [__dirname + "/src/app/helpers"]
+                }
+            },
             {test: /\.css$/, loader: "css-loader"}
         ]
     },
@@ -56,7 +63,14 @@ module.exports.production = {
         loaders: [
             {test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader'},
             {test: /\.json$/, exclude: /node_modules/, loader: 'json'},
-            {test: /\.hbs$/, exclude: /node_modules/, loader: 'handlebars-loader'},
+            {
+                test: /\.hbs$/,
+                exclude: /node_modules/,
+                loader: 'handlebars-loader',
+                query: {
+                    helperDirs: [__dirname + "/src/app/helpers"]
+                }
+            },
             {test: /\.css$/, loader: "css-loader"}
         ]
     },
