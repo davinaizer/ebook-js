@@ -1,7 +1,9 @@
+import _ from 'lodash';
 import Backbone from 'backbone';
 import EventBus from 'helpers/EventBus';
 import TweenMax from 'gsap';
 import ScrollMagic from 'scrollmagic';
+//require('scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js');
 import ScrollToPlugin from "gsap/src/uncompressed/plugins/ScrollToPlugin";
 
 /* COMPONENTS */
@@ -31,13 +33,18 @@ export default class NavController extends Backbone.View {
         this.scrollScenes = [];
         this.renderedViews = [];
         this.currentSectionModel = null;
+
+        //-- CHECK FOR WINDOW RESIZE every 1s
+        $(window).on("resize", _.throttle(() => {
+            this.onResize();
+        }, 1000));
     }
 
     /* NAV FUNCTIONS */
     start() {
         console.log("NavController.start");
 
-        this.sectionNav = new SectionNav({ el: '#section-nav', model: this.model });
+        this.sectionNav = new SectionNav({el: '#section-nav', model: this.model});
         this.sectionNav.render();
 
         this.$el.empty();
@@ -105,7 +112,6 @@ export default class NavController extends Backbone.View {
                 $(window).scrollTop(0);
             }
 
-            // this.currentSectionModel = section;
             this.render(section);
             this.scrollTo(section);
         }
@@ -134,9 +140,10 @@ export default class NavController extends Backbone.View {
 
                 // SCROLLMAGIC SCENES
                 this.scrollScenes[i] = new ScrollMagic.Scene({
-                        triggerElement: nextSectionView.el,
-                        duration: nextSectionView.$el.height()
-                    })
+                    triggerElement: nextSectionView.el,
+                    duration: nextSectionView.$el.height()
+                })
+                    //.addIndicators()
                     .setClassToggle("#section-nav-item-" + nextSection.uid, "active")
                     .addTo(this.scrollControl)
                     .on("enter", $.proxy(this.onSectionEnter, this, nextSection));
@@ -150,17 +157,26 @@ export default class NavController extends Backbone.View {
 
         // show chapterNav if last section
         if (sectionsToRender === section.total) {
-            this.chapterNav = new ChapterNav({ model: this.model });
+            this.chapterNav = new ChapterNav({model: this.model});
             this.$el.append(this.chapterNav.render().el);
         }
+
+        // wait before recheck section sizes
+        _.delay(() => {
+            this.onResize()
+        }, 1000);
     }
 
     onSectionEnter(section) {
-        console.log("NavController.onSectionEnter:", section.id);
-
         this.currentSectionModel = section;
         this.model.currentIndex = section.uid;
         this.sectionNav.validate();
+    }
+
+    onResize() {
+        $.each(this.scrollScenes, (index, scene) => {
+            scene.duration(this.renderedViews[index].$el.height());
+        });
     }
 
     getSectionView(section) {
@@ -183,7 +199,7 @@ export default class NavController extends Backbone.View {
         var duration = (section.index === 0) ? 0.25 : 0.75;
 
         TweenMax.to(window, duration, {
-            scrollTo: { y: $section.offset().top - offsetTop, autoKill: false },
+            scrollTo: {y: $section.offset().top - offsetTop, autoKill: false},
             ease: Power3.easeInOut
         });
     }
