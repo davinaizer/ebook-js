@@ -10,7 +10,7 @@ export default class DashboardView extends Backbone.View {
     constructor(options) {
         Object.assign(options || {}, {
             events: {
-                'click .btn': 'navHandler'
+                'click a': 'navHandler'
             }
         });
 
@@ -32,6 +32,7 @@ export default class DashboardView extends Backbone.View {
     render() {
         console.log("DashboardView.render");
         this.$el.html(this.template(this.model));
+        this.clearFixColumns();
 
         this.progressbar = new Progressbar({
             el: '#progress-bar-menu',
@@ -42,6 +43,18 @@ export default class DashboardView extends Backbone.View {
         this.validate();
 
         return this;
+    }
+
+    clearFixColumns() {
+        //-- Dynamic CLEAR FIX
+        this.$("div.chapter-list").each((i, el) => {
+            var count = i + 1;
+            if (count % 2 == 0) {
+                this.$(el).after('<div class="clearfix visible-sm-block"></div>');
+            } else if (count % 3 == 0) {
+                this.$(el).after('<div class="clearfix visible-md-block visible-lg-block"></div>');
+            }
+        });
     }
 
     show() {
@@ -71,12 +84,15 @@ export default class DashboardView extends Backbone.View {
 
     validate() {
         var maxSectionUid = this.model.maxSection.uid;
+        var currentSectionUid = this.model.currentSection.uid;
 
-        this.$("li>a").each((index, el)=> {
-            this.$(el).find("a").blur();
-            this.$(el).removeClass("disabled").attr("disabled", false);
+        this.$(".list-group > a").each((index, el) => {
+            this.$(el).blur();
+            this.$(el).removeClass("active disabled").attr("disabled", false);
 
-            if (index > maxSectionUid) {
+            if (index == currentSectionUid) {
+                this.$(el).addClass("current");
+            } else if (index > maxSectionUid) {
                 this.$(el).addClass("disabled").attr("disabled", true);
             }
         });
