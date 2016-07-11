@@ -14,7 +14,7 @@ export default class BaseView extends Backbone.View {
     }
 
     initialize() {
-        console.info("BaseView.initialize(" + this.model.id + ")");
+        //console.info("BaseView.initialize(" + this.model.id + ")");
         this.isVisited = false;
     }
 
@@ -23,14 +23,14 @@ export default class BaseView extends Backbone.View {
     }
 
     render() {
-        this.$el.css({ opacity: 0 });
+        this.$el.css({opacity: 0});
         this.$el.html(this.template(this.model));
 
         return this;
     }
 
     transitionIn() {
-        TweenMax.to(this.$el, 0.5, { opacity: 1, onComplete: this.transitionInComplete, onCompleteScope: this });
+        TweenMax.to(this.$el, 0.5, {opacity: 1, onComplete: this.transitionInComplete, onCompleteScope: this});
     }
 
     transitionInComplete() {
@@ -38,13 +38,13 @@ export default class BaseView extends Backbone.View {
     }
 
     hideNextBtn() {
-        this.$("#btn-next-section").hide();
+        TweenMax.set(this.$('#btn-next-section'), {autoAlpha: 0});
     }
 
     next(e) {
         if (!this.isVisited) {
+            this.hideNextBtn();
             this.isVisited = true;
-            TweenMax.to(this.$('#btn-next-section'), 0.25, { autoAlpha: 0 });
             EventBus.trigger(EventBus.event.NAV_NEXT);
         }
         e.preventDefault();
