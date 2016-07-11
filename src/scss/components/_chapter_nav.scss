@@ -1,4 +1,10 @@
+.chapter-nav .tooltip-inner {
+    max-width: none;
+    white-space: nowrap;
+}
+
 .chapter-nav {
+
     > li {
         > a,
         > span {
@@ -48,4 +54,3 @@
         }
     }
 }
-
