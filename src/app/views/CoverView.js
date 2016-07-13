@@ -23,7 +23,7 @@ export default class CoverView extends Backbone.View {
         console.log('CoverPageView.initialize');
 
         this.globalProgress = this.model.globalProgress;
-        this.template = tpl_coveró;
+        this.template = tpl_cover;
 
         if (this.model.lessonMode === 'normal') {
             if (this.globalProgress == 100) {
