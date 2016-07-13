@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="BackboneJS" type="javaScript">
+    <properties>
+      <option name="frameworkName" value="node_modules" />
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/node_modules/backbone/backbone.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/node_modules/backbone/backbone.js" />
+    </CLASSES>
+    <DOCUMENTATION>
+      <root url="http://backbonejs.org/" />
+    </DOCUMENTATION>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

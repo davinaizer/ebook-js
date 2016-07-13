@@ -1,0 +1,124 @@
+// FONTAWESOME UNICODES
+$list-icon-default: '\f111';
+$list-icon-active: '\f192';
+$list-icon-hover: $list-icon-active;
+$list-icon-disabled: '\f1db';
+
+// CLASSES
+#section-nav {
+    @include box_shadow(1);
+
+    position: fixed;
+    top: 35%;
+    right: 0;
+    z-index: $zindex-navbar-float;
+
+    background-color: $white;
+    border-radius: 4px 0 0 4px;
+    margin: 0;
+}
+
+.section-nav .tooltip-inner {
+    max-width: none;
+    white-space: nowrap;
+}
+
+.section-nav {
+    > li {
+        position: relative;
+        display: block;
+        width: 40px;
+        height: 40px;
+        font-family: 'FontAwesome';
+        font-size: 1em;
+
+        //-- DRAW LINES
+        &:after {
+            position: absolute;
+            top: 30px;
+            left: 20px;
+            z-index: -2;
+            width: 1px;
+            height: 20px;
+            border-left: 2px dotted $gray-lighter;
+            margin-left: -1px;
+            content: '';
+        }
+
+        > a,
+        > span {
+            border: 0;
+            color: $gray-base;
+            background-color: transparent;
+
+            &:before {
+                content: $list-icon-default;
+            }
+        }
+
+        &:first-child {
+            > a,
+            > span {
+                border: 0;
+                margin: -1px;
+            }
+        }
+
+        &:last-child {
+            > a,
+            > span {
+                border: 0;
+            }
+
+            &:after {
+                display: none;
+            }
+        }
+    }
+
+    > li > a,
+    > li > span {
+        &:hover,
+        &:focus {
+            border: 0;
+            color: $gray-base;
+            background-color: transparent;
+
+            &:before {
+                content: $list-icon-hover;
+            }
+        }
+    }
+
+    > .active > a,
+    > .active > span {
+        &,
+        &:hover,
+        &:focus {
+            border: 0;
+            color: $brand-primary;
+            background-color: transparent;
+
+            &:before {
+                content: $list-icon-active;
+            }
+        }
+    }
+
+    > .disabled {
+        > span,
+        > span:hover,
+        > span:focus,
+        > a,
+        > a:hover,
+        > a:focus {
+            border: 0;
+            color: $gray-lighter;
+            background-color: transparent;
+
+            &:before {
+                content: $list-icon-disabled;
+            }
+        }
+    }
+}

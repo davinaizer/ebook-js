@@ -1,0 +1,31 @@
+.progress-bar-chapter0 {
+    @include progress-bar-variant($brand-primary);
+}
+
+.progress-bar-chapter1 {
+    @include progress-bar-variant($brand-success);
+}
+
+.progress-bar-chapter2 {
+    @include progress-bar-variant($brand-info);
+}
+
+.progress-bar-chapter3 {
+    @include progress-bar-variant($brand-warning);
+}
+
+.progress-bar-chapter4 {
+    @include progress-bar-variant($brand-danger);
+}
+
+.bar-wrap {
+    position: relative;
+}
+
+.progress-marker {
+    position: absolute;
+    width: 1px;
+    height: 30px;
+    background: black;
+    top: -5px;
+}
