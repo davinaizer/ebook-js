@@ -1,112 +1,112 @@
 'use strict';
 
+/* LIBS */
 import $ from 'jquery';
 import Backbone from 'backbone';
-import EventBus from 'helpers/EventBus';
-import ConsoleFix from 'helpers/ConsoleFix';
+import ConsoleFix from 'libs/ConsoleFix';
+import EventBus from 'libs/EventBus';
 
-/* MODELS */
-import NavModel from 'models/NavModel';
-import StatusModel from 'models/StatusModel';
+/* CORE CLASSES */
+import CoverView from 'core/section/cover/CoverView';
+import NavbarView from 'core/layout/NavbarView';
+import NavModel from 'core/navigation/NavModel';
+import SectionController from 'core/section/SectionController';
+import ScormService from 'core/scorm/ScormService';
 
-/* VIEWS */
-import CoverPageView from 'views/CoverView';
-import NavbarView from 'views/components/NavbarView';
+export default class App extends Backbone.View {
 
-/* CONTROLLERS */
-import NavController from 'controllers/NavController';
+  constructor(options) {
+    options = Object.assign(options || {}, {});
+    super(options);
+  }
 
-export default Backbone.View.extend({
+  initialize() {
+    const appVersion = 'v2.0.0-beta';
 
-    initialize() {
-        this.version = "v1.0.0-alpha";
+    console.info('UNBOX® Learning Experience — 2009-2016 — eBookJS Fluid ' + appVersion);
+    console.log('App.init');
 
-        console.info("UNBOX® Learning Experience 2009-2016 — eBookJS " + this.version);
-        console.log("App.init");
+    //-- MODELS
+    this.navModel = new NavModel();
+    this.scormService = new ScormService();
 
-        //-- MODELS
-        this.navModel = new NavModel();
-        this.statusModel = new StatusModel();
+    //-- VIEWS
+    this.coverView = new CoverView({ el: '#content', model: this.navModel });
+    this.navbarView = new NavbarView({ el: '#navbar', model: this.navModel });
 
-        //-- VIEWS
-        this.coverPageView = new CoverPageView({el: '#content', model: this.navModel});
-        this.navbarView = new NavbarView({el: '#navbar', model: this.navModel});
+    //-- VIEWS-CONTROLLERS
+    this.sectionControl = new SectionController({ el: '#content', model: this.navModel });
+  }
 
-        //-- VIEWS-CONTROLLERS
-        this.navControl = new NavController({el: '#content', model: this.navModel});
-    },
+  bootstrap() {
+    console.log('App.bootstrap');
 
-    bootstrap() {
-        console.log("App.bootstrap");
+    this.initEvents();
+    this.scormService.fetch();
+  }
 
-        this.initEvents();
+  initEvents() {
+    //-- wait for window close
+    $(window).on('unload', () => {
+      this.navModel.save();
+      this.scormService.quit();
+    });
 
-        // load SCORM DATA
-        this.statusModel.fetch();
-    },
+    /* NAV EVENTS */
+    EventBus.on(EventBus.event.NAV_START, () => {
+      this.navbarView.render();
+      this.sectionControl.start();
+    });
 
-    initEvents(){
-        //-- wait for window close
-        $(window).on('unload', () => {
-            this.navModel.save();
-            this.statusModel.quit();
-        });
+    EventBus.on(EventBus.event.NAV_NEXT, () => {
+      this.sectionControl.next();
+    });
 
-        /* NAV EVENTS */
-        EventBus.on(EventBus.event.NAV_START, () => {
-            this.navbarView.render();
-            this.navControl.start();
-        });
+    EventBus.on(EventBus.event.NAV_PREVIOUS, () => {
+      this.sectionControl.prev();
+    });
 
-        EventBus.on(EventBus.event.NAV_NEXT, () => {
-            this.navControl.next();
-        });
+    EventBus.on(EventBus.event.NAV_GOTO, (data) => {
+      this.sectionControl.goto(data.section);
+    });
 
-        EventBus.on(EventBus.event.NAV_PREVIOUS, () => {
-            this.navControl.prev();
-        });
+    EventBus.on(EventBus.event.NAV_NEXT_CHAPTER, () => {
+      this.sectionControl.nextChapter();
+    });
 
-        EventBus.on(EventBus.event.NAV_GOTO, (section) => {
-            this.navControl.goto(section);
-        });
+    EventBus.on(EventBus.event.NAV_PREVIOUS_CHAPTER, () => {
+      this.sectionControl.prevChapter();
+    });
 
-        EventBus.on(EventBus.event.NAV_NEXT_CHAPTER, () => {
-            this.navControl.nextChapter();
-        });
+    EventBus.on(EventBus.event.NAV_GOTO_CHAPTER, (data) => {
+      this.sectionControl.gotoChapter(data.chapterId);
+    });
 
-        EventBus.on(EventBus.event.NAV_PREVIOUS_CHAPTER, () => {
-            this.navControl.prevChapter();
-        });
+    /* STATUS MODEL EVENTS */
+    EventBus.once(EventBus.event.STATUS_LOADED, (data) => {
+      this.navModel.restore(data.suspendData);
+      this.coverView.render();
+    });
 
-        EventBus.on(EventBus.event.NAV_GOTO_CHAPTER, (id) => {
-            this.navControl.gotoChapter(id);
-        });
+    EventBus.once(EventBus.event.STATUS_FINISH, () => {
+      this.scormService.finish();
+    });
 
-        /* STATUS MODEL EVENTS */
-        EventBus.once(EventBus.event.STATUS_LOADED, (data) => {
-            this.navModel.restore(data);
-            this.coverPageView.render();
-        });
+    EventBus.on(EventBus.event.STATUS_UPDATE, (data) => {
+      this.scormService.update(data);
+    });
 
-        EventBus.once(EventBus.event.STATUS_FINISH, () => {
-            this.statusModel.finish();
-        });
+    EventBus.on(EventBus.event.STATUS_SAVE, () => {
+      this.scormService.save();
+    });
 
-        EventBus.on(EventBus.event.STATUS_UPDATE, (data) => {
-            this.statusModel.update(data);
-        });
+    EventBus.on(EventBus.event.STATUS_DISPATCH, () => {
+      this.scormService.dispatchSuspendData();
+    });
 
-        EventBus.on(EventBus.event.STATUS_SAVE, () => {
-            this.statusModel.save();
-        });
-
-        EventBus.on(EventBus.event.STATUS_DISPATCH, () => {
-            this.statusModel.dispatchSuspendData();
-        });
-
-        /* OTHERS */
-        EventBus.on(EventBus.event.PAGE_TRANSITION_IN_COMPLETE, () => {
-            this.navbarView.onTransitionInComplete();
-        });
-    }
-});
+    /* OTHERS */
+    EventBus.on(EventBus.event.PAGE_TRANSITION_IN_COMPLETE, () => {
+      this.navbarView.onTransitionInComplete();
+    });
+  }
+}
