@@ -18,7 +18,7 @@ export default class SectionController extends Backbone.View {
   }
 
   initialize() {
-    console.log('NavController.initialize');
+    console.log('SectionController.initialize');
 
     this.scrollControl = new ScrollMagic.Controller({
       globalSceneOptions: {
@@ -37,7 +37,7 @@ export default class SectionController extends Backbone.View {
 
   /* NAV FUNCTIONS */
   start() {
-    console.log('NavController.start');
+    console.log('SectionController.start');
 
     this.sectionNav = new SectionNavView({ el: '#section-nav', model: this.model });
     this.sectionNav.render();
@@ -48,22 +48,22 @@ export default class SectionController extends Backbone.View {
   }
 
   next() {
-    console.log('NavController.next');
+    console.log('SectionController.next');
     this.goto(this.model.next());
   }
 
   prev() {
-    console.log('NavController.previous');
+    console.log('SectionController.previous');
     this.goto(this.model.prev());
   }
 
   nextChapter() {
-    console.log('NavController.nextChapter');
+    console.log('SectionController.nextChapter');
     this.goto(this.model.next(true));
   }
 
   prevChapter() {
-    console.log('NavController.prevChapter');
+    console.log('SectionController.prevChapter');
     this.goto(this.model.prev(true));
   }
 
@@ -73,7 +73,7 @@ export default class SectionController extends Backbone.View {
   }
 
   goto(section) {
-    console.log('NavController.goto(', section.id, ')');
+    console.log('SectionController.goto(', section.id, ')');
 
     if (section) {
       this.model.goto(section);
@@ -89,7 +89,7 @@ export default class SectionController extends Backbone.View {
           return;
         }
       } else {
-        console.log('NavController.goto > New Chapter. Clear all Views.');
+        console.log('SectionController.goto > New Chapter. Clear all Views.');
 
         for (let i = 0; i < this.renderedViews.length; ++i) {
           this.renderedViews[i].undelegateEvents();
@@ -114,7 +114,7 @@ export default class SectionController extends Backbone.View {
 
   /* REDERING VIEWS */
   render(section) {
-    console.log('NavController.render');
+    console.log('SectionController.render');
 
     let chapter = this.model.getChapter(section.chapter.index);
     let firstSection = chapter.section[0];
@@ -185,7 +185,7 @@ export default class SectionController extends Backbone.View {
   }
 
   scrollTo(section) {
-    console.log('NavController.scrollTo:', section.id);
+    console.log('SectionController.scrollTo:', section.id);
 
     let offsetTop = 80;
     let $section = this.$('#' + section.id);

@@ -2,7 +2,7 @@ import Backbone from 'backbone';
 import EventBus from 'libs/EventBus';
 import ScormApi from 'libs/ScormApi';
 
-export default class StatusModel extends Backbone.Model {
+export default class ScormService extends Backbone.Model {
 
   constructor(options) {
     options = Object.assign(options || {}, {});
@@ -10,7 +10,7 @@ export default class StatusModel extends Backbone.Model {
   }
 
   initialize() {
-    console.log('StatusModel.initialize');
+    console.log('ScormService.initialize');
 
     this.scorm = ScormApi;
     this.scorm.version = '1.2';
@@ -21,12 +21,12 @@ export default class StatusModel extends Backbone.Model {
   }
 
   fetch() {
-    console.log('StatusModel.fetch');
+    console.log('ScormService.fetch');
 
     this.isAvailable = this.scorm.init();
 
     if (this.isAvailable && this.lessonMode === 'normal') {
-      console.log('StatusModel.isAvailable ?' + this.isAvailable);
+      console.log('ScormService.isAvailable ?' + this.isAvailable);
 
       //-- Check for first time SCO launch
       //this.scorm.get('cmi.core.entry') === 'ab-initio'
@@ -63,12 +63,12 @@ export default class StatusModel extends Backbone.Model {
 
   setParam(param, value) {
     let success = this.scorm.set(param, value);
-    console.log('StatusModel.setParam(', param, ') =>', value, ':', success);
+    console.log('ScormService.setParam(', param, ') =>', value, ':', success);
   }
 
   getParam(param) {
     let ret = this.scorm.get(param);
-    console.log('StatusModel.getParam(', param, ') =>', ret);
+    console.log('ScormService.getParam(', param, ') =>', ret);
     return ret;
   }
 
@@ -86,7 +86,7 @@ export default class StatusModel extends Backbone.Model {
         }
         this.save();
       } else {
-        console.warn('StatusModel.update: LESSON_STATUS == COMPLETED. Cant update SCORM Data!');
+        console.warn('ScormService.update: LESSON_STATUS == COMPLETED. Cant update SCORM Data!');
       }
     } else if (this.lessonMode === 'normal') {
       console.warn('SCORM API not available. Cant update SCORM Data!');
@@ -95,7 +95,7 @@ export default class StatusModel extends Backbone.Model {
 
   save() {
     let success = this.scorm.save();
-    console.log('StatusModel.save:', success);
+    console.log('ScormService.save:', success);
   }
 
   dispatchSuspendData() {
@@ -103,7 +103,7 @@ export default class StatusModel extends Backbone.Model {
   }
 
   finish() {
-    console.log('StatusModel.finish');
+    console.log('ScormService.finish');
     if (this.lessonStatus === 'incomplete') {
       this.lessonStatus = 'completed';
       this.setParam('cmi.core.lesson_status', this.lessonStatus);
@@ -114,7 +114,7 @@ export default class StatusModel extends Backbone.Model {
   }
 
   quit() {
-    console.log('StatusModel.quit');
+    console.log('ScormService.quit');
     if (this.isActive) {
       this.save();
       this.scorm.quit();

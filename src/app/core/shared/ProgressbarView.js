@@ -10,7 +10,7 @@ export default class Progressbar extends Backbone.View {
   }
 
   initialize() {
-    console.log('GlobalProgressbar.initialize');
+    console.log('Progressbar.initialize');
 
     this.template = Template;
   }
@@ -37,7 +37,7 @@ export default class Progressbar extends Backbone.View {
   }
 
   render() {
-    console.log('GlobalProgressbar.render');
+    console.log('Progressbar.render');
 
     this.update();
     this.$el.html(this.template(this));

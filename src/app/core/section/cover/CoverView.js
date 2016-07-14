@@ -19,7 +19,7 @@ export default class CoverView extends Backbone.View {
   }
 
   initialize() {
-    console.log('CoverPageView.initialize');
+    console.log('CoverView.initialize');
 
     this.globalProgress = this.model.globalProgress;
     this.template = Template;

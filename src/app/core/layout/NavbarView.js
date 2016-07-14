@@ -17,7 +17,7 @@ export default class NavbarView extends Backbone.View {
   }
 
   initialize() {
-    console.log('NavView.initialize');
+    console.log('NavbarView.initialize');
 
     this.template = Template;
     this.menu = new MenuView({ el: '#menu', model: this.model });
@@ -26,7 +26,7 @@ export default class NavbarView extends Backbone.View {
   }
 
   render() {
-    console.log('NavView.render');
+    console.log('NavbarView.render');
     this.$el.hide();
     this.$el.html(this.template());
     this.$el.append(this.menu.render().el);

@@ -60,15 +60,15 @@ export default class MenuView extends Backbone.View {
     this.isOpen = true;
     this.render();
 
-    this.$('.dashboard').height('100%');
-    this.$('.dashboard').scrollTop(0);
+    this.$('.menu').height('100%');
+    this.$('.menu').scrollTop(0);
 
     $('body').css('overflow', 'hidden');
   }
 
   hide() {
     this.isOpen = false;
-    this.$('.dashboard').height(0);
+    this.$('.menu').height(0);
 
     $('body').css('overflow', 'scroll');
   }
