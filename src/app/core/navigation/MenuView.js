@@ -82,8 +82,8 @@ export default class MenuView extends Backbone.View {
   }
 
   validate() {
-    let maxSectionUid = this.model.maxSection.uid;
-    let currentSectionUid = this.model.currentSection.uid;
+    let maxSectionUid = this.model.getMaxSection().uid;
+    let currentSectionUid = this.model.getCurrentSection().uid;
 
     this.$('.list-group > a').each((index, el) => {
       this.$(el).blur();

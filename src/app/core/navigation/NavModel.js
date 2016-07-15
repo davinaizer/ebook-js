@@ -77,29 +77,29 @@ export default class NavModel extends Backbone.Model {
 
   // TODO Refactor/optimize function
   next(skipChapter) {
-    if (skipChapter && this.currentChapter.index < this.currentChapter.total) {
-      let nextChapterId = this.currentChapter.index + 1;
+    if (skipChapter && this.getCurrentChapter().index < this.getCurrentChapter().total) {
+      let nextChapterId = this.getCurrentChapter().index + 1;
       this.currentIndex = this.chapters[nextChapterId].section[0].uid;
       this.maxIndex = Math.max(this.maxIndex, this.currentIndex);
-      return this.currentSection;
+      return this.getCurrentSection();
 
     } else if (this.currentIndex < this.totalSections - 1) {
       this.currentIndex++;
       this.maxIndex = Math.max(this.maxIndex, this.currentIndex);
-      return this.currentSection;
+      return this.getCurrentSection();
     }
     return null;
   }
 
   // TODO Refactor/optimize function
   prev(skipChapter) {
-    if (skipChapter && this.currentChapter.index > 0) {
-      let prevChapterId = this.currentChapter.index - 1;
+    if (skipChapter && this.getCurrentChapter().index > 0) {
+      let prevChapterId = this.getCurrentChapter().index - 1;
       this.currentIndex = this.chapters[prevChapterId].section[0].uid;
-      return this.currentSection;
+      return this.getCurrentSection();
     } else if (this.currentIndex > 0) {
       this.currentIndex--;
-      return this.currentSection;
+      return this.getCurrentSection();
     }
     return null;
   }
@@ -109,7 +109,7 @@ export default class NavModel extends Backbone.Model {
     if (section) {
       this.currentIndex = section.uid;
       this.maxIndex = Math.max(this.maxIndex, this.currentIndex);
-      return this.currentSection;
+      return this.getCurrentSection();
     }
     return null;
   }
@@ -130,16 +130,16 @@ export default class NavModel extends Backbone.Model {
     return null;
   }
 
-  get maxSection() {
+  getMaxSection() {
     return this.sectionList[this.maxIndex];
   }
 
-  get currentSection() {
+  getCurrentSection() {
     return this.getSection(this.currentIndex);
   }
 
-  get currentChapter() {
-    return this.getChapter(this.currentSection.chapter.index);
+  getCurrentChapter() {
+    return this.getChapter(this.getCurrentSection().chapter.index);
   }
 
   // TODO Refactor/optimize function
@@ -147,7 +147,7 @@ export default class NavModel extends Backbone.Model {
     let progress = [];
 
     for (let i = 0; i < this.chapters.length; ++i) {
-      let maxSection = this.maxSection;
+      let maxSection = this.getMaxSection();
       let chapter = this.chapters[i];
       let progressObj = {
         title: chapter.title,
@@ -167,7 +167,7 @@ export default class NavModel extends Backbone.Model {
     return progress;
   }
 
-  get globalProgress() {
+  getGlobalProgress() {
     return ((this.maxIndex + 1) / this.totalSections * 100).toFixed(0);
   }
 

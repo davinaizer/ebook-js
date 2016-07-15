@@ -43,7 +43,7 @@ export default class SectionController extends Backbone.View {
     this.sectionNav.render();
 
     this.$el.empty();
-    this.currentSectionModel = this.model.currentSection;
+    this.currentSectionModel = this.model.getCurrentSection();
     this.goto(this.currentSectionModel);
   }
 
@@ -118,7 +118,7 @@ export default class SectionController extends Backbone.View {
 
     let chapter = this.model.getChapter(section.chapter.index);
     let firstSection = chapter.section[0];
-    let maxSection = this.model.maxSection;
+    let maxSection = this.model.getMaxSection();
     let sectionsToRender = (maxSection.chapter.index > section.chapter.index) ? section.total : maxSection.index + 1;
 
     for (let i = 0; i < sectionsToRender; ++i) {

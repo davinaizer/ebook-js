@@ -33,8 +33,8 @@ export default class SectionNavView extends Backbone.View {
   }
 
   validate() {
-    let currentSection = this.model.currentSection;
-    let maxSection = this.model.maxSection;
+    let currentSection = this.model.getCurrentSection();
+    let maxSection = this.model.getMaxSection();
     let maxSectionIndex = (maxSection.chapter.index > currentSection.chapter.index) ? currentSection.total : maxSection.index;
 
     this.$('li').each((index, el) => {

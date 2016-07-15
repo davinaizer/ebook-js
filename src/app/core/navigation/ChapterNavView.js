@@ -38,7 +38,7 @@ export default class ChapterNavView extends Backbone.View {
   }
 
   validate() {
-    let currentChapter = this.model.currentChapter;
+    let currentChapter = this.model.getCurrentChapter();
 
     if (currentChapter.index === 0) {
       this.$('#btn-prev-chapter').hide();
@@ -47,7 +47,7 @@ export default class ChapterNavView extends Backbone.View {
     }
 
     //-- validate chapter guide
-    let maxChapter = this.model.maxSection.chapter;
+    let maxChapter = this.model.getMaxSection().chapter;
     let nextChapterId = maxChapter.index + 1;
 
     this.$('li').each((index, el) => {

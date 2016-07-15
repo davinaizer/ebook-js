@@ -1,6 +1,6 @@
 <nav class="text-center">
     <ul class="pagination section-nav">
-        {{#with currentChapter}}
+        {{#with getCurrentChapter}}
             {{#each section}}
                 <li id="section-nav-item-{{uid}}">
                     <a href="#/chapter/{{../index}}/section/{{index}}" data-placement="left" data-toggle="tooltip" title="{{add index 1}}. {{title}}">&nbsp;</a>
