@@ -1,0 +1,31 @@
+$list-group-item-active-icon: '\f192';
+$list-group-item-disable-icon: '\f023';
+$list-group-item-hover-icon: '\f04b';
+
+.help {
+  background-color: $white;
+  height: 0;
+  overflow: auto;
+  position: fixed;
+  transition: .5s;
+  width: 100%;
+  z-index: $zindex-menu;
+}
+
+.help-content {
+  margin-top: 50px;
+  position: relative;
+}
+
+.btn-help-close {
+  font-size: 80px !important;
+  position: absolute;
+  right: 0;
+  top: -30px;
+
+  &:hover,
+  &:focus {
+    color: $gray;
+  }
+}
+

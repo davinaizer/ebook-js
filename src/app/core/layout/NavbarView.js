@@ -2,6 +2,7 @@ import Backbone from 'backbone';
 import Bootstrap from 'bootstrap-sass';
 import EventBus from 'libs/EventBus';
 
+import HelpView from 'core/layout/HelpView';
 import MenuView from 'core/navigation/MenuView';
 import Template from 'core/layout/Navbar.hbs';
 
@@ -21,6 +22,7 @@ export default class NavbarView extends Backbone.View {
 
     this.template = Template;
     this.menu = new MenuView({ el: '#menu', model: this.model });
+    this.help = new HelpView({ el: '#help' });
 
     this.listenTo(this.model, 'change', this.update);
   }
@@ -33,7 +35,6 @@ export default class NavbarView extends Backbone.View {
     this.$el.fadeIn(250);
 
     this.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
-    this.update();
 
     return this;
   }
@@ -41,8 +42,6 @@ export default class NavbarView extends Backbone.View {
   onTransitionInComplete() {
     this.isPageLoading = false;
   }
-
-  update() {}
 
   enableBtn($btn, isEnabled) {
     if (isEnabled) {
@@ -75,10 +74,6 @@ export default class NavbarView extends Backbone.View {
     let isEnabled = !$target.is('[disabled]');
 
     if (isEnabled && !this.isPageLoading) {
-
-      // this.enableNav(false);
-      // this.isPageLoading = true;
-
       switch (id) {
         case 'next':
           EventBus.trigger(EventBus.event.NAV_NEXT);
@@ -93,7 +88,7 @@ export default class NavbarView extends Backbone.View {
           break;
 
         case 'help':
-          // this.help.toggle();
+          this.help.toggle();
           break;
       }
     }
