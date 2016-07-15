@@ -1,8 +1,8 @@
 import Backbone from 'backbone';
 import EventBus from 'libs/EventBus';
-
 import ProgressbarView from 'core/shared/ProgressbarView';
-import Template from 'core/navigation/Menu.hbs';
+
+import Template from 'core/layout/Menu.hbs';
 
 export default class MenuView extends Backbone.View {
 
@@ -20,11 +20,6 @@ export default class MenuView extends Backbone.View {
 
     this.isOpen = false;
     this.template = Template;
-
-    //-- lister for keyboard
-    $(document).on('keydown', (e) => {
-      this.keyPress(e);
-    });
   }
 
   render() {
@@ -57,20 +52,23 @@ export default class MenuView extends Backbone.View {
   }
 
   show() {
-    this.isOpen = true;
-    this.render();
+    if (!this.isOpen) {
+      this.isOpen = true;
+      this.render();
 
-    this.$('.menu').height('100%');
-    this.$('.menu').scrollTop(0);
-
-    $('body').css('overflow', 'hidden');
+      this.$('.menu').height('100%');
+      this.$('.menu').scrollTop(0);
+      $('body').css('overflow', 'hidden');
+    }
   }
 
   hide() {
-    this.isOpen = false;
-    this.$('.menu').height(0);
+    if (this.isOpen) {
+      this.isOpen = false;
 
-    $('body').css('overflow', 'scroll');
+      this.$('.menu').height(0);
+      $('body').css('overflow', 'scroll');
+    }
   }
 
   toggle() {
@@ -103,7 +101,7 @@ export default class MenuView extends Backbone.View {
     let id = $target.attr('id');
     let isEnabled = !$target.is('[disabled]') && (id.indexOf('btn-menu-') > -1);
 
-    if (isEnabled && !this.isPageLoading) {
+    if (isEnabled) {
       this.hide();
 
       let sectionUid = parseInt(id.split('btn-menu-')[1]);
@@ -112,14 +110,5 @@ export default class MenuView extends Backbone.View {
       }
     }
     e.preventDefault();
-  }
-
-  keyPress(e) {
-    let code = e.keyCode || e.which;
-    if (code === 27 && this.isOpen) {
-      //ESC press
-      this.hide();
-      e.preventDefault();
-    }
   }
 }

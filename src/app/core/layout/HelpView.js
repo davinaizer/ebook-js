@@ -7,7 +7,9 @@ export default class HelpView extends Backbone.View {
 
   constructor(options) {
     options = Object.assign(options || {}, {
-      events: {}
+      events: {
+        'click a': 'navHandler'
+      }
     });
     super(options);
   }
@@ -17,11 +19,6 @@ export default class HelpView extends Backbone.View {
 
     this.isOpen = false;
     this.template = Template;
-
-    //-- lister for keyboard
-    $(document).on('keydown', (e) => {
-      this.keyPress(e);
-    });
   }
 
   render() {
@@ -33,20 +30,22 @@ export default class HelpView extends Backbone.View {
   }
 
   show() {
-    this.isOpen = true;
-    this.render();
+    if (!this.isOpen) {
+      this.isOpen = true;
 
-    this.$('.help').height('100%');
-    this.$('.help').scrollTop(0);
-
-    $('body').css('overflow', 'hidden');
+      this.$('.help').height('100%');
+      this.$('.help').scrollTop(0);
+      $('body').css('overflow', 'hidden');
+    }
   }
 
   hide() {
-    this.isOpen = false;
-    this.$('.help').height(0);
+    if (this.isOpen) {
+      this.isOpen = false;
 
-    $('body').css('overflow', 'scroll');
+      this.$('.help').height(0);
+      $('body').css('overflow', 'scroll');
+    }
   }
 
   toggle() {
@@ -57,12 +56,15 @@ export default class HelpView extends Backbone.View {
     }
   }
 
-  keyPress(e) {
-    let code = e.keyCode || e.which;
-    if (code === 27 && this.isOpen) {
-      //ESC press
+  //-- NAVIGATION FUNTCIONS
+  navHandler(e) {
+    let $target = this.$(e.currentTarget);
+    let id = $target.attr('id');
+    let isEnabled = !$target.is('[disabled]') && (id.indexOf('btn-help-') > -1);
+
+    if (isEnabled) {
       this.hide();
-      e.preventDefault();
     }
+    e.preventDefault();
   }
 }

@@ -3,7 +3,8 @@ import Bootstrap from 'bootstrap-sass';
 import EventBus from 'libs/EventBus';
 
 import HelpView from 'core/layout/HelpView';
-import MenuView from 'core/navigation/MenuView';
+import MenuView from 'core/layout/MenuView';
+
 import Template from 'core/layout/Navbar.hbs';
 
 export default class NavbarView extends Backbone.View {
@@ -25,14 +26,21 @@ export default class NavbarView extends Backbone.View {
     this.help = new HelpView({ el: '#help' });
 
     this.listenTo(this.model, 'change', this.update);
+
+    $(window.document).on('keydown', (e) => {
+      this.keyPress(e);
+    });
   }
 
   render() {
     console.log('NavbarView.render');
+
     this.$el.hide();
     this.$el.html(this.template());
     this.$el.append(this.menu.render().el);
     this.$el.fadeIn(250);
+
+    this.help.render();
 
     this.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
 
@@ -93,5 +101,15 @@ export default class NavbarView extends Backbone.View {
       }
     }
     e.preventDefault();
+  }
+
+  keyPress(e) {
+    let code = e.keyCode || e.which;
+    if (code === 27) {
+      //ESC press
+      this.menu.hide();
+      this.help.hide();
+      e.preventDefault();
+    }
   }
 }
