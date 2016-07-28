@@ -73,7 +73,7 @@ gulp.task('styles', (cb) => {
 gulp.task('serve', () => {
   $.browserSync.init({
     server: {
-      baseDir: 'dist',
+      baseDir: 'dist'
     },
     notify: false,
     injectChanges: true
