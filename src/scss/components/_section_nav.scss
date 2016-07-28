@@ -1,12 +1,14 @@
 // CLASSES
 #section-nav {
+  margin: auto;
   position: fixed;
-  top: 35%;
+  top: 0;
+  bottom: 0;
   right: 0;
+
   z-index: $zindex-navbar-float;
   background-color: $white;
-  border-radius: 4px 0 0 4px;
-  margin: 0;
+  border-radius: 8px 0 0 8px;
 
   @include box_shadow(2);
 }
@@ -17,6 +19,9 @@
 }
 
 .section-nav {
+  margin: 5px 0;
+  padding: 0;
+
   > li {
     position: relative;
     display: block;

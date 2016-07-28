@@ -26,6 +26,9 @@ export default class SectionNavView extends Backbone.View {
     this.$el.html(this.template(this.model));
     this.$el.fadeIn(500);
 
+    //set fixed height for parent DIV
+    this.$el.css('height', this.$el.find('nav').css("height"));
+
     this.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
     this.validate();
 
