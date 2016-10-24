@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="well">
+        <ol class="breadcrumb breadcrumb-custom">
+            <li>{{ chapter.title }}</li>
+            <li class="active">{{ title }}</li>
+        </ol>
+
+        <h1 class="text-center">{{ title }}</h1>
+
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="badge">{{ uid }}</span> uid
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{ index }}</span> index
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{ total }}</span> total
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{ id }}</span> id
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{ title }}</span> title
+            </li>
+        </ul>
+
+        <h2 class="text-center">Chapter Info</h2>
+
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="badge">{{ chapter.index }}</span> index
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{ chapter.total }}</span> total
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{ chapter.title }}</span> title
+            </li>
+        </ul>
+
+        <div>
+            <div class="media">
+                <div class="media-left">
+                    <i class="fa fa-asterisk fa-5x" aria-hidden="true"></i>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">Lorem Ipsum</h4>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque blandit, nisi in dictum consequat, mi nulla accumsan massa, non mattis elit purus non lacus. Cras quis leo tortor. Sed ac turpis eget metus viverra iaculis. Mauris nec elit tincidunt, luctus diam vitae, semper nulla. Nulla molestie lobortis mauris, et ultricies eros varius at. Sed condimentum semper neque vel rhoncus. Cras a risus at lectus ultricies vehicula. Morbi ac lectus tellus. Proin mollis ligula lacus, non aliquet magna bibendum at. Morbi ultricies velit eget tortor condimentum semper. Cras vehicula dui a elementum luctus.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bs-callout bs-callout-primary">
+        <i class="fa fa-quote-right fa-3x fa-pull-right fa-border" aria-hidden="true"></i>
+
+        <p>Sed dapibus faucibus ligula sit amet molestie. Etiam mauris ipsum, molestie eu tincidunt ut, placerat nec nulla. Aenean imperdiet sapien quis felis euismod placerat. Praesent quis commodo diam. Cras sit amet massa et orci iaculis malesuada. Nullam eu tortor vel orci consequat eleifend in sit amet felis. Duis eget vulputate purus. Aliquam facilisis ligula vel mauris gravida vestibulum.</p>
+    </div>
+
+    <button id="btn-next-section" class="btn btn-primary btn-block" role="button">
+        <i class="fa fa-arrow-down fa-2x" aria-hidden="true"></i>
+    </button>
+</div>

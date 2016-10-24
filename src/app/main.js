@@ -1,4 +1,4 @@
-import App from './app';
+import App from './App';
 
-var app = new App({ el: "#main" });
+let app = new App({ el: '#main' });
 app.bootstrap();

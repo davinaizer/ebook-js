@@ -5,51 +5,16 @@
     <file url="file://$PROJECT_DIR$/gulpfile.babel.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_pagination.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/package.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/controllers/NavController.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/data/config.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/data/tour.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/helpers/ConsoleFix.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/helpers/EventBus.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/app/main.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/models/NavModel.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/templates/components/chapter_nav.hbs" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/templates/components/navbar.hbs" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/templates/components/section_nav.hbs" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/templates/components/tour.hbs" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/templates/content/Templates.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/templates/content/chapter_0/section_0.hbs" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/templates/content/chapter_0/section_1.hbs" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/templates/content/chapter_0/section_2.hbs" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/templates/content/chapter_1/section_0.hbs" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/templates/content/chapter_1/section_1.hbs" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/templates/content/chapter_2/section_0.hbs" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/templates/content/chapter_2/section_1.hbs" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/templates/content/chapter_2/section_2.hbs" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/templates/cover.hbs" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/templates/cover_newuser.hbs" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/views/CoverView.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/views/components/ChapterNavView.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/views/components/Dashboard.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/views/components/NavbarView.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/views/components/Progressbar.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/views/components/SectionNavView.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/views/content/BaseView.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/views/content/Content.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/views/content/chapter_0/section_0.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/app/views/content/chapter_2/section_2.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/abstracts/_material.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/components/_breadcrumb.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/components/_chapter_nav.scss" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/scss/components/_dashboard.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/components/_navbar.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/components/_progress_bars.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/components/_section_nav.scss" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/scss/components/_tour.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/ebook/_cover.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/ebook/_global.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/scss/main.scss" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/scss/themes/_bootswatch.scss" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/scss/themes/_variables.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/webpack.config.js" charset="UTF-8" />
   </component>
 </project>

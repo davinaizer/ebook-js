@@ -1,122 +1,46 @@
-options:
-  formatter: stylish
-files:
-  include: 'src/app/scss/**/*.s+(a|c)ss'
-  ignore:
-    - 'src/app/scss/vendors/**/*.*'
-rules:
-  # Extends
-  extends-before-mixins: 1
-  extends-before-declarations: 1
-  placeholder-in-extend: 1
+severity: error
 
-  # Mixins
-  mixins-before-declarations: 1
+linters:
 
-  # Line Spacing
-  one-declaration-per-line: 1
-  empty-line-between-blocks: 1
-  single-line-per-selector: 1
+  BorderZero:
+    enabled: true
+    convention: zero
 
-  # Disallows
-  no-color-keywords: 1
-  no-color-literals: 1
-  no-css-comments: 1
-  no-debug: 1
-  no-duplicate-properties: 1
-  no-empty-rulesets: 1
-  no-extends: 0
-  no-ids: 0
-  no-important: 1
-  no-invalid-hex: 1
-  no-mergeable-selectors: 1
-  no-misspelled-properties: 1
-  no-qualifying-elements: 1
-  no-trailing-whitespace: 1
-  no-trailing-zero: 1
-  no-transition-all: 1
-  no-url-protocols: 1
-  no-vendor-prefixes: 1
-  no-warn: 1
-  property-units: 0
+  BemDepth:
+    enabled: true
 
-  # Nesting
-  force-attribute-nesting: 1
-  force-element-nesting: 1
-  force-pseudo-nesting: 1
+  DeclarationOrder:
+    enabled: false
 
-  # Name Formats
-  class-name-format: 1
-  function-name-format: 1
-  id-name-format: 0
-  mixin-name-format: 1
-  placeholder-name-format: 1
-  variable-name-format: 1
+  ExtendDirective:
+    enabled: true
 
-  # Style Guide
-  bem-depth: 0
-  border-zero: 1
-  brace-style: 1
-  clean-import-paths: 1
-  empty-args: 1
-  hex-length: 1
-  hex-notation: 1
-  indentation:
-    - 4
-    -
-      size: 4
-  leading-zero: 1
-  nesting-depth: 1
-  property-sort-order:
-    - 1
-    - order:
-      - position
-      - top
-      - right
-      - bottom
-      - left
-      - z-index
-      -
-      - display
-      - float
-      - width
-      - height
-      - padding
-      - border
-      -
-      - color
-      - font-family
-      - font-size
-      - font-weight
-      - letter-spacing
-      - line-height
-      - text-align
-      - text-decoration
-      - text-shadow
-      - text-transform
-      -
-      - background-color
-      - border-radius
-      - box-shadow
-      -
-      - opacity
-      - visibility
-  quotes: 1
-  shorthand-values: 1
-  url-quotes: 1
-  variable-for-property: 1
-  zero-unit: 1
+  LeadingZero:
+    enabled: false
 
-  # Inner Spacing
-  space-after-comma: 1
-  space-before-colon: 1
-  space-after-colon: 1
-  space-before-brace: 1
-  space-before-bang: 1
-  space-after-bang: 1
-  space-between-parens: 1
-  space-around-operator: 1
+  NameFormat:
+    enabled: true
 
-  # Final Items
-  trailing-semicolon: 1
-  final-newline: 1
+  PrivateNamingConvention:
+    enabled: true
+    prefix: _
+
+  PropertySortOrder:
+    enabled: false
+
+  QualifyingElement:
+    enabled: false
+
+  SelectorFormat:
+    enabled: true
+    convention: hyphenated_BEM
+    class_convention: ^(?!js-).*
+    class_convention_explanation: should not be written in the form js-*
+
+  SingleLinePerProperty:
+    enabled: true
+    allow_single_line_rule_sets: false
+
+  StringQuotes:
+    enabled: true
+    style: double_quotes
