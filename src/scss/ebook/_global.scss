@@ -1,32 +1,27 @@
-html {
-    position: relative;
-    min-height: 100%;
-}
-
 body {
-    // overflow: hidden;
-    margin-bottom: 40px;
-    overflow-y: scroll;
+  margin-bottom: 40px;
+  overflow-y: scroll;
 }
 
 #main {
-    padding-left: 0;
-    padding-right: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 #content {
-    margin-top: 80px;
+  margin-top: 80px;
 }
+
 
 /* disable links */
 
 a {
-    & [disable] {
-        pointer-events: none;
-        color: $gray;
-    }
-    &.disabled {
-        pointer-events: none;
-        color: $gray;
-    }
+  & [disable] {
+    pointer-events: none;
+    color: $gray;
+  }
+  &.disabled {
+    pointer-events: none;
+    color: $gray;
+  }
 }
