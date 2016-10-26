@@ -36,6 +36,19 @@ export default class SectionView extends Backbone.View {
     EventBus.trigger(EventBus.event.PAGE_TRANSITION_IN_COMPLETE);
   }
 
+  scrollTo(el, offsetY) {
+    if (el) {
+      let offsetTop = offsetY || 50;
+      let $section = el instanceof this.$ ? el : this.$(el);
+      let duration = 0.75;
+
+      TweenMax.to(window, duration, {
+        scrollTo: { y: $section.offset().top - offsetTop, autoKill: false },
+        ease: Power3.easeInOut
+      });
+    }
+  }
+
   hideNextBtn(duration) {
     TweenMax.to(this.$('#btn-next-section'), duration || 0.25, { autoAlpha: 0 });
   }
