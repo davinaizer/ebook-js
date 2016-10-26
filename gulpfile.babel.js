@@ -1,73 +1,115 @@
-'use strict';
+/*
+ IMPORTS
+ */
 
 import gulp from 'gulp';
 import path from 'path';
 import del from 'del';
 
-var $ = require('gulp-load-plugins')({
-  pattern: '*',
-});
+/*
+ CONSTANTS
+ */
 
-var environment = $.util.env.type || 'development';
-var isProduction = environment === 'production';
-var webpackConfig = require('./webpack.config.js')[environment];
+const $ = require('gulp-load-plugins')({pattern: '*'});
+const environment = $.util.env.type || 'development';
+const isProduction = environment === 'production';
+const webpackConfig = require('./webpack.config.js')[environment];
+const port = $.util.env.port || 3000;
+const reload = $.browserSync.reload;
 
-var port = $.util.env.port || 3000;
-var reload = $.browserSync.reload;
-
-var src = 'src/';
-var dist = 'dist/';
-
-var sassOptions = {
+const src = 'src/';
+const dist = 'dist/';
+const sassOptions = {
   errLogToConsole: true,
-  outputStyle: 'compact',
-  //outputStyle: 'compressed',
+  // outputStyle: 'compact',
+  outputStyle: 'compressed',
   precision: 10
 };
-
-var autoprefixerBrowsers = [
-  'ie >= 9',
-  'ie_mob >= 10',
-  'ff >= 30',
-  'chrome >= 34',
-  'safari >= 6',
-  'ios >= 6',
-  'android >= 4.4',
-  'bb >= 10'
+const autoprefixerBrowsers = [
+  'last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'
 ];
 
-gulp.task('scripts', () => {
+/*
+ HELPER FUNTIONS
+ */
+
+let getTimeStamp = () => {
+  let myDate = new Date();
+  let myYear = myDate.getFullYear().toString();
+  let myMonth = ('0' + (myDate.getMonth() + 1)).slice(-2);
+  let myDay = ('0' + myDate.getDate()).slice(-2);
+  let mySeconds = myDate.getSeconds().toString();
+  let myFullDate = myYear + myMonth + myDay + mySeconds;
+
+  return myFullDate;
+};
+
+/*
+ DEFAULT TASK
+ */
+gulp.task('default', (cb) => {
+  $.runSequence('build', 'serve', 'watch', cb);
+});
+
+/*
+ BUILDING TASKS
+ */
+
+gulp.task('build', () => {
+  return $.runSequence('clean', 'build:styles', 'build:static', 'build:scripts');
+});
+
+gulp.task('build:scripts', () => {
   return gulp.src(webpackConfig.entry)
     .pipe($.plumber())
     .pipe($.webpackStream(webpackConfig))
     .pipe(gulp.dest(dist + 'js/'))
-    .pipe($.size({ title: 'js' }))
-    .pipe(reload({ stream: true }));
+    .pipe($.size({title: 'js'}))
+    .pipe(reload({stream: true}));
 });
 
-gulp.task('html', () => {
-  return gulp.src(src + 'index.html')
-    .pipe(gulp.dest(dist))
-    .pipe($.size({ title: 'html' }))
-    .pipe(reload({ stream: true }));
+gulp.task('build:static', () => {
+  return gulp.src(src + 'static/**/*')
+    .pipe($.changed(dist))
+    .pipe($.size({title: 'static'}))
+    .pipe(gulp.dest(dist + './'))
+    .pipe(reload({stream: true}));
 });
 
-gulp.task('styles', (cb) => {
+gulp.task('build:styles', () => {
   return gulp.src(src + 'scss/main.scss')
-    .pipe($.sourcemaps.init())
+    // .pipe($.sourcemaps.init())
     .pipe($.sassGlob())
-    .pipe($.sass(sassOptions)).on('error', function(err) {
+    .pipe($.sass(sassOptions)).on('error', function (err) {
       $.notify().write(err);
       this.emit('end');
     })
-    .pipe($.sourcemaps.write({ includeContent: false }))
-    .pipe($.sourcemaps.init({ loadMaps: true }))
-    .pipe($.autoprefixer({ browsers: autoprefixerBrowsers }))
-    .pipe($.sourcemaps.write('./'))
+    // .pipe($.sourcemaps.write({includeContent: false}))
+    // .pipe($.sourcemaps.init({loadMaps: true}))
+    .pipe($.autoprefixer({browsers: autoprefixerBrowsers}))
+    // .pipe($.sourcemaps.write('./'))
     .pipe(gulp.dest(dist + 'css/'))
-    .pipe($.size({ title: 'css' }))
+    .pipe($.size({title: 'css'}))
     .pipe($.filter("**/*.css"))
-    .pipe(reload({ stream: true }));
+    .pipe(reload({stream: true}));
+});
+
+/*
+ GLOBAL FUNTIONS
+ */
+
+gulp.task('clean', () => {
+  return del([dist]);
+});
+
+gulp.task('opt-imgs', function () {
+  return gulp.src(src + 'static/imgs/**/*')
+    .pipe($.imagemin({
+      progressive: true,
+      svgoPlugins: [{removeViewBox: false}],
+      use: [$.imageminPngquant()]
+    }))
+    .pipe(gulp.dest('dist/imgs'));
 });
 
 gulp.task('serve', () => {
@@ -80,30 +122,18 @@ gulp.task('serve', () => {
   });
 });
 
-gulp.task('static', (cb) => {
-  return gulp.src(src + 'static/**/*')
-    .pipe($.size({ title: 'static' }))
-    .pipe(gulp.dest(dist + './'));
-});
-
 gulp.task('watch', () => {
-  gulp.watch(src + 'scss/**/*.scss', ['styles']);
-  gulp.watch(src + 'index.html', ['html']);
+  gulp.watch(src + 'static/**.*', ['build:static']);
+  gulp.watch(src + 'scss/**/*.scss', ['build:styles']);
   gulp.watch([
     src + 'app/**/*.js',
     src + 'app/**/*.json',
-    src + 'app/**/*.hbs'
-  ], ['scripts']);
+    src + 'app/templates/**/*.hbs'], ['build:scripts']);
 });
 
-gulp.task('clean', (cb) => {
-  del([dist], cb);
+gulp.task('zip:build', () => {
+  return gulp.src(dist + '/**')
+    .pipe($.zip('ebookJS-dist_' + getTimeStamp() + '.zip'))
+    .pipe(gulp.dest('.'));
 });
 
-// by default build project and then watch files in order to trigger livereload
-gulp.task('default', ['build', 'serve', 'watch']);
-
-// waits until clean is finished then builds the project
-gulp.task('build', ['clean'], () => {
-  gulp.start(['static', 'html', 'scripts', 'styles']);
-});

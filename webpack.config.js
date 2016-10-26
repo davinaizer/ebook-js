@@ -1,6 +1,6 @@
 var webpack = require('webpack');
-var polyfill = require('babel-polyfill');
 var path = require('path');
+
 var entry = ['babel-polyfill', './src/app/main.js'],
   output = {
     path: __dirname,
@@ -16,11 +16,13 @@ var entry = ['babel-polyfill', './src/app/main.js'],
     }
   });
 
+//-- DEVELOPMENT BUILD
 module.exports.development = {
   debug: true,
   devtool: 'eval',
   entry: entry,
   output: output,
+  watch:true,
   module: {
     loaders: [
       { test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader' },
@@ -61,6 +63,7 @@ module.exports.development = {
   ]
 };
 
+//-- PRODUCTION BUILD
 module.exports.production = {
   debug: false,
   entry: entry,
