@@ -180,7 +180,7 @@ export default class SectionController extends Backbone.View {
       model: section
     });
     sectionView.navModel = this.model;
-    sectionView.template = this.model.getSectionTemplate(section.id);
+    sectionView.template = this.model.getSectionTemplate(section.id) || {};
 
     return sectionView;
   }
