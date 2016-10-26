@@ -3,7 +3,6 @@
 /* LIBS */
 import $ from 'jquery';
 import Backbone from 'backbone';
-import ConsoleFix from 'libs/ConsoleFix';
 import EventBus from 'libs/EventBus';
 
 /* CORE CLASSES */
