@@ -31,7 +31,7 @@ export default class SectionController extends Backbone.View {
 
     //-- CHECK FOR WINDOW RESIZE every 1s
     $(window).on('resize', _.throttle(() => {
-      this.onResize();
+      this.updateScenes();
     }, 1000));
   }
 
@@ -100,8 +100,8 @@ export default class SectionController extends Backbone.View {
         // clear all
         this.renderedViews = [];
         this.scrollScenes = [];
-        this.chapterNav.remove();
         this.sectionNav.render();
+        this.chapterNav ? this.chapterNav.remove() : null;
         this.$el.empty();
 
         $(window).scrollTop(0);
@@ -146,6 +146,7 @@ export default class SectionController extends Backbone.View {
         //-- hide next btn from section already seen
         if (nextSection.uid < maxSection.uid) {
           this.renderedViews[i].hideNextBtn();
+          this.renderedViews[i].isVisited = true;
         }
       }
     }
@@ -157,7 +158,7 @@ export default class SectionController extends Backbone.View {
     }
 
     // wait before recheck section sizes
-    _.delay(() => { this.onResize(); }, 1000);
+    _.delay(() => { this.updateScenes() }, 1000);
   }
 
   onSectionEnter(section) {
@@ -166,7 +167,7 @@ export default class SectionController extends Backbone.View {
     this.sectionNav.validate();
   }
 
-  onResize() {
+  updateScenes() {
     $.each(this.scrollScenes, (index, scene) => {
       scene.duration(this.renderedViews[index].$el.height());
     });
@@ -185,11 +186,12 @@ export default class SectionController extends Backbone.View {
   }
 
   scrollTo(section) {
-    console.log('SectionController.scrollTo:', section.id);
+    console.log('SectionController.scrollTo > uid:' + section.uid + ', id:', section.id);
 
+    this.updateScenes();
     let offsetTop = 80;
     let $section = this.$('#' + section.id);
-    let duration = (section.index === 0) ? 0.25 : 0.75;
+    let duration = 0.75;
 
     TweenMax.to(window, duration, {
       scrollTo: { y: $section.offset().top - offsetTop, autoKill: false },
