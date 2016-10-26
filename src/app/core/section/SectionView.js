@@ -5,7 +5,7 @@ import TweenMax from 'gsap';
 export default class SectionView extends Backbone.View {
 
   constructor(options) {
-    options = Object.assign(options || {}, {
+    Object.assign(options || {}, {
       events: {
         'click #btn-next-section': 'next'
       }

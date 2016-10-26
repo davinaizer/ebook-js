@@ -5,7 +5,7 @@ import Template from 'core/shared/Progressbar.hbs';
 export default class Progressbar extends Backbone.View {
 
   constructor(options) {
-    options = Object.assign(options || {}, {});
+    Object.assign(options || {}, {});
     super(options);
   }
 

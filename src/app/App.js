@@ -15,7 +15,7 @@ import ScormService from 'core/scorm/ScormService';
 export default class App extends Backbone.View {
 
   constructor(options) {
-    options = Object.assign(options || {}, {});
+    Object.assign(options || {}, {});
     super(options);
   }
 

@@ -6,7 +6,7 @@ import Template from 'core/navigation/SectionNav.hbs';
 export default class SectionNavView extends Backbone.View {
 
   constructor(options) {
-    options = Object.assign(options || {}, {
+    Object.assign(options || {}, {
       el: '#section-nav',
       events: {
         'click li': 'sectionNav'

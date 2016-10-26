@@ -5,7 +5,7 @@ import ScormApi from 'libs/ScormApi';
 export default class ScormService extends Backbone.Model {
 
   constructor(options) {
-    options = Object.assign(options || {}, {});
+    Object.assign(options || {}, {});
     super(options);
   }
 

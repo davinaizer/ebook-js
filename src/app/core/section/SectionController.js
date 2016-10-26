@@ -13,7 +13,7 @@ import SectionView from 'core/section/SectionView';
 export default class SectionController extends Backbone.View {
 
   constructor(options) {
-    options = Object.assign(options || {}, {});
+    Object.assign(options || {}, {});
     super(options);
   }
 

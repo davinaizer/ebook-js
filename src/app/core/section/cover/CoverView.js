@@ -10,7 +10,7 @@ import TemplateCompleted from 'core/section/cover/CoverCompleted.hbs';
 export default class CoverView extends Backbone.View {
 
   constructor(options) {
-    options = Object.assign(options || {}, {
+    Object.assign(options || {}, {
       events: {
         'click #start-btn': 'start'
       }
