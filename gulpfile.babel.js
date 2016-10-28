@@ -48,7 +48,7 @@ let getTimeStamp = () => {
  DEFAULT TASK
  */
 gulp.task('default', (cb) => {
-  $.runSequence('build', 'serve', 'watch', cb);
+  $.runSequence('build', 'watch', 'serve', cb);
 });
 
 /*
@@ -64,8 +64,6 @@ gulp.task('build:scripts', () => {
     .pipe($.plumber())
     .pipe($.webpackStream(webpackConfig))
     .pipe(gulp.dest(dist + 'js/'))
-    .pipe($.size({title: 'js'}))
-    .pipe(reload({stream: true}));
 });
 
 gulp.task('build:static', () => {
@@ -112,23 +110,42 @@ gulp.task('opt-imgs', function () {
     .pipe(gulp.dest('dist/imgs'));
 });
 
-gulp.task('serve', () => {
-  $.browserSync.init({
-    server: {
-      baseDir: 'dist'
-    },
-    notify: false,
-    injectChanges: true
+gulp.task('serve', ['webpack:dev-server'], () => {
+  $.browserSync({
+    //server: {
+    //baseDir: 'dist'
+    //},
+    notify: true,
+    //injectChanges: true,
+    proxy: 'localhost:8080',
+    port: 3000
   });
+});
+
+gulp.task('webpack:dev-server', (cb) => {
+  let config = Object.assign({}, webpackConfig);
+  let compiler = $.webpack(config);
+  let devServer = new $.webpackDevServer(compiler, {
+    contentBase: dist,
+    filename: 'main.js',
+    hot: false,
+    inline: true,
+    progress: true,
+    noInfo: true,
+    stats: { colors: true }
+  });
+
+  devServer.listen(8080, 'localhost', (err) => {
+    if (err) throw new $.util.PluginError('webpack-dev-server', err);
+    cb();
+  });
+
+  return;
 });
 
 gulp.task('watch', () => {
   gulp.watch(src + 'static/**.*', ['build:static']);
   gulp.watch(src + 'scss/**/*.scss', ['build:styles']);
-  gulp.watch([
-    src + 'app/**/*.js',
-    src + 'app/**/*.json',
-    src + 'app/templates/**/*.hbs'], ['build:scripts']);
 });
 
 gulp.task('zip:build', () => {

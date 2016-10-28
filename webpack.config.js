@@ -1,7 +1,12 @@
-var webpack = require('webpack');
 var path = require('path');
+var webpack = require('webpack');
 
-var entry = ['babel-polyfill', './src/app/main.js'],
+var entry = [
+    'webpack/hot/dev-server',
+    'webpack-dev-server/client?http://localhost:8080/',
+    'babel-polyfill',
+    './src/app/main.js',
+  ],
   output = {
     path: __dirname,
     filename: 'main.js'
@@ -19,10 +24,10 @@ var entry = ['babel-polyfill', './src/app/main.js'],
 //-- DEVELOPMENT BUILD
 module.exports.development = {
   debug: true,
-  devtool: 'eval',
+  devtool: 'eval-source-map',
   entry: entry,
   output: output,
-  watch:true,
+  watch: true,
   module: {
     loaders: [
       { test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader' },
@@ -33,8 +38,7 @@ module.exports.development = {
         query: {
           helperDirs: [__dirname + '/src/app/libs/HbsHelpers']
         }
-      },
-      { test: /\.css$/, loader: 'css-loader' }
+      }
     ]
   },
   resolve: {
@@ -56,6 +60,8 @@ module.exports.development = {
     }
   },
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin('main', null, false),
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'
@@ -78,8 +84,7 @@ module.exports.production = {
         query: {
           helperDirs: [__dirname + '/src/app/libs/HbsHelpers']
         }
-      },
-      { test: /\.css$/, loader: 'css-loader' }
+      }
     ]
   },
   resolve: {
@@ -102,6 +107,7 @@ module.exports.production = {
   },
   plugins: [
     uglifyJsPlugin,
+    new webpack.optimize.CommonsChunkPlugin('main', null, false),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'

@@ -44,7 +44,7 @@
     "gulp-sass-glob": "^1.0.6",
     "gulp-size": "^1.2.0",
     "gulp-sourcemaps": "^1.6.0",
-    "gulp-util": "^3.0.3",
+    "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.10",
     "gulp-zip": "^3.2.0",
     "handlebars": "^4.0.3",
@@ -61,6 +61,7 @@
     "viewport-units-buggyfill": "^0.6.0",
     "webpack": "^1.13.3",
     "webpack-dev-middleware": "^1.8.4",
+    "webpack-dev-server": "^1.16.2",
     "webpack-stream": "^2.1.1"
   },
   "dependencies": {
