@@ -3,9 +3,9 @@ import EventBus from 'libs/EventBus';
 import ProgressbarView from 'core/shared/ProgressbarView';
 
 // templates
-import Template from 'core/section/cover/Cover.hbs';
-import TemplateIncomplete from 'core/section/cover/CoverIncomplete.hbs';
-import TemplateCompleted from 'core/section/cover/CoverCompleted.hbs';
+import Template from 'content/cover/Cover.hbs';
+import TemplateIncomplete from 'content/cover/CoverIncomplete.hbs';
+import TemplateCompleted from 'content/cover/CoverCompleted.hbs';
 
 export default class CoverView extends Backbone.View {
 
