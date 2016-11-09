@@ -1,0 +1,102 @@
+#cover-section {
+    position: relative;
+    .section-bg {
+        @extend .section-bg-base;
+        background-color: #90112e;
+        background-image: url('../imgs/cover/cover_bg.jpg');
+        min-height: 100vh;
+    }
+    #start-btn {
+        left: 50%;
+        position: absolute;
+        top: 450px;
+        transform: translate(-50%, -50%);
+    }
+    .box-content {
+        background-color: $white;
+        border-radius: 20px 0;
+        margin-top: 215px;
+        min-height: 350px;
+        padding: 1px 20px;
+    }
+    .medal-position {
+        margin-top: 25px;
+    }
+    #progress-bar-cover {
+        margin-top: 35px;
+        .progress {
+            background-color: $gray-lighter;
+        }
+        .progress-marker {
+            background-color: $gray-light;
+        }
+    }
+    .footer {
+        .small {
+            color: $gray-light;
+            font-size: 11px;
+            width: 101%;
+        }
+        .btn-custon {
+            border-color: $gray-light;
+            padding: 0;
+            h6 {
+                color: $gray-light;
+            }
+            &:hover {
+                background-color: $gray-lighter;
+            }
+        }
+        .logo-ub {
+            margin-top: 77px;
+        }
+        .btn-custon,
+        .small {
+            margin-top: 90px;
+        }
+    }
+}
+
+@media (max-width: 949px) {
+    #cover-section {
+        .footer {
+            margin-top: 110px;
+            .logo-ub {
+                margin-top: 40px;
+            }
+            .small {
+                margin-top: 40px;
+                width: 101%;
+            }
+            .btn-custon{
+                margin-top: 50px;
+            }
+        }
+    }
+}
+
+@media (max-width: 481px) {
+    #cover-section {
+        .section-bg {
+            background-image: url('../imgs/cover/cover_bg_480.jpg');
+        }
+        img {
+              margin-top: -10px;
+        }
+        #start-btn {
+            top: 510px;
+        }
+        .footer {
+            padding-top: 0px;
+            .small {
+                margin-top: 60px;
+            }
+            .logo-ub {
+                margin-top: 30px;
+            }
+            .btn-custon {
+                margin-top: 20px;
+            }
+        }
+    }
+}
