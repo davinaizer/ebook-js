@@ -144,7 +144,7 @@ gulp.task('webpack:dev-server', (cb) => {
 });
 
 gulp.task('watch', () => {
-  gulp.watch(src + 'static/**.*', ['build:static']);
+  gulp.watch(src + 'static/**/*', ['build:static']);
   gulp.watch(src + 'scss/**/*.scss', ['build:styles']);
 });
 
