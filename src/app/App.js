@@ -4,9 +4,9 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
 import EventBus from 'libs/EventBus';
+import CoverView from 'content/cover/CoverView';
 
 /* CORE CLASSES */
-import CoverView from 'core/section/cover/CoverView';
 import NavbarView from 'core/layout/NavbarView';
 import NavModel from 'core/navigation/NavModel';
 import SectionController from 'core/section/SectionController';
@@ -20,7 +20,7 @@ export default class App extends Backbone.View {
   }
 
   initialize() {
-    const appVersion = 'v2.0.0-beta';
+    const appVersion = 'v3.0.0-beta';
 
     console.info('UNBOX® Learning Experience — 2009-2016 — eBookJS Fluid ' + appVersion);
     console.log('App.init');
