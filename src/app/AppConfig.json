@@ -1,6 +1,5 @@
 {
     "settings": {
-        "version": "V2.0.0-beta",
         "idMask": "c_{{chapterIndex}}_s_{{sectionIndex}}",
         "lessonMode": "normal"
     },
