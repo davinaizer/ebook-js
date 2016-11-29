@@ -1,11 +1,11 @@
 <div class="container">
     <div class="well">
         <ol class="breadcrumb">
-            <li>{{ chapter.title }}</li>
-            <li class="active">{{ title }}</li>
+            <li>{{{ chapter.title }}}</li>
+            <li class="active">{{{ title }}}</li>
         </ol>
 
-        <h1 class="text-center">{{ title }}</h1>
+        <h1 class="text-center">{{{ title }}}</h1>
 
         <ul class="list-group">
             <li class="list-group-item">
@@ -21,7 +21,7 @@
                 <span class="badge">{{ id }}</span> id
             </li>
             <li class="list-group-item">
-                <span class="badge">{{ title }}</span> title
+                <span class="badge">{{{ title }}}</span> title
             </li>
         </ul>
 
@@ -35,7 +35,7 @@
                 <span class="badge">{{ chapter.total }}</span> total
             </li>
             <li class="list-group-item">
-                <span class="badge">{{ chapter.title }}</span> title
+                <span class="badge">{{{ chapter.title }}}</span> title
             </li>
         </ul>
 
