@@ -6,7 +6,7 @@ import Template from 'core/navigation/SectionNav.hbs';
 export default class SectionNavView extends Backbone.View {
 
   constructor(options) {
-    options = Object.assign(options || {}, {
+    Object.assign(options || {}, {
       el: '#section-nav',
       events: {
         'click li': 'sectionNav'
@@ -29,7 +29,7 @@ export default class SectionNavView extends Backbone.View {
     //set fixed height for parent DIV
     this.$el.css('height', this.$el.find('nav').css("height"));
 
-    this.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
+    this.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover', html: true });
     this.validate();
 
     return this;

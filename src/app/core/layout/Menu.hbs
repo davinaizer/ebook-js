@@ -20,13 +20,13 @@
             {{#each chapters}}
                 <div class="col-sm-6 col-md-4 chapter-list">
                     <div class="thumbnail thumb-custom">
-                        <img src="{{thumbnail}}" class="img-responsive" alt="{{title}}">
+                        <img src="{{thumbnail}}" class="img-responsive" alt="{{{title}}}">
 
                         <div class="caption">
                             <div class="list-group section-list">
                                 {{#each section}}
                                     <a href="#/chapter/{{../index}}/section/{{index}}" id="btn-menu-{{uid}}" class="list-group-item" role="button">
-                                        <p><span class="small">{{add index 1}}.</span> {{title}}</p>
+                                        <p><span class="small">{{add index 1}}.</span> {{{title}}}</p>
                                     </a>
                                 {{/each}}
                             </div>

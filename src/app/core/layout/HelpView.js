@@ -6,7 +6,7 @@ import Template from 'core/layout/Help.hbs';
 export default class HelpView extends Backbone.View {
 
   constructor(options) {
-    options = Object.assign(options || {}, {
+    Object.assign(options || {}, {
       events: {
         'click a': 'navHandler'
       }

@@ -5,7 +5,7 @@ import ScormApi from 'libs/ScormApi';
 export default class ScormService extends Backbone.Model {
 
   constructor(options) {
-    options = Object.assign(options || {}, {});
+    Object.assign(options || {}, {});
     super(options);
   }
 
@@ -73,29 +73,29 @@ export default class ScormService extends Backbone.Model {
   }
 
   update(data) {
-    if (this.isAvailable) {
-      if (this.lessonStatus !== 'completed') {
-        for (let key in data) {
-          if (data.hasOwnProperty(key)) {
-            if (key.indexOf('suspend_data') > -1) {
-              Object.assign(this.suspendData, data[key]);
-              data[key] = JSON.stringify(this.suspendData).replace(/"/g, '\'');
-            }
-            this.setParam(key, data[key]);
+    if (this.lessonStatus !== 'completed') {
+      for (let key in data) {
+        if (data.hasOwnProperty(key)) {
+          if (key.indexOf('suspend_data') > -1) {
+            Object.assign(this.suspendData, data[key]);
+            data[key] = JSON.stringify(this.suspendData).replace(/"/g, '\'');
           }
+          this.setParam(key, data[key]);
         }
-        this.save();
-      } else {
-        console.warn('ScormService.update: LESSON_STATUS == COMPLETED. Cant update SCORM Data!');
       }
-    } else if (this.lessonMode === 'normal') {
-      console.warn('SCORM API not available. Cant update SCORM Data!');
+      this.save();
+    } else {
+      console.warn('ScormService.update: LESSON_STATUS == COMPLETED. Cant update SCORM Data!');
     }
   }
 
   save() {
-    let success = this.scorm.save();
-    console.log('ScormService.save:', success);
+    if (this.isAvailable) {
+      let success = this.scorm.save();
+      console.log('ScormService.save:', success);
+    } else if (this.lessonMode === 'normal') {
+      console.warn('SCORM API not available. Cant save SCORM Data!');
+    }
   }
 
   dispatchSuspendData() {

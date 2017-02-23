@@ -9,7 +9,7 @@ import * as SectionTemplates from 'content/SectionTemplates';
 export default class NavModel extends Backbone.Model {
 
   constructor(options) {
-    options = Object.assign(options || {}, {});
+    Object.assign(options || {}, {});
     super(options);
   }
 

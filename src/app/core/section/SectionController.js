@@ -13,7 +13,7 @@ import SectionView from 'core/section/SectionView';
 export default class SectionController extends Backbone.View {
 
   constructor(options) {
-    options = Object.assign(options || {}, {});
+    Object.assign(options || {}, {});
     super(options);
   }
 
@@ -31,7 +31,7 @@ export default class SectionController extends Backbone.View {
 
     //-- CHECK FOR WINDOW RESIZE every 1s
     $(window).on('resize', _.throttle(() => {
-      this.onResize();
+      this.updateScenes();
     }, 1000));
   }
 
@@ -100,8 +100,8 @@ export default class SectionController extends Backbone.View {
         // clear all
         this.renderedViews = [];
         this.scrollScenes = [];
-        this.chapterNav.remove();
         this.sectionNav.render();
+        this.chapterNav ? this.chapterNav.remove() : null;
         this.$el.empty();
 
         $(window).scrollTop(0);
@@ -128,6 +128,11 @@ export default class SectionController extends Backbone.View {
 
         this.$el.append(nextSectionView.render().el);
 
+        //-- hide next btn from section already visited
+        if (nextSection.uid < maxSection.uid) {
+          nextSectionView.hideNextBtn();
+          nextSectionView.isVisited = true;
+        }
         nextSectionView.bootstrap();
         nextSectionView.transitionIn();
 
@@ -142,11 +147,6 @@ export default class SectionController extends Backbone.View {
           .setClassToggle('#section-nav-item-' + nextSection.uid, 'active')
           .addTo(this.scrollControl)
           .on('enter', $.proxy(this.onSectionEnter, this, nextSection));
-
-        //-- hide next btn from section already seen
-        if (nextSection.uid < maxSection.uid) {
-          this.renderedViews[i].hideNextBtn();
-        }
       }
     }
 
@@ -157,7 +157,7 @@ export default class SectionController extends Backbone.View {
     }
 
     // wait before recheck section sizes
-    _.delay(() => { this.onResize(); }, 1000);
+    _.delay(() => { this.updateScenes() }, 1000);
   }
 
   onSectionEnter(section) {
@@ -166,7 +166,7 @@ export default class SectionController extends Backbone.View {
     this.sectionNav.validate();
   }
 
-  onResize() {
+  updateScenes() {
     $.each(this.scrollScenes, (index, scene) => {
       scene.duration(this.renderedViews[index].$el.height());
     });
@@ -179,17 +179,18 @@ export default class SectionController extends Backbone.View {
       model: section
     });
     sectionView.navModel = this.model;
-    sectionView.template = this.model.getSectionTemplate(section.id);
+    sectionView.template = this.model.getSectionTemplate(section.id) || {};
 
     return sectionView;
   }
 
   scrollTo(section) {
-    console.log('SectionController.scrollTo:', section.id);
+    console.log('SectionController.scrollTo > uid:' + section.uid + ', id:', section.id);
 
+    this.updateScenes();
     let offsetTop = 80;
     let $section = this.$('#' + section.id);
-    let duration = (section.index === 0) ? 0.25 : 0.75;
+    let duration = 0.75;
 
     TweenMax.to(window, duration, {
       scrollTo: { y: $section.offset().top - offsetTop, autoKill: false },

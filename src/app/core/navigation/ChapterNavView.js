@@ -8,7 +8,7 @@ import Template from 'core/navigation/ChapterNav.hbs';
 export default class ChapterNavView extends Backbone.View {
 
   constructor(options) {
-    options = Object.assign(options || {}, {
+    Object.assign(options || {}, {
       id: 'chapter-guide',
       events: {
         'click #btn-next-chapter': 'nextChapter',

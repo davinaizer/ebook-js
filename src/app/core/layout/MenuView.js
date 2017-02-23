@@ -7,7 +7,7 @@ import Template from 'core/layout/Menu.hbs';
 export default class MenuView extends Backbone.View {
 
   constructor(options) {
-    options = Object.assign(options || {}, {
+    Object.assign(options || {}, {
       events: {
         'click a': 'navHandler'
       }

@@ -18,10 +18,8 @@ body {
 a {
   & [disable] {
     pointer-events: none;
-    color: $gray;
   }
   &.disabled {
     pointer-events: none;
-    color: $gray;
   }
 }

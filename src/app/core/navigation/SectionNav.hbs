@@ -3,7 +3,7 @@
         {{#with getCurrentChapter}}
             {{#each section}}
                 <li id="section-nav-item-{{uid}}">
-                    <a href="#/chapter/{{../index}}/section/{{index}}" data-placement="left" data-toggle="tooltip" title="{{add index 1}}. {{title}}">&nbsp;</a>
+                    <a href="#/chapter/{{../index}}/section/{{index}}" data-placement="left" data-toggle="tooltip" title="{{add index 1}}. {{{title}}}">&nbsp;</a>
                 </li>
             {{/each}}
         {{/with}}

@@ -1,6 +1,5 @@
 {
     "settings": {
-        "version": "V1.0.0-alpha",
         "idMask": "c_{{chapterIndex}}_s_{{sectionIndex}}",
         "lessonMode": "normal"
     },
@@ -10,7 +9,7 @@
             "thumbnail": "http://placehold.it/300x150/A10A2B/fff",
             "section": [
                 {
-                    "title": "Section 1"
+                    "title": "<em>Section 1</em>"
                 },
                 {
                     "title": "Section 2"
@@ -25,7 +24,7 @@
             "thumbnail": "http://placehold.it/300x150/A10A2B/fff",
             "section": [
                 {
-                    "title": "Section 1"
+                    "title": "<em>Section 1</em>"
                 },
                 {
                     "title": "Section 2"
@@ -37,7 +36,7 @@
             "thumbnail": "http://placehold.it/300x150/A10A2B/fff",
             "section": [
                 {
-                    "title": "Section 1"
+                    "title": "<em>Section 1</em>"
                 },
                 {
                     "title": "Section 2"

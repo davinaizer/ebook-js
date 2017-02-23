@@ -1,7 +1,19 @@
-var webpack = require('webpack');
-var polyfill = require('babel-polyfill');
 var path = require('path');
-var entry = ['babel-polyfill', './src/app/main.js'],
+var webpack = require('webpack');
+
+var entry = {
+    development: [
+      'webpack/hot/dev-server',
+      'webpack-dev-server/client?http://localhost:8080/',
+      'babel-polyfill',
+      './src/app/main.js'
+    ],
+    production: [
+      'babel-polyfill',
+      './src/app/main.js'
+    ]
+  },
+
   output = {
     path: __dirname,
     filename: 'main.js'
@@ -16,11 +28,13 @@ var entry = ['babel-polyfill', './src/app/main.js'],
     }
   });
 
+//-- DEVELOPMENT BUILD
 module.exports.development = {
   debug: true,
   devtool: 'eval',
-  entry: entry,
+  entry: entry.development,
   output: output,
+  watch: true,
   module: {
     loaders: [
       { test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader' },
@@ -31,8 +45,7 @@ module.exports.development = {
         query: {
           helperDirs: [__dirname + '/src/app/libs/HbsHelpers']
         }
-      },
-      { test: /\.css$/, loader: 'css-loader' }
+      }
     ]
   },
   resolve: {
@@ -41,10 +54,21 @@ module.exports.development = {
       app: 'src/app',
       content: 'src/app/content',
       core: 'src/app/core',
-      libs: 'src/app/libs'
+      libs: 'src/app/libs',
+
+      //-- SCROLLMAGIC fix
+      'TweenLite': path.resolve('node_modules', 'gsap/src/uncompressed/TweenLite.js'),
+      'TweenMax': path.resolve('node_modules', 'gsap/src/uncompressed/TweenMax.js'),
+      'TimelineLite': path.resolve('node_modules', 'gsap/src/uncompressed/TimelineLite.js'),
+      'TimelineMax': path.resolve('node_modules', 'gsap/src/uncompressed/TimelineMax.js'),
+      'ScrollMagic': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'),
+      'animation.gsap': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js'),
+      'debug.addIndicators': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js')
     }
   },
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin('main', null, false),
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'
@@ -52,9 +76,10 @@ module.exports.development = {
   ]
 };
 
+//-- PRODUCTION BUILD
 module.exports.production = {
   debug: false,
-  entry: entry,
+  entry: entry.production,
   output: output,
   module: {
     loaders: [
@@ -66,8 +91,7 @@ module.exports.production = {
         query: {
           helperDirs: [__dirname + '/src/app/libs/HbsHelpers']
         }
-      },
-      { test: /\.css$/, loader: 'css-loader' }
+      }
     ]
   },
   resolve: {
@@ -76,11 +100,22 @@ module.exports.production = {
       app: 'src/app',
       content: 'src/app/content',
       core: 'src/app/core',
-      libs: 'src/app/libs'
+      libs: 'src/app/libs',
+
+      //-- SCROLLMAGIC fix
+      'TweenLite': path.resolve('node_modules', 'gsap/src/uncompressed/TweenLite.js'),
+      'TweenMax': path.resolve('node_modules', 'gsap/src/uncompressed/TweenMax.js'),
+      'TimelineLite': path.resolve('node_modules', 'gsap/src/uncompressed/TimelineLite.js'),
+      'TimelineMax': path.resolve('node_modules', 'gsap/src/uncompressed/TimelineMax.js'),
+      'ScrollMagic': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'),
+      'animation.gsap': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js'),
+      'debug.addIndicators': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js')
     }
   },
   plugins: [
     uglifyJsPlugin,
+    new webpack.optimize.CommonsChunkPlugin('main', null, false),
+    new webpack.optimize.DedupePlugin(),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'

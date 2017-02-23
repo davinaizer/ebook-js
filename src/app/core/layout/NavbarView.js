@@ -10,7 +10,7 @@ import Template from 'core/layout/Navbar.hbs';
 export default class NavbarView extends Backbone.View {
 
   constructor(options) {
-    options = Object.assign(options || {}, {
+    Object.assign(options || {}, {
       events: {
         'click .navbar-btn': 'navHandler'
       }
