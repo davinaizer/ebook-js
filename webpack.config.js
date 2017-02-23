@@ -1,12 +1,19 @@
 var path = require('path');
 var webpack = require('webpack');
 
-var entry = [
-    'webpack/hot/dev-server',
-    'webpack-dev-server/client?http://localhost:8080/',
-    'babel-polyfill',
-    './src/app/main.js',
-  ],
+var entry = {
+    development: [
+      'webpack/hot/dev-server',
+      'webpack-dev-server/client?http://localhost:8080/',
+      'babel-polyfill',
+      './src/app/main.js'
+    ],
+    production: [
+      'babel-polyfill',
+      './src/app/main.js'
+    ]
+  },
+
   output = {
     path: __dirname,
     filename: 'main.js'
@@ -24,8 +31,8 @@ var entry = [
 //-- DEVELOPMENT BUILD
 module.exports.development = {
   debug: true,
-  devtool: 'eval-source-map',
-  entry: entry,
+  devtool: 'eval',
+  entry: entry.development,
   output: output,
   watch: true,
   module: {
@@ -72,7 +79,7 @@ module.exports.development = {
 //-- PRODUCTION BUILD
 module.exports.production = {
   debug: false,
-  entry: entry,
+  entry: entry.production,
   output: output,
   module: {
     loaders: [
@@ -108,6 +115,7 @@ module.exports.production = {
   plugins: [
     uglifyJsPlugin,
     new webpack.optimize.CommonsChunkPlugin('main', null, false),
+    new webpack.optimize.DedupePlugin(),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'

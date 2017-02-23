@@ -128,6 +128,11 @@ export default class SectionController extends Backbone.View {
 
         this.$el.append(nextSectionView.render().el);
 
+        //-- hide next btn from section already visited
+        if (nextSection.uid < maxSection.uid) {
+          nextSectionView.hideNextBtn();
+          nextSectionView.isVisited = true;
+        }
         nextSectionView.bootstrap();
         nextSectionView.transitionIn();
 
@@ -142,12 +147,6 @@ export default class SectionController extends Backbone.View {
           .setClassToggle('#section-nav-item-' + nextSection.uid, 'active')
           .addTo(this.scrollControl)
           .on('enter', $.proxy(this.onSectionEnter, this, nextSection));
-
-        //-- hide next btn from section already seen
-        if (nextSection.uid < maxSection.uid) {
-          this.renderedViews[i].hideNextBtn();
-          this.renderedViews[i].isVisited = true;
-        }
       }
     }
 

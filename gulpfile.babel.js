@@ -1,3 +1,4 @@
+'use strict';
 /*
  IMPORTS
  */
@@ -10,7 +11,7 @@ import del from 'del';
  CONSTANTS
  */
 
-const $ = require('gulp-load-plugins')({pattern: '*'});
+const $ = require('gulp-load-plugins')({ pattern: '*' });
 const environment = $.util.env.type || 'development';
 const isProduction = environment === 'production';
 const webpackConfig = require('./webpack.config.js')[environment];
@@ -63,33 +64,33 @@ gulp.task('build:scripts', () => {
   return gulp.src(webpackConfig.entry)
     .pipe($.plumber())
     .pipe($.webpackStream(webpackConfig))
-    .pipe(gulp.dest(dist + 'js/'))
+    .pipe(gulp.dest(dist + 'js/'));
 });
 
 gulp.task('build:static', () => {
   return gulp.src(src + 'static/**/*')
     .pipe($.changed(dist))
-    .pipe($.size({title: 'static'}))
+    .pipe($.size({ title: 'static' }))
     .pipe(gulp.dest(dist + './'))
-    .pipe(reload({stream: true}));
+    .pipe(reload({ stream: true }));
 });
 
 gulp.task('build:styles', () => {
   return gulp.src(src + 'scss/main.scss')
     // .pipe($.sourcemaps.init())
     .pipe($.sassGlob())
-    .pipe($.sass(sassOptions)).on('error', function (err) {
+    .pipe($.sass(sassOptions)).on('error', function(err) {
       $.notify().write(err);
       this.emit('end');
     })
     // .pipe($.sourcemaps.write({includeContent: false}))
     // .pipe($.sourcemaps.init({loadMaps: true}))
-    .pipe($.autoprefixer({browsers: autoprefixerBrowsers}))
+    .pipe($.autoprefixer({ browsers: autoprefixerBrowsers }))
     // .pipe($.sourcemaps.write('./'))
     .pipe(gulp.dest(dist + 'css/'))
-    .pipe($.size({title: 'css'}))
-    .pipe($.filter("**/*.css"))
-    .pipe(reload({stream: true}));
+    .pipe($.size({ title: 'css' }))
+    .pipe($.filter('**/*.css'))
+    .pipe(reload({ stream: true }));
 });
 
 /*
@@ -100,29 +101,19 @@ gulp.task('clean', () => {
   return del([dist]);
 });
 
-gulp.task('opt-imgs', function () {
+gulp.task('opt-imgs', () => {
   return gulp.src(src + 'static/imgs/**/*')
     .pipe($.imagemin({
       progressive: true,
-      svgoPlugins: [{removeViewBox: false}],
+      svgoPlugins: [{ removeViewBox: false }],
       use: [$.imageminPngquant()]
     }))
     .pipe(gulp.dest('dist/imgs'));
 });
 
-gulp.task('serve', ['webpack:dev-server'], () => {
-  $.browserSync({
-    //server: {
-    //baseDir: 'dist'
-    //},
-    notify: true,
-    //injectChanges: true,
-    proxy: 'localhost:8080',
-    port: 3000
-  });
-});
+gulp.task('serve', isProduction ? ['prod-server'] : ['dev-server']);
 
-gulp.task('webpack:dev-server', (cb) => {
+gulp.task('dev-server', (cb) => {
   let config = Object.assign({}, webpackConfig);
   let compiler = $.webpack(config);
   let devServer = new $.webpackDevServer(compiler, {
@@ -135,10 +126,31 @@ gulp.task('webpack:dev-server', (cb) => {
     stats: { colors: true }
   });
 
+  $.browserSync({
+    notify: true,
+    proxy: 'localhost:8080',
+    port: 3000
+  });
+
   devServer.listen(8080, 'localhost', (err) => {
     if (err) throw new $.util.PluginError('webpack-dev-server', err);
-    cb();
   });
+
+  cb();
+
+  return;
+});
+
+gulp.task('prod-server', (cb) => {
+  $.browserSync({
+    server: {
+      baseDir: 'dist'
+    },
+    notify: true,
+    injectChanges: true,
+  });
+
+  cb();
 
   return;
 });
@@ -153,4 +165,3 @@ gulp.task('zip:build', () => {
     .pipe($.zip('ebookJS-dist_' + getTimeStamp() + '.zip'))
     .pipe(gulp.dest('.'));
 });
-
